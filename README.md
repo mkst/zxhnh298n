@@ -3,14 +3,12 @@
 ## jazztel 1.5
 
 ```
-$ binwalk -E -N zxhnh298n_hv15_fv114_jazzt15_firmware.bin
+$ binwalk -N zxhnh298n_hv15_fv114_jazzt15_firmware.bin
 
-DECIMAL       HEXADECIMAL     ENTROPY
+DECIMAL       HEXADECIMAL     DESCRIPTION
 --------------------------------------------------------------------------------
-0             0x0             Rising entropy edge (0.985458)
-1826816       0x1BE000        Falling entropy edge (0.000000)
-4194304       0x400000        Rising entropy edge (0.976179)
-8803328       0x865400        Falling entropy edge (0.387252)
+276           0x114           LZMA compressed data, properties: 0x5D, dictionary size: 33554432 bytes, uncompressed size: 5947376 bytes
+4194560       0x400100        Squashfs filesystem, little endian, version 4.0, compression:lzma, size: 4609744 bytes, 929 inodes, blocksize: 131072 bytes, created: 2013-10-18 10:07:32
 
 $ dd if=zxhnh298n_hv15_fv114_jazzt15_firmware.bin of=squash.img bs=4194560 skip=1
 $ unsquashfs -d zxhnh298n_hv15_fv114_jazzt15_firmware firmware.bin

@@ -1,0 +1,69 @@
+<%
+IMPORT FILE "voip_sippro.gch";
+IMPORT FILE "app_voip_sippro_js.gch";
+%>
+<table id="TestContent"  class="table" width="480px" border="0">
+<tr>
+<td id="Fnt_VP" class="td11">&?pro_public001;</td>
+<td class="td2">
+<select name="Frm_VP" id="Frm_VP" size="1" class="list_1" onchange="ChangeVP()">
+<option value="0">&?pro_public002;1</option>
+<option value="1">&?pro_public002;2</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td11">&nbsp;</td>
+<td class="td2">&nbsp;</td>
+</tr>
+<tr>
+<td id="Fnt_UserAgentPort" class="td11">&?vsp02;</td>
+<td class="td2"><input name="" id="Frm_UserAgentPort" type="text" class="inputId"  value="" size="15" />(1024 ~ 65535)</td>
+</tr>
+<tr>
+<td id="Fnt_ProxyServer1" class="td11">&?vsp03;</td>
+<td class="td2"><input name="" id="Frm_ProxyServer1" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_OutboundProxy1" class="td11">&?vsp04;</td>
+<td class="td2"><input name="" id="Frm_OutboundProxy1" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_ProxyServerPort1" class="td11">&?vsp05;</td>
+<td class="td2"><input name="" id="Frm_ProxyServerPort1" type="text" class="inputId"  value="" size="15" />(1024 ~ 65535)</td>
+</tr>
+<tr>
+<td id="Fnt_ProxyServer2" class="td11">&?vsp06;</td>
+<td class="td2"><input name="" id="Frm_ProxyServer2" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_OutboundProxy2" class="td11">&?vsp07;</td>
+<td class="td2"><input name="" id="Frm_OutboundProxy2" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_ProxyServerPort2" class="td11">&?vsp08;</td>
+<td class="td2"><input name="" id="Frm_ProxyServerPort2" type="text" class="inputId"  value="" size="15" />(1024 ~ 65535)</td>
+</tr>
+<tr>
+<td id="Fnt_RegistrarServer1" class="td11">&?vsp10;</td>
+<td class="td2"><input name="" id="Frm_RegistrarServer1" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_RegistrarServer2" class="td11">&?vsp11;</td>
+<td class="td2"><input name="" id="Frm_RegistrarServer2" type="text" class="inputId6"  value="" size="15" /></td>
+</tr>
+<tr>
+<td id="Fnt_RegisterExpires" class="td11">&?vsp09;</td>
+<td class="td2"><input name="" id="Frm_RegisterExpires" type="text" class="inputId"  value="" size="15" /> &?wan029;</td>
+</tr>
+<tr>
+<td class="td6">&?cvp02;</td>
+<td class="td2">
+<input type="checkbox"  id="Frm_LinkTest" name="Frm_LinkTest" value="" onclick="ChangeLinkValue();"/>
+</td>
+</tr>
+<tr>
+<td class="td6"><font id="Fnt_LinkTestInterval">&?cvp03;</font></td>
+<td class="td2"><input type="text" name="Frm_LinkTestInterval" id="Frm_LinkTestInterval" class="inputId"/> &?wan029;</td>
+</tr>
+</table>

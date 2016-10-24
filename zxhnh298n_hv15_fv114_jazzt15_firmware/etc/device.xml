@@ -1,0 +1,677 @@
+<Object name="InternetGatewayDevice" shortname="IGD" objectType="Single" wr_attr="1" dbTable="" >
+    <ParameterList>
+        <Parameter name="DeviceSummary" wr_attr="1" valueType="string" dbDomain="DeviceSummary" dbTable="DevInfo" len="1024" />
+        <Parameter name="LANDeviceNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+        <Parameter name="WANDeviceNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+    </ParameterList>
+    <ObjectList>
+        <Object name="DeviceInfo" shortname="DEV" objectType="Single" wr_attr="1" dbTable="DevInfo">
+            <ParameterList>
+                <Parameter name="Manufacturer" wr_attr="1" valueType="string" dbDomain="ManuFacturer" dbTable="DevInfo" len="64" />
+                <Parameter name="ManufacturerOUI" wr_attr="1" valueType="string" dbDomain="ManuFacturerOui" dbTable="DevInfo" len="6" />
+                <Parameter name="ModelName" wr_attr="1" valueType="string" dbDomain="ModelName" dbTable="DevInfo" len="64" />
+                <Parameter name="Description" wr_attr="1" valueType="string" dbDomain="Description" dbTable="DevInfo" len="256" />
+                <Parameter name="ProductClass" wr_attr="1" valueType="string" dbDomain="ProductClass" dbTable="DevInfo" len="64" />
+                <Parameter name="SerialNumber" wr_attr="1" valueType="string" dbDomain="SerialNumber" dbTable="DevInfo" len="64" />
+                <Parameter name="HardwareVersion" wr_attr="1" valueType="string" dbDomain="HardwareVer" dbTable="DevInfo" len="64" />
+                <Parameter name="SoftwareVersion" wr_attr="1" valueType="string" dbDomain="SoftwareVer" dbTable="DevInfo" len="64" />
+                <Parameter name="ModemFirmwareVersion" wr_attr="1" valueType="string" dbDomain="ModelFirmwareVer" dbTable="DevInfo" len="64" />
+                <Parameter name="AdditionalHardwareVersion" wr_attr="1" valueType="string" dbDomain="HardwareVerTag" dbTable="DevInfo" len="64" />
+                <Parameter name="AdditionalSoftwareVersion" wr_attr="1" valueType="string" dbDomain="SoftwareVerExtent" dbTable="DevInfo" len="64" />
+                <Parameter name="SpecVersion" wr_attr="1" valueType="string" dbDomain="SpecVer" dbTable="DevInfo" len="16" />
+                <Parameter name="ProvisioningCode" wr_attr="3" valueType="string" dbDomain="ProvisioningCode" dbTable="DevInfo" len="64"/>
+                <Parameter name="UpTime" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="DevInfo" />
+                <Parameter name="FirstUseDate" wr_attr="1" valueType="dateTime" dbDomain="FirstUseDate" dbTable="DevInfo" />
+            </ParameterList>
+            <ObjectList>
+                <Object name="X_ZTE-COM_Syslog" shortname="CTCOMLOG" objectType="Single" wr_attr="1" dbTable="Log">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="LogEnable" dbTable="Log" />
+                        <Parameter name="Level" wr_attr="3" valueType="string" dbDomain="LogLevel" dbTable="Log" len="256" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="ManagementServer" shortname="MGT" objectType="Single" wr_attr="1" dbTable="MgtServer">
+            <ParameterList>
+                <Parameter name="URL" wr_attr="3" valueType="string" dbDomain="URL" dbTable="MgtServer" len="256" />
+                <Parameter name="Username" wr_attr="3" valueType="string" dbDomain="UserName" dbTable="MgtServer" len="256" />
+                <Parameter name="Password" wr_attr="3" valueType="string" dbDomain="Password" dbTable="MgtServer" len="256" />
+                <Parameter name="PeriodicInformEnable" wr_attr="3" valueType="boolean" dbDomain="PeriodicInformEnable" dbTable="MgtServer" />
+                <Parameter name="PeriodicInformInterval" wr_attr="3" valueType="unsigned int" dbDomain="PeriodicInformInterval" dbTable="MgtServer" />
+                <Parameter name="PeriodicInformTime" wr_attr="3" valueType="dateTime" dbDomain="PeriodicInformTime" dbTable="MgtServer" />
+                <Parameter name="ParameterKey" wr_attr="1" valueType="string" dbDomain="ParameterKey" dbTable="MgtServer" len="32" />
+                <Parameter name="ConnectionRequestURL" wr_attr="1" valueType="string" dbDomain="tReqIP" dbTable="MgtServer" len="256" />
+                <Parameter name="ConnectionRequestUsername" wr_attr="3" valueType="string" dbDomain="ConnectionRequestUsername" dbTable="MgtServer" len="256" />
+                <Parameter name="ConnectionRequestPassword" wr_attr="3" valueType="string" dbDomain="ConnectionRequestPassword" dbTable="MgtServer" len="256" />
+                <Parameter name="UpgradesManaged" wr_attr="3" valueType="boolean" dbDomain="UpgradesManaged" dbTable="MgtServer" />
+                <Parameter name="ManageableDeviceNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="tManageableDevNumOfEntries" dbTable="MgtServer" />   
+                <Parameter name="ManageableDeviceNotificationLimit" wr_attr="3" valueType="unsigned int" dbDomain="tManageableDevNotifyLimit" dbTable="MgtServer"/>
+            </ParameterList>
+            <ObjectList>
+                <Object name="ManageableDevice" shortname="MD" objectType="Multi" wr_attr="1" dbTable="AccessDev">
+                    <ParameterList>
+                        <Parameter name="ManufacturerOUI" wr_attr="1" valueType="string" dbDomain="ManuFacturerOui" dbTable="AccessDev" len="6" />
+                        <Parameter name="ProductClass" wr_attr="1" valueType="string" dbDomain="ProductClass" dbTable="AccessDev" len="64" />
+                        <Parameter name="SerialNumber" wr_attr="1" valueType="string" dbDomain="SerialNumber" dbTable="AccessDev" len="64" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>      
+        </Object>
+        <Object name="Time" shortname="SNTP" objectType="Single" wr_attr="1" dbTable="SNTP">
+            <ParameterList>
+                <Parameter name="NTPServer1" wr_attr="3" valueType="string" dbDomain="NtpServer1" dbTable="SNTP" len="64" />
+                <Parameter name="NTPServer2" wr_attr="3" valueType="string" dbDomain="NtpServer2" dbTable="SNTP" len="64" />
+                <Parameter name="NTPServer3" wr_attr="3" valueType="string" dbDomain="NtpServer3" dbTable="SNTP" len="64" />
+                <Parameter name="NTPServer4" wr_attr="3" valueType="string" dbDomain="NtpServer4" dbTable="SNTP" len="64" />
+                <Parameter name="NTPServer5" wr_attr="3" valueType="string" dbDomain="NtpServer5" dbTable="SNTP" len="64" />
+                <Parameter name="CurrentLocalTime" wr_attr="1" valueType="dateTime" dbDomain="" dbTable="SNTP" />   
+                <Parameter name="LocalTimeZoneName" wr_attr="3" valueType="string" dbDomain="sPosixTimeZoneName/iZoneIndex/DaylightSavingsUsed" dbTable="SNTP" len="64" />        
+            </ParameterList>
+        </Object>
+        <Object name="Layer3Forwarding" shortname="LF" objectType="Single" wr_attr="1" dbTable="L3Forwarding">
+            <ParameterList>
+                <Parameter name="DefaultConnectionService" wr_attr="3" valueType="string" dbDomain="DefRTInterface" dbTable="L3Forwarding" len="256" />
+                <Parameter name="ForwardNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="RTSum" dbTable="L3Forwarding" />
+            </ParameterList>
+            <ObjectList>
+                <Object name="Forwarding" shortname="RT" objectType="Multi" wr_attr="3" dbTable="L3ForwardingRT">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="L3ForwardingRT" />
+                        <Parameter name="Status" wr_attr="1" valueType="string" dbDomain="Status" dbTable="L3ForwardingRT" len="16" />
+                        <Parameter name="Type" wr_attr="3" valueType="string" dbDomain="Type" dbTable="L3ForwardingRT" len="16" />
+                        <Parameter name="DestIPAddress" wr_attr="3" valueType="string" dbDomain="DestIP" dbTable="L3ForwardingRT" len="16" />
+                        <Parameter name="DestSubnetMask" wr_attr="3" valueType="string" dbDomain="DestIPMask" dbTable="L3ForwardingRT" len="16" />          
+                        <Parameter name="GatewayIPAddress" wr_attr="3" valueType="string" dbDomain="GWIP" dbTable="L3ForwardingRT" len="16" />
+                        <Parameter name="Interface" wr_attr="3" valueType="string" dbDomain="Interface" dbTable="L3ForwardingRT" len="256" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="Layer2Bridging" shortname="L2B" objectType="Single" wr_attr="1" dbTable="">
+            <ParameterList>
+                <Parameter name="MaxBridgeEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="MaxFilterEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="MaxMarkingEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="BridgeNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="FilterNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="MarkingNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                <Parameter name="AvailableInterfaceNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+            </ParameterList>
+            <ObjectList>
+                <Object name="Bridge" shortname="L2BBridge" objectType="Multi" wr_attr="3" dbTable="L2BBridge">
+                    <ParameterList>
+                        <Parameter name="BridgeKey" wr_attr="1" valueType="unsigned int" dbDomain="BridgeKey" dbTable="L2BBridge" />
+                        <Parameter name="BridgeEnable" wr_attr="3" valueType="boolean" dbDomain="BridgeEnable" dbTable="L2BBridge" />
+                        <Parameter name="BridgeStatus" wr_attr="1" valueType="string" dbDomain="BridgeStatus" dbTable="L2BBridge" len="16" />
+                        <Parameter name="BridgeName" wr_attr="3" valueType="string" dbDomain="BridgeName" dbTable="L2BBridge" len="64" />
+                        <Parameter name="VLANID" wr_attr="3" valueType="unsigned int" dbDomain="BridgeVLANID" dbTable="L2BBridge" />
+                    </ParameterList>
+                </Object>
+                <Object name="Filter" shortname="L2BFilter" objectType="Multi" wr_attr="3" dbTable="L2BFilter">
+                    <ParameterList>
+                        <Parameter name="FilterKey" wr_attr="1" valueType="unsigned int" dbDomain="FilterKey" dbTable="L2BFilter" />
+                        <Parameter name="FilterEnable" wr_attr="3" valueType="boolean" dbDomain="FilterEnable" dbTable="L2BFilter" />
+                        <Parameter name="FilterStatus" wr_attr="1" valueType="string" dbDomain="FilterStatus" dbTable="L2BFilter" len="16" />
+                        <Parameter name="FilterBridgeReference" wr_attr="3" valueType="int" dbDomain="FilterBridgeReference" dbTable="L2BFilter" />
+                        <Parameter name="ExclusivityOrder" wr_attr="3" valueType="unsigned int" dbDomain="FilterExcludeOrder" dbTable="L2BFilter" />
+                        <Parameter name="FilterInterface" wr_attr="3" valueType="string" dbDomain="FilterInterface" dbTable="L2BFilter" len="16" />
+                        <Parameter name="VLANIDFilter" wr_attr="3" valueType="int" dbDomain="FilterVLANID" dbTable="L2BFilter" />
+                        <Parameter name="AdmitOnlyVLANTagged" wr_attr="3" valueType="boolean" dbDomain="FilterAdmitOnlyVLANTagged" dbTable="L2BFilter" />
+                        <Parameter name="EthertypeFilterList" wr_attr="3" valueType="string" dbDomain="FilterEthTypeList" dbTable="L2BFilter" len="256" />
+                        <Parameter name="EthertypeFilterExclude" wr_attr="3" valueType="boolean" dbDomain="FilterEthTypeExclude" dbTable="L2BFilter" />
+                        <Parameter name="SourceMACAddressFilterList" wr_attr="3" valueType="string" dbDomain="FilterSrcMacList" dbTable="L2BFilter" len="512" />
+                        <Parameter name="SourceMACAddressFilterExclude" wr_attr="3" valueType="boolean" dbDomain="FilterSrcMacExclude" dbTable="L2BFilter" />
+                        <Parameter name="DestMACAddressFilterList" wr_attr="3" valueType="string" dbDomain="FilterDstMacList" dbTable="L2BFilter" len="512" />
+                        <Parameter name="DestMACAddressFilterExclude" wr_attr="3" valueType="boolean" dbDomain="FilterDstMacExclude" dbTable="L2BFilter" />
+                    </ParameterList>
+                </Object>
+                <Object name="Marking" shortname="L2BMarking" objectType="Multi" wr_attr="3" dbTable="L2BMarking">
+                    <ParameterList>
+                        <Parameter name="MarkingKey" wr_attr="1" valueType="unsigned int" dbDomain="MarkKey" dbTable="L2BMarking" />
+                        <Parameter name="MarkingEnable" wr_attr="3" valueType="boolean" dbDomain="MarkEnable" dbTable="L2BMarking" />
+                        <Parameter name="MarkingStatus" wr_attr="1" valueType="string" dbDomain="MarkStatus" dbTable="L2BMarking" len="16" />
+                        <Parameter name="MarkingBridgeReference" wr_attr="3" valueType="int" dbDomain="MarkBridgeReference" dbTable="L2BMarking" />
+                        <Parameter name="MarkingInterface" wr_attr="3" valueType="string" dbDomain="MarkInterface" dbTable="L2BMarking" len="16" />
+                        <Parameter name="VLANIDUntag" wr_attr="3" valueType="boolean" dbDomain="MarkVlanIDUnTag" dbTable="L2BMarking" />
+                        <Parameter name="VLANIDMark" wr_attr="3" valueType="int" dbDomain="MarkVlanMark" dbTable="L2BMarking" />
+                        <Parameter name="EthernetPriorityMark" wr_attr="3" valueType="int" dbDomain="EthernetPriorityMark" dbTable="L2BMarking" />
+                        <Parameter name="EthernetPriorityOverride" wr_attr="3" valueType="boolean" dbDomain="EthernetOverride" dbTable="L2BMarking" />
+                    </ParameterList>
+                </Object>
+                <Object name="AvailableInterface" shortname="L2BAvailIF" objectType="Multi" wr_attr="1" dbTable="L2BAvailIF">
+                    <ParameterList>
+                        <Parameter name="AvailableInterfaceKey" wr_attr="1" valueType="unsigned int" dbDomain="AvailInterfaceKey" dbTable="L2BAvailIF" />
+                        <Parameter name="InterfaceType" wr_attr="1" valueType="string" dbDomain="InterfaceType" dbTable="L2BAvailIF" len="16" />
+                        <Parameter name="InterfaceReference" wr_attr="1" valueType="string" dbDomain="InterfaceReference" dbTable="L2BAvailIF" len="256" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="QueueManagement" shortname="QOS" objectType="Single" wr_attr="1" dbTable="QOSBasic">
+            <ParameterList>
+                <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="QOSBasic" />
+                <Parameter name="MaxClassificationEntries" wr_attr="1" valueType="unsigned int" dbDomain="MaxQCNum" dbTable="QOSBasic" />
+                <Parameter name="QPEnable" wr_attr="3" valueType="boolean" dbDomain="QPEnable" dbTable="QOSBasic" />
+                <Parameter name="QPAlgorithmName" wr_attr="3" valueType="string" dbDomain="QPAlgorithmName" dbTable="QOSBasic" len="16" />
+                <Parameter name="MaxPolicerEntries" wr_attr="1" valueType="unsigned int" dbDomain="MaxQPNum" dbTable="QOSBasic" />
+                <Parameter name="QQEnable" wr_attr="3" valueType="boolean" dbDomain="QQEnable" dbTable="QOSBasic" />
+                <Parameter name="QQBorrowEnable" wr_attr="3" valueType="boolean" dbDomain="QQBorrowEnable" dbTable="QOSBasic" />
+                <Parameter name="MaxQueueEntries" wr_attr="1" valueType="unsigned int" dbDomain="MaxQQNum" dbTable="QOSBasic" />
+                <Parameter name="DSCPRemarkEnable" wr_attr="3" valueType="boolean" dbDomain="DSCPRemarkEnable" dbTable="QOSBasic" />
+                <Parameter name="VlanprioRemarkEnable" wr_attr="3" valueType="boolean" dbDomain="VlanprioRemarkEnable" dbTable="QOSBasic" />
+            </ParameterList>
+            <ObjectList>
+                <Object name="Classification" shortname="QC" objectType="Multi" wr_attr="3" dbTable="QOSClassification">
+                    <ParameterList>
+                        <Parameter name="ClassificationKey" wr_attr="1" valueType="unsigned int" dbDomain="ViewName" dbTable="QOSClassification" />
+                        <Parameter name="ClassificationEnable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="QOSClassification" />
+                        <Parameter name="ClassificationStatus" wr_attr="1" valueType="string" dbDomain="Status" dbTable="QOSClassification" len="16" />
+                        <Parameter name="ClassificationOrder" wr_attr="3" valueType="unsigned int" dbDomain="Order" dbTable="QOSClassification" />
+                        <Parameter name="ClassInterface" wr_attr="3" valueType="string" dbDomain="DevIn" dbTable="QOSClassification" len="256" />
+                        <Parameter name="ClassInterfaceOut" wr_attr="3" valueType="string" dbDomain="DevOut" dbTable="QOSClassification" len="256" />
+                        <Parameter name="EthernetPriorityCheck" wr_attr="3" valueType="int" dbDomain="VlanPrio" dbTable="QOSClassification" />
+                        <Parameter name="EthernetPriorityCheckMax" wr_attr="3" valueType="int" dbDomain="VlanPrioMax" dbTable="QOSClassification" />
+                        <Parameter name="EthernetPriorityCheckMin" wr_attr="3" valueType="int" dbDomain="VlanPrioMin" dbTable="QOSClassification" />
+                        <Parameter name="VLANIDCheck" wr_attr="3" valueType="int" dbDomain="VlanID" dbTable="QOSClassification" />
+                        <Parameter name="VLANIDCheckMax" wr_attr="3" valueType="int" dbDomain="VlanIDMax" dbTable="QOSClassification" />
+                        <Parameter name="VLANIDCheckMin" wr_attr="3" valueType="int" dbDomain="VlanIDMin" dbTable="QOSClassification" />
+                        <Parameter name="Ethertype" wr_attr="3" valueType="int" dbDomain="L2Protocol" dbTable="QOSClassification" />
+                        <Parameter name="DestMACAddress" wr_attr="3" valueType="string" dbDomain="MACDest" dbTable="QOSClassification" len="17" />
+                        <Parameter name="DestMACMask" wr_attr="3" valueType="string" dbDomain="MACDestMask" dbTable="QOSClassification" len="17" />
+                        <Parameter name="DestMACAddressMax" wr_attr="3" valueType="string" dbDomain="MACDestMax" dbTable="QOSClassification" len="17" />
+                        <Parameter name="DestMACAddressMin" wr_attr="3" valueType="string" dbDomain="MACDestMin" dbTable="QOSClassification" len="17" />
+                        <Parameter name="SourceMACAddress" wr_attr="3" valueType="string" dbDomain="MACSrc" dbTable="QOSClassification" len="17" />
+                        <Parameter name="SourceMACMask" wr_attr="3" valueType="string" dbDomain="MACSrcMask" dbTable="QOSClassification" len="17" />
+                        <Parameter name="SourceMACAddressMax" wr_attr="3" valueType="string" dbDomain="MACSrcMax" dbTable="QOSClassification" len="17" />
+                        <Parameter name="SourceMACAddressMin" wr_attr="3" valueType="string" dbDomain="MACSrcMin" dbTable="QOSClassification" len="17" />
+                        <Parameter name="IPLength" wr_attr="3" valueType="unsigned int" dbDomain="IPLength" dbTable="QOSClassification" />
+                        <Parameter name="IPLengthMax" wr_attr="3" valueType="unsigned int" dbDomain="IPLengthMax" dbTable="QOSClassification" />
+                        <Parameter name="IPLengthMin" wr_attr="3" valueType="unsigned int" dbDomain="IPLengthMin" dbTable="QOSClassification" />
+                        <Parameter name="DSCPCheck" wr_attr="3" valueType="int" dbDomain="DSCPCheck" dbTable="QOSClassification" />
+                        <Parameter name="DSCPCheckMax" wr_attr="3" valueType="int" dbDomain="DSCPCheckMax" dbTable="QOSClassification" />
+                        <Parameter name="DSCPCheckMin" wr_attr="3" valueType="int" dbDomain="DSCPCheckMin" dbTable="QOSClassification" />
+                        <Parameter name="TOSCheck" wr_attr="3" valueType="int" dbDomain="TOSCheck" dbTable="QOSClassification" />
+                        <Parameter name="TOSCheckMax" wr_attr="3" valueType="int" dbDomain="TOSCheckMax" dbTable="QOSClassification" />
+                        <Parameter name="TOSCheckMin" wr_attr="3" valueType="int" dbDomain="TOSCheckMin" dbTable="QOSClassification" />
+                        <Parameter name="DestIP" wr_attr="3" valueType="string" dbDomain="IPDest" dbTable="QOSClassification" len="16" />
+                        <Parameter name="DestMask" wr_attr="3" valueType="string" dbDomain="IPDestMask" dbTable="QOSClassification" len="16" />
+                        <Parameter name="DestIPMax" wr_attr="3" valueType="string" dbDomain="IPDestMax" dbTable="QOSClassification" len="16" />
+                        <Parameter name="DestIPMin" wr_attr="3" valueType="string" dbDomain="IPDestMin" dbTable="QOSClassification" len="16" />
+                        <Parameter name="SourceIP" wr_attr="3" valueType="string" dbDomain="IPSrc" dbTable="QOSClassification" len="16" />
+                        <Parameter name="SourceMask" wr_attr="3" valueType="string" dbDomain="IPSrcMask" dbTable="QOSClassification" len="16" />
+                        <Parameter name="SourceIPMax" wr_attr="3" valueType="string" dbDomain="IPSrcMax" dbTable="QOSClassification" len="16" />
+                        <Parameter name="SourceIPMin" wr_attr="3" valueType="string" dbDomain="IPSrcMin" dbTable="QOSClassification" len="16" />
+                        <Parameter name="Protocol" wr_attr="3" valueType="int" dbDomain="L3ProtocolList" dbTable="QOSClassification" />
+                        <Parameter name="SourcePort" wr_attr="3" valueType="int" dbDomain="SrcPort" dbTable="QOSClassification" />
+                        <Parameter name="SourcePortMax" wr_attr="3" valueType="int" dbDomain="SrcPortMax" dbTable="QOSClassification" />
+                        <Parameter name="SourcePortMin" wr_attr="3" valueType="int" dbDomain="SrcPortMin" dbTable="QOSClassification" />
+                        <Parameter name="DestPort" wr_attr="3" valueType="int" dbDomain="DestPort" dbTable="QOSClassification" />
+                        <Parameter name="DestPortMax" wr_attr="3" valueType="int" dbDomain="DestPortMax" dbTable="QOSClassification" />
+                        <Parameter name="DestPortMin" wr_attr="3" valueType="int" dbDomain="DestPortMin" dbTable="QOSClassification" />
+                        <Parameter name="RTPEnable" wr_attr="3" valueType="boolean" dbDomain="RTPEnable" dbTable="QOSClassification" />
+                        <Parameter name="EthernetPriorityMark" wr_attr="3" valueType="int" dbDomain="VlanPrioMark" dbTable="QOSClassification" />
+                        <Parameter name="DSCPMark" wr_attr="3" valueType="int" dbDomain="DscpMark" dbTable="QOSClassification" />
+                        <Parameter name="ClassPolicer" wr_attr="3" valueType="int" dbDomain="PolicerQueue" dbTable="QOSClassification" />
+                        <Parameter name="ClassQueue" wr_attr="3" valueType="int" dbDomain="ClassQueue" dbTable="QOSClassification" />
+                    </ParameterList>
+                </Object>
+                <Object name="Policer" shortname="QP" objectType="Multi" wr_attr="3" dbTable="QOSPolicer">
+                    <ParameterList>
+                        <Parameter name="PolicerKey" wr_attr="1" valueType="unsigned int" dbDomain="ViewName" dbTable="QOSPolicer" />
+                        <Parameter name="PolicerNum" wr_attr="3" valueType="int" dbDomain="PolicerNum" dbTable="QOSPolicer" />
+                        <Parameter name="PolicerEnable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="QOSPolicer" />
+                        <Parameter name="PolicerStatus" wr_attr="1" valueType="string" dbDomain="Status" dbTable="QOSPolicer" len="16" />
+                        <Parameter name="PolicerDev" wr_attr="3" valueType="string" dbDomain="Dev" dbTable="QOSPolicer" len="256" />
+                        <Parameter name="CommittedRate" wr_attr="3" valueType="unsigned int" dbDomain="Rate" dbTable="QOSPolicer" />
+                    </ParameterList>
+                </Object>
+                <Object name="Queue" shortname="QQ" objectType="Multi" wr_attr="3" dbTable="QOSQueue">
+                    <ParameterList>
+                        <Parameter name="QueueKey" wr_attr="1" valueType="unsigned int" dbDomain="QueueKey" dbTable="QOSQueue" />
+                        <Parameter name="QueueNum" wr_attr="1" valueType="int" dbDomain="QueueNum" dbTable="QOSQueue" />
+                        <Parameter name="QueueInterface" wr_attr="1" valueType="string" dbDomain="QueueInterface" dbTable="QOSQueue" len="256" />
+                        <Parameter name="SchedulerAlgorithm" wr_attr="3" valueType="string" dbDomain="SchedulerAlgorithm" dbTable="QOSQueue" len="32" />
+                        <Parameter name="QueueWeight" wr_attr="3" valueType="unsigned int" dbDomain="Weight" dbTable="QOSQueue" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="IPPingDiagnostics" shortname="IPD" objectType="Single" wr_attr="1" dbTable="PINGDiag">
+            <ParameterList>
+                <Parameter name="DiagnosticsState" wr_attr="3" valueType="string" dbDomain="DiagnosticsState" dbTable="PINGDiag" len="32" />
+                <Parameter name="Interface" wr_attr="3" valueType="string" dbDomain="Interface" dbTable="PINGDiag" len="256"/>
+                <Parameter name="Host" wr_attr="3" valueType="string" dbDomain="Host" dbTable="PINGDiag" len="256" />
+                <Parameter name="NumberOfRepetitions" wr_attr="3" valueType="unsigned int" dbDomain="NumberOfRepetitions" dbTable="PINGDiag" />
+                <Parameter name="Timeout" wr_attr="3" valueType="unsigned int" dbDomain="Timeout" dbTable="PINGDiag" />
+                <Parameter name="DataBlockSize" wr_attr="3" valueType="unsigned int" dbDomain="DataBlockSize" dbTable="PINGDiag" />
+                <Parameter name="DSCP" wr_attr="3" valueType="unsigned int" dbDomain="DSCP" dbTable="PINGDiag" />
+                <Parameter name="SuccessCount" wr_attr="1" valueType="unsigned int" dbDomain="SuccessCount" dbTable="PINGDiag" />
+                <Parameter name="FailureCount" wr_attr="1" valueType="unsigned int" dbDomain="FailureCount" dbTable="PINGDiag" />
+                <Parameter name="AverageResponseTime" wr_attr="1" valueType="unsigned int" dbDomain="AverageResponseTime" dbTable="PINGDiag" />
+                <Parameter name="MinimumResponseTime" wr_attr="1" valueType="unsigned int" dbDomain="MinimumResponseTime" dbTable="PINGDiag" />
+                <Parameter name="MaximumResponseTime" wr_attr="1" valueType="unsigned int" dbDomain="MaximumResponseTime" dbTable="PINGDiag" />
+            </ParameterList>
+        </Object>
+        <Object name="LANDevice" shortname="LD" objectType="Multi" wr_attr="1" dbTable="">
+            <ObjectList>
+                <Object name="LANHostConfigManagement" shortname="HostCfg" objectType="Single" wr_attr="1" dbTable="DHCPSHostCfg">
+                    <ParameterList>
+                        <Parameter name="DHCPServerEnable" wr_attr="3" valueType="boolean" dbDomain="ServerEnable" dbTable="DHCPSHostCfg" />
+                        <Parameter name="MinAddress" wr_attr="3" valueType="string" dbDomain="MinAddress" dbTable="DHCPSHostCfg" len="16" />
+                        <Parameter name="MaxAddress" wr_attr="3" valueType="string" dbDomain="MaxAddress" dbTable="DHCPSHostCfg" len="16" />
+                        <Parameter name="SubnetMask" wr_attr="3" valueType="string" dbDomain="SubnetMask" dbTable="DHCPSHostCfg" len="16" />
+                        <Parameter name="DNSServers" wr_attr="3" valueType="string" dbDomain="DNSServers1/DNSServers2/DNSServers3" dbTable="DHCPSHostCfg" len="64" />
+                        <Parameter name="DomainName" wr_attr="3" valueType="string" dbDomain="DomainName" dbTable="DHCPSHostCfg" len="64" />
+                        <Parameter name="IPRouters" wr_attr="3" valueType="string" dbDomain="IPRouters" dbTable="DHCPSHostCfg" len="16" />
+                        <Parameter name="DHCPLeaseTime" wr_attr="3" valueType="int" dbDomain="LeaseTime" dbTable="DHCPSHostCfg" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="IPInterface" shortname="LAND" objectType="Multi" wr_attr="1" dbTable="LAND">
+                            <ParameterList>
+                                <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="LAND" />
+                                <Parameter name="IPInterfaceIPAddress" wr_attr="3" valueType="string" dbDomain="IPAddr" dbTable="LAND" len="16" />
+                                <Parameter name="IPInterfaceSubnetMask" wr_attr="3" valueType="string" dbDomain="NetMask" dbTable="LAND" len="16" />
+                                <Parameter name="IPInterfaceAddressingType" wr_attr="3" valueType="string" dbDomain="AddressingType" dbTable="LAND" len="16" />
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+                <Object name="LANEthernetInterfaceConfig" shortname="ETH" objectType="Multi" wr_attr="1" dbTable="ETH">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="ETH" />
+                        <Parameter name="Status" wr_attr="1" valueType="string" dbDomain="Status" dbTable="ETH" len="16" />
+                        <Parameter name="MACAddress" wr_attr="1" valueType="string" dbDomain="MACAddr" dbTable="ETH" len="17" />
+                        <Parameter name="MaxBitRate" wr_attr="3" valueType="string" dbDomain="MaxBitRate" dbTable="ETH" len="16" />
+                        <Parameter name="DuplexMode" wr_attr="3" valueType="string" dbDomain="DuplexMode" dbTable="ETH" len="16" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="Stats" shortname="STATS" objectType="Single" wr_attr="1" dbTable="">
+                            <ParameterList>
+                                <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+                <Object name="WLANConfiguration" shortname="WLAN" objectType="Multi" wr_attr="3" dbTable="WLANCfg/WLANBase/WlanTimeCfg">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="WLANCfg" />
+                        <Parameter name="Status" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="16" />
+                        <Parameter name="BSSID" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="16" />
+                        <Parameter name="11nMode" wr_attr="3" valueType="boolean" dbDomain="11nMode" dbTable="WLANBase" />
+                        <Parameter name="GreenField" wr_attr="3" valueType="boolean" dbDomain="GreenField" dbTable="WLANBase" />
+                        <Parameter name="SGI" wr_attr="3" valueType="boolean" dbDomain="SGIEnabled" dbTable="WLANBase" />
+                        <Parameter name="MaxBitRate" wr_attr="3" valueType="string" dbDomain="TxRate" dbTable="WLANBase" len="4" />
+                        <Parameter name="BandWidth" wr_attr="3" valueType="string" dbDomain="BandWidth" dbTable="WLANBase" len="6" />
+                        <Parameter name="Channel" wr_attr="3" valueType="unsigned int" dbDomain="Channel" dbTable="WLANBase" />
+                        <Parameter name="ExternelChannel" wr_attr="3" valueType="string" dbDomain="SideBand" dbTable="WLANBase" len="6" />
+                        <Parameter name="AutoChannelEnable" wr_attr="3" valueType="boolean" dbDomain="AutoChannelEnabled" dbTable="WLANBase" />
+                        <Parameter name="ChannelsInUse" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="1024" />
+                        <Parameter name="SSID" wr_attr="3" valueType="string" dbDomain="ESSID" dbTable="WLANCfg" len="32" />
+                        <Parameter name="BeaconType" wr_attr="3" valueType="string" dbDomain="BeaconType" dbTable="WLANCfg" len="16" />
+                        <Parameter name="BeaconAdvertisementEnabled" wr_attr="3" valueType="boolean" dbDomain="BeaconEnabled" dbTable="WLANCfg" />
+                        <Parameter name="Standard" wr_attr="1" valueType="string" dbDomain="Band/11nMode/BasicDataRates/OpDataRates" dbTable="WLANBase" len="32" />
+                        <Parameter name="WEPKeyIndex" wr_attr="3" valueType="unsigned int" dbDomain="WEPKeyIndex" dbTable="WLANCfg" />
+                        <Parameter name="WEPEncryptionLevel" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="64" />
+                        <Parameter name="BasicEncryptionModes" wr_attr="3" valueType="string" dbDomain="BasicEncryptionModes" dbTable="WLANCfg" len="31" />
+                        <Parameter name="BasicAuthenticationMode" wr_attr="3" valueType="string" dbDomain="WEPAuthMode" dbTable="WLANCfg" len="32" />
+                        <Parameter name="WPAEncryptionModes" wr_attr="3" valueType="string" dbDomain="WPAEncryptType" dbTable="WLANCfg" len="31" />
+                        <Parameter name="WPAAuthenticationMode" wr_attr="3" valueType="string" dbDomain="WPAAuthMode" dbTable="WLANCfg" len="31" />
+                        <Parameter name="IEEE11iEncryptionModes" wr_attr="3" valueType="string" dbDomain="11iEncryptType" dbTable="WLANCfg" len="31" />
+                        <Parameter name="IEEE11iAuthenticationMode" wr_attr="3" valueType="string" dbDomain="11iAuthMode" dbTable="WLANCfg" len="31" />
+                        <Parameter name="PossibleChannels" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="1024" />            
+                        <Parameter name="BasicDataTransmitRates" wr_attr="3" valueType="string" dbDomain="BasicDataRates" dbTable="WLANBase" len="256" />
+                        <Parameter name="OperationalDataTransmitRates" wr_attr="3" valueType="string" dbDomain="OpDataRates" dbTable="WLANBase" len="256" />
+                        <Parameter name="SSIDAdvertisementEnabled" wr_attr="3" valueType="boolean" dbDomain="ESSIDHideEnable" dbTable="WLANCfg" />
+                        <Parameter name="RadioEnabled" wr_attr="3" valueType="boolean" dbDomain="RadioStatus" dbTable="WLANBase" />
+                        <Parameter name="ScheduledRF" wr_attr="3" valueType="boolean" dbDomain="TimerEnable" dbTable="WlanTimeCfg" />
+                        <Parameter name="RealRF" wr_attr="1" valueType="boolean" dbDomain="" dbTable="" />
+                        <Parameter name="AutoRateFallBackEnabled" wr_attr="3" valueType="boolean" dbDomain="AutoRateFallBackEnabled" dbTable="WLANBase" />
+                        <Parameter name="TotalPSKFailures" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalIntegrityFailures" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />            
+                        <Parameter name="TotalBytesSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalBytesReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalPacketsSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalPacketsReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalAssociations" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />            
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="AssociatedDevice" shortname="AD" objectType="Multi" wr_attr="1" dbTable="WLANAD">
+                            <ParameterList>
+                                <Parameter name="AssociatedDeviceMACAddress" wr_attr="1" valueType="string" dbDomain="MACAddr" dbTable="WLANAD" len="16" />
+                                <Parameter name="AssociatedDeviceIPAddress" wr_attr="1" valueType="string" dbDomain="IPAddr" dbTable="WLANAD" len="64" />
+                                <Parameter name="AssociatedDeviceAuthenticationState" wr_attr="1" valueType="boolean" dbDomain="AuthState" dbTable="WLANAD" />
+                                <Parameter name="LastRequestedUnicastCipher" wr_attr="1" valueType="string" dbDomain="LastUnicastCipher" dbTable="WLANAD" len="256" />
+                                <Parameter name="LastRequestedMulticastCipher" wr_attr="1" valueType="string" dbDomain="LastMulticastCipher" dbTable="WLANAD" len="256" />
+                                <Parameter name="LastPMKId" wr_attr="1" valueType="string" dbDomain="LastPMKId" dbTable="WLANAD" len="256" />
+                            </ParameterList>
+                        </Object>
+                        <Object name="PreSharedKey" shortname="PSK" objectType="Multi" wr_attr="1" dbTable="WLANPSK">
+                            <ParameterList>
+                                <Parameter name="PreSharedKey" wr_attr="0" valueType="string" dbDomain="" dbTable="" len="64" />
+                                <Parameter name="KeyPassphrase" wr_attr="3" valueType="string" dbDomain="KeyPassphrase" dbTable="WLANPSK" len="63" />
+                                <Parameter name="AssociatedDeviceMACAddress" wr_attr="0" valueType="string" dbDomain="" dbTable="" len="16" />
+                            </ParameterList>
+                        </Object>
+                        <Object name="WEPKey" shortname="WEP" objectType="Multi" wr_attr="1" dbTable="WLANWEP">
+                            <ParameterList>
+                                <Parameter name="WEPKey" wr_attr="3" valueType="string" dbDomain="Key" dbTable="WLANWEP" len="128" />
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+                <Object name="Hosts" shortname="Hosts" objectType="Single" wr_attr="1" dbTable="">
+                    <ParameterList>
+                        <Parameter name="HostNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="Host" shortname="HI" objectType="Multi" wr_attr="1" dbTable="AccessDev">
+                            <ParameterList>
+                                <Parameter name="IPAddress" wr_attr="1" valueType="string" dbDomain="IPAddress" dbTable="AccessDev" len="16" />
+                                <Parameter name="AddressSource" wr_attr="1" valueType="string" dbDomain="AddressSource" dbTable="AccessDev" len="16" />
+                                <Parameter name="LeaseTimeRemaining" wr_attr="1" valueType="int" dbDomain="" dbTable="" />
+                                <Parameter name="MACAddress" wr_attr="1" valueType="string" dbDomain="MACAddress" dbTable="AccessDev" len="32" />
+                                <Parameter name="HostName" wr_attr="1" valueType="string" dbDomain="HostName" dbTable="AccessDev" len="64" />
+                                <Parameter name="InterfaceType" wr_attr="1" valueType="string" dbDomain="InterfaceType" dbTable="AccessDev" len="16"/>
+                                <Parameter name="Active" wr_attr="1" valueType="boolean" dbDomain="Active" dbTable="AccessDev" />                
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="WANDevice" shortname="WD" objectType="Multi" wr_attr="1" dbTable="">
+            <ParameterList>
+                <Parameter name="WANConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+            </ParameterList>
+            <ObjectList>
+                <Object name="WANCommonInterfaceConfig" shortname="WDCommCfg" objectType="Single" wr_attr="1" dbTable="WANDCommCfg/WAND">
+                    <ParameterList>
+                        <Parameter name="EnabledForInternet" wr_attr="3" valueType="boolean" dbDomain="EnabledForInternet" dbTable="WANDCommCfg" />
+                        <Parameter name="WANAccessType" wr_attr="1" valueType="string" dbDomain="WANDType" dbTable="WAND" len="16" />
+                        <Parameter name="Layer1UpstreamMaxBitRate" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="Layer1DownstreamMaxBitRate" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="PhysicalLinkStatus" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="16" />
+                        <Parameter name="TotalBytesSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalBytesReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalPacketsSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="TotalPacketsReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="MaximumActiveConnections" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="NumberOfActiveConnections" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="Connection" shortname="CONN" objectType="Multi" wr_attr="1" dbTable="WANC">
+                            <ParameterList>
+                                <Parameter name="ActiveConnectionDeviceContainer" wr_attr="1" valueType="string" dbDomain="WANCDViewName" dbTable="WANC" len="256" />
+                                <Parameter name="ActiveConnectionServiceID" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="256" />
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+                <Object name="WANConnectionDevice" shortname="WCD" objectType="Multi" wr_attr="3" dbTable="">
+                    <ParameterList>
+                        <Parameter name="WANIPConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                        <Parameter name="WANPPPConnectionNumberOfEntries" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="WANIPConnection" shortname="WCIP" objectType="Multi" wr_attr="3" dbTable="WANC/WANCIP">
+                            <ParameterList>
+                                <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="WANC" />
+                                <Parameter name="ConnectionStatus" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="16" />
+                                <Parameter name="ConnectionType" wr_attr="3" valueType="string" dbDomain="ConnType" dbTable="WANC" len="16" />
+                                <Parameter name="Name" wr_attr="3" valueType="string" dbDomain="WANCName" dbTable="WANC" len="256" />
+                                <Parameter name="Uptime" wr_attr="1" valueType="unsigned int" dbDomain="FirstAckTime " dbTable="WANCIPPrvData" />
+                                <Parameter name="NATEnabled" wr_attr="3" valueType="boolean" dbDomain="IsNAT" dbTable="WANC" />
+                                <Parameter name="AddressingType" wr_attr="3" valueType="string" dbDomain="Addressingtype" dbTable="WANCIP" len="16" />
+                                <Parameter name="ExternalIPAddress" wr_attr="3" valueType="string" dbDomain="IPAddress" dbTable="WANCIP" len="16" />
+                                <Parameter name="SubnetMask" wr_attr="3" valueType="string" dbDomain="SubnetMask" dbTable="WANCIP" len="16" />
+                                <Parameter name="DefaultGateway" wr_attr="3" valueType="string" dbDomain="GateWay" dbTable="WANCIP" len="16" />
+                                <Parameter name="DNSServers" wr_attr="3" valueType="string" dbDomain="DNS1/DNS2/DNS3" dbTable="WANCIP" len="48" />
+                                <Parameter name="MaxMTUSize" wr_attr="3" valueType="unsigned int" dbDomain="MTU" dbTable="WANCIP" />
+                                <Parameter name="MACAddress" wr_attr="3" valueType="string" dbDomain="WorkIFMac" dbTable="WANC" len="17" />
+                                <Parameter name="X_ZTE-COM_ServiceList" wr_attr="0" valueType="string" dbDomain="" dbTable="" len="64" />
+                                <Parameter name="X_ZTE-COM_VLANEnable" wr_attr="3" valueType="unsigned int" dbDomain="WBDMode" dbTable="WANC" />
+                                <Parameter name="X_ZTE-COM_VLANID" wr_attr="3" valueType="unsigned int" dbDomain="VLANID" dbTable="WANC" />
+                                <Parameter name="X_ZTE-COM_8021P" wr_attr="3" valueType="unsigned int" dbDomain="Priority" dbTable="WANC" />
+                                <Parameter name="X_JAZZTEL_COM_IPv6SitePrefix" wr_attr="1" valueType="string" dbDomain="Prefix1" dbTable="DSSInfo" len="128" />	
+                                <Parameter name="X_JAZZTEL_COM_ExternalIPv6Address" wr_attr="1" valueType="string" dbDomain="GUA1/GUAPd" dbTable="DSSInfo" len="128" />						 
+                            </ParameterList>
+                            <ObjectList>
+                                <Object name="PortMapping" shortname="FWPM" objectType="Multi" wr_attr="3" dbTable="FWPM">
+                                    <ParameterList>
+                                        <Parameter name="PortMappingEnabled" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="FWPM" />
+                                        <Parameter name="PortMappingLeaseDuration" wr_attr="3" valueType="unsigned int" dbDomain="LeaseDuration" dbTable="FWPM" />
+                                        <Parameter name="RemoteHost" wr_attr="3" valueType="string" dbDomain="MinRemoteHost" dbTable="FWPM" len="16" />
+                                        <Parameter name="ExternalPort" wr_attr="3" valueType="unsigned int" dbDomain="MinExtPort" dbTable="FWPM" />
+                                        <Parameter name="InternalPort" wr_attr="3" valueType="unsigned int" dbDomain="MinIntPort" dbTable="FWPM" />
+                                        <Parameter name="PortMappingProtocol" wr_attr="3" valueType="string" dbDomain="Protocol" dbTable="FWPM" len="16" />
+                                        <Parameter name="InternalClient" wr_attr="3" valueType="string" dbDomain="InternalHost" dbTable="FWPM" len="16" />
+                                        <Parameter name="PortMappingDescription" wr_attr="3" valueType="string" dbDomain="Description" dbTable="FWPM" len="256" />
+                                    </ParameterList>
+                                </Object>
+                            </ObjectList>
+                        </Object>
+                        <Object name="WANPPPConnection" shortname="WCPPP" objectType="Multi" wr_attr="3" dbTable="WANC/WANCPPP">
+                            <ParameterList>
+                                <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="WANC" />
+                                <Parameter name="ConnectionStatus" wr_attr="1" valueType="string" dbDomain="ConnStatus" dbTable="WANCPPPStatus" len="16" />
+                                <Parameter name="PossibleConnectionTypes" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="128" />
+                                <Parameter name="ConnectionType" wr_attr="3" valueType="string" dbDomain="ConnType" dbTable="WANC" len="16" />
+                                <Parameter name="Name" wr_attr="3" valueType="string" dbDomain="WANCName" dbTable="WANC" len="256" />
+                                <Parameter name="Uptime" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="LastConnectionError" wr_attr="1" valueType="string" dbDomain="ConnError" dbTable="WANCPPPStatus" len="16" />
+                                <Parameter name="AutoDisconnectTime" wr_attr="3" valueType="unsigned int" dbDomain="AutoDisconnTime" dbTable="WANCPPP" isImit="1" defVal="0" />
+                                <Parameter name="IdleDisconnectTime" wr_attr="3" valueType="unsigned int" dbDomain="IdleTime" dbTable="WANCPPP" />
+                                <Parameter name="WarnDisconnectDelay" wr_attr="3" valueType="unsigned int" dbDomain="WarnDisconnTime" dbTable="WANCPPP" isImit="1" defVal="0" />
+                                <Parameter name="RSIPAvailable" wr_attr="1" valueType="boolean" dbDomain="" dbTable="" isImit="1" defVal="0" />
+                                <Parameter name="NATEnabled" wr_attr="3" valueType="boolean" dbDomain="IsNAT" dbTable="WANC" />
+                                <Parameter name="Username" wr_attr="3" valueType="string" dbDomain="UserName" dbTable="WANCPPP" len="64" />
+                                <Parameter name="Password" wr_attr="2" valueType="string" dbDomain="Password" dbTable="WANCPPP" len="64" />
+                                <Parameter name="PPPEncryptionProtocol" wr_attr="1" valueType="string" dbDomain="EncryProt" dbTable="WANCPPPStatus" len="16" />
+                                <Parameter name="PPPCompressionProtocol" wr_attr="1" valueType="string" dbDomain="CompProt" dbTable="WANCPPPStatus" len="16" />
+                                <Parameter name="PPPAuthenticationProtocol" wr_attr="1" valueType="string" dbDomain="AuthType" dbTable="WANCPPP" len="16" />
+                                <Parameter name="ExternalIPAddress" wr_attr="1" valueType="string" dbDomain="IPAddr" dbTable="RouteIFInfo" len="16" />
+                                <Parameter name="RemoteIPAddress" wr_attr="1" valueType="string" dbDomain="RemoteIP" dbTable="WANCPPPStatus" len="16" />
+                                <Parameter name="MaxMRUSize" wr_attr="3" valueType="unsigned int" dbDomain="MaxMRU" dbTable="WANCPPP" />
+                                <Parameter name="CurrentMRUSize" wr_attr="1" valueType="unsigned int" dbDomain="MRU" dbTable="WANCPPPStatus" />
+                                <Parameter name="DNSEnabled" wr_attr="3" valueType="boolean" dbDomain="" dbTable="" isImit="1" defVal="1" />
+                                <Parameter name="DNSOverrideAllowed" wr_attr="3" valueType="boolean" dbDomain="" dbTable="" isImit="1" defVal="0" />
+                                <Parameter name="DNSServers" wr_attr="3" valueType="string" dbDomain="DNS1/DNS2/DNS3" dbTable="WANC" len="64" />
+                                <Parameter name="MACAddress" wr_attr="3" valueType="string" dbDomain="WorkIFMac" dbTable="WANC" len="17" />
+                                <Parameter name="MACAddressOverride" wr_attr="3" valueType="boolean" dbDomain="" dbTable="" isImit="1" defVal="0" />
+                                <Parameter name="TransportType" wr_attr="1" valueType="string" dbDomain="" dbTable="" len="16" />
+                                <Parameter name="PPPoEACName" wr_attr="3" valueType="string" dbDomain="PPPoEACName" dbTable="WANCPPP" len="256" />
+                                <Parameter name="PPPoEServiceName" wr_attr="3" valueType="string" dbDomain="PPPoEServiceName" dbTable="WANCPPP" len="256" />
+                                <Parameter name="ConnectionTrigger" wr_attr="3" valueType="string" dbDomain="ConnTrigger" dbTable="WANCPPP" len="16" />
+                                <Parameter name="RouteProtocolRx" wr_attr="3" valueType="string" dbDomain="" dbTable="" len="16" isImit="1" defVal="Off" />
+                                <Parameter name="PPPLCPEcho" wr_attr="1" valueType="unsigned int" dbDomain="EchoTime" dbTable="WANCPPP" />
+                                <Parameter name="PPPLCPEchoRetry" wr_attr="1" valueType="unsigned int" dbDomain="EchoRetry" dbTable="WANCPPP" />
+                                <Parameter name="X_ZTE-COM_ProxyEnable" wr_attr="0" valueType="boolean" dbDomain="" dbTable="" />
+                                <Parameter name="X_ZTE-COM_MAXUser" wr_attr="0" valueType="unsigned int" dbDomain="" dbTable="" />                
+                                <Parameter name="X_ZTE-COM_ServiceList" wr_attr="0" valueType="string" dbDomain="" dbTable="" len="64" />
+                                <Parameter name="X_ZTE-COM_VLANEnable" wr_attr="3" valueType="unsigned int" dbDomain="WBDMode" dbTable="WANC" />
+                                <Parameter name="X_ZTE-COM_VLANID" wr_attr="3" valueType="unsigned int" dbDomain="VLANID" dbTable="WANC" />
+                                <Parameter name="X_ZTE-COM_8021P" wr_attr="3" valueType="unsigned int" dbDomain="Priority" dbTable="WANC" />
+                                <Parameter name="X_JAZZTEL_COM_IPv6SitePrefix" wr_attr="1" valueType="string" dbDomain="Prefix1" dbTable="DSSInfo" len="128" />	
+                                <Parameter name="X_JAZZTEL_COM_ExternalIPv6Address" wr_attr="1" valueType="string" dbDomain="GUA1/GUAPd" dbTable="DSSInfo" len="128" />	
+                            </ParameterList>
+                            <ObjectList>
+                                <Object name="PortMapping" shortname="FWPM" objectType="Multi" wr_attr="3" dbTable="FWPM">
+                                    <ParameterList>
+                                        <Parameter name="PortMappingEnabled" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="FWPM" />
+                                        <Parameter name="PortMappingLeaseDuration" wr_attr="3" valueType="unsigned int" dbDomain="LeaseDuration" dbTable="FWPM" />
+                                        <Parameter name="RemoteHost" wr_attr="3" valueType="string" dbDomain="MinRemoteHost" dbTable="FWPM" len="16" />
+                                        <Parameter name="ExternalPort" wr_attr="3" valueType="unsigned int" dbDomain="MinExtPort" dbTable="FWPM" />
+                                        <Parameter name="InternalPort" wr_attr="3" valueType="unsigned int" dbDomain="MinIntPort" dbTable="FWPM" />
+                                        <Parameter name="PortMappingProtocol" wr_attr="3" valueType="string" dbDomain="Protocol" dbTable="FWPM" len="16" />
+                                        <Parameter name="InternalClient" wr_attr="3" valueType="string" dbDomain="InternalHost" dbTable="FWPM" len="16" />
+                                        <Parameter name="PortMappingDescription" wr_attr="3" valueType="string" dbDomain="Description" dbTable="FWPM" len="256" />
+                                    </ParameterList>
+                                </Object>
+                            </ObjectList>
+                        </Object>
+                    </ObjectList>
+                </Object>        
+                <Object name="WANEthernetInterfaceConfig" shortname="ETH" objectType="Single" wr_attr="1" dbTable="ETH">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="ETH" />
+                        <Parameter name="Status" wr_attr="1" valueType="string" dbDomain="Status" dbTable="ETH" len="16" />
+                        <Parameter name="MACAddress" wr_attr="1" valueType="string" dbDomain="MACAddr" dbTable="ETH" len="17" />
+                        <Parameter name="MaxBitRate" wr_attr="3" valueType="string" dbDomain="MaxBitRate" dbTable="ETH" len="16" />
+                        <Parameter name="DuplexMode" wr_attr="3" valueType="string" dbDomain="DuplexMode" dbTable="ETH" len="16" />
+                    </ParameterList>
+                    <ObjectList>
+                        <Object name="Stats" shortname="STATS" objectType="Single" wr_attr="1" dbTable="">
+                            <ParameterList>
+                                <Parameter name="BytesSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="BytesReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="PacketsSent" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                <Parameter name="PacketsReceived" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                            </ParameterList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+            </ObjectList>
+        </Object>
+    <Object name="X_JAZZTEL_DDnsCfg" shortname="DDnsCfg" objectType="Single" wr_attr="1" dbTable="DDNSClientCfg" >
+            <ParameterList>
+       <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="DDNSClientCfg" />
+       <Parameter name="UserName" wr_attr="3" valueType="string" dbDomain="UserName" dbTable="DDNSClientCfg" len="32" />
+       <Parameter name="CustomServer" wr_attr="3" valueType="string" dbDomain="CustomServer" dbTable="DDNSClientCfg" len="128" />
+       <Parameter name="CustomURL" wr_attr="3" valueType="string" dbDomain="CustomURL" dbTable="DDNSClientCfg" len="128" />
+       <Parameter name="IfName" wr_attr="3" valueType="string" dbDomain="IfName" dbTable="DDNSClientCfg" len="256" />
+       <Parameter name="ProviderName" wr_attr="3" valueType="string" dbDomain="ProviderName" dbTable="DDNSClientCfg" len="256" />
+       <Parameter name="Password" wr_attr="3" valueType="string" dbDomain="Password" dbTable="DDNSClientCfg" len="256" />
+       <Parameter name="FullyQualifiedDomainName" wr_attr="3" valueType="string" dbDomain="FullyQualifiedDomainName" dbTable="DDNSClientCfg" len="256" />
+        	</ParameterList>
+        </Object>
+        <Object name="Services" shortname="SV" objectType="Single" wr_attr="1" dbTable="">
+            <ObjectList>
+                <Object name="VoiceService" shortname="VS" objectType="Multi" wr_attr="3" dbTable="">
+                    <ObjectList>
+                        <Object name="VoiceProfile" shortname="VP" objectType="Multi" wr_attr="3" dbTable="VoIPVoiceProfile/VoIPVPDTMF">
+                            <ParameterList>
+                                <Parameter name="Enable" wr_attr="3" valueType="string" dbDomain="Enable" dbTable="VoIPVoiceProfile" len="16" />
+                                <Parameter name="Name" wr_attr="3" valueType="string" dbDomain="Name" dbTable="VoIPVoiceProfile" len="64" />
+                                <Parameter name="DTMFMethod" wr_attr="3" valueType="string" dbDomain="DTMFMethod" dbTable="VoIPVPDTMF" len="64" />
+                                <Parameter name="DigitMap" wr_attr="3" valueType="string" dbDomain="DigitMap" dbTable="VoIPVoiceProfile" len="2048" />
+                                <Parameter name="DigitMapEnable" wr_attr="3" valueType="boolean" dbDomain="DigitMapEnable" dbTable="VoIPVoiceProfile" />
+                            </ParameterList>
+                            <ObjectList>
+                                <Object name="RTP" shortname="VR" objectType="Single" wr_attr="1" dbTable="VoIPRTPCfg">
+                                    <ParameterList>
+                                        <Parameter name="EthernetPriorityMark" wr_attr="3" valueType="int" dbDomain="EthernetPriorityMark" dbTable="VoIPRTPCfg" />
+                                        <Parameter name="VLANIDMark" wr_attr="3" valueType="int" dbDomain="VLANIDMark" dbTable="VoIPRTPCfg" />
+                                        <Parameter name="DSCPMark" wr_attr="3" valueType="unsigned int" dbDomain="DSCPMark" dbTable="VoIPRTPCfg" />
+                                    </ParameterList>
+                                </Object>
+                                <Object name="FaxT38" shortname="VF" objectType="Single" wr_attr="1" dbTable="VoIPFaxT38Cfg">
+                                    <ParameterList>
+                                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="Enable" dbTable="VoIPFaxT38Cfg" />
+                                    </ParameterList>
+                                </Object>
+                                <Object name="SIP" shortname="PS" objectType="Single" wr_attr="1" dbTable="VoIPSIPServer/VoIPSIP">
+                                    <ParameterList>
+                                        <Parameter name="ProxyServer" wr_attr="3" valueType="string" dbDomain="ProxyServer1" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="X_ZTE-COM_Standby-ProxyServer" wr_attr="3" valueType="string" dbDomain="ProxyServer2" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="ProxyServerPort" wr_attr="3" valueType="unsigned int" dbDomain="ProxyServerPort1" dbTable="VoIPSIPServer" />
+                                        <Parameter name="X_ZTE-COM_Standby-ProxyServerPort" wr_attr="3" valueType="unsigned int" dbDomain="ProxyServerPort2" dbTable="VoIPSIPServer" />
+                                        <Parameter name="ProxyServerTransport" wr_attr="3" valueType="string" dbDomain="ProxyServerTransport1" dbTable="VoIPSIPServer" len="16" />
+                                        <Parameter name="X_ZTE-COM_Standby-ProxyServerTransport" wr_attr="3" valueType="string" dbDomain="ProxyServerTransport2" dbTable="VoIPSIPServer" len="16" />
+                                        <Parameter name="RegistrarServer" wr_attr="3" valueType="string" dbDomain="RegistrarServer1" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="X_ZTE-COM_Standby-RegistrarServer" wr_attr="3" valueType="string" dbDomain="RegistrarServer2" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="RegistrarServerPort" wr_attr="3" valueType="unsigned int" dbDomain="RegistrarServerPort1" dbTable="VoIPSIPServer" />
+                                        <Parameter name="X_ZTE-COM_Standby-RegistrarServerPort" wr_attr="3" valueType="unsigned int" dbDomain="RegistrarServerPort2" dbTable="VoIPSIPServer" />
+                                        <Parameter name="RegistrarServerTransport" wr_attr="3" valueType="string" dbDomain="RegistrarServerTransport1" dbTable="VoIPSIPServer" len="16" />
+                                        <Parameter name="X_ZTE-COM_Standby-RegistrarServerTransport" wr_attr="3" valueType="string" dbDomain="RegistrarServerTransport2" dbTable="VoIPSIPServer" len="16" />
+                                        <Parameter name="UserAgentDomain" wr_attr="3" valueType="string" dbDomain="UserAgentDoimain" dbTable="VoIPSIP" len="256" />
+                                        <Parameter name="UserAgentPort" wr_attr="3" valueType="unsigned int" dbDomain="UserAgentPort" dbTable="VoIPSIP" />
+                                        <Parameter name="UserAgentTransport" wr_attr="3" valueType="string" dbDomain="UserAgentTransport" dbTable="VoIPSIP" len="16" />
+                                        <Parameter name="OutboundProxy" wr_attr="3" valueType="string" dbDomain="OutboundProxy1" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="X_ZTE-COM_Standby-OutboundProxy" wr_attr="3" valueType="string" dbDomain="OutboundProxy2" dbTable="VoIPSIPServer" len="256" />
+                                        <Parameter name="OutboundProxyPort" wr_attr="3" valueType="unsigned int" dbDomain="OutboundProxyPort1" dbTable="VoIPSIPServer" />
+                                        <Parameter name="X_ZTE-COM_Standby-OutboundProxyPort" wr_attr="3" valueType="unsigned int" dbDomain="OutboundProxyPort2" dbTable="VoIPSIPServer" />
+                                        <Parameter name="RegistrationPeriod" wr_attr="3" valueType="unsigned int" dbDomain="RegisterExpires" dbTable="VoIPSIP" />
+                                        <Parameter name="EthernetPriorityMark" wr_attr="3" valueType="int" dbDomain="EthernetPriorityMark" dbTable="VoIPSIP" />
+                                        <Parameter name="VLANIDMark" wr_attr="3" valueType="int" dbDomain="VLANIDMark" dbTable="VoIPSIP" />
+                                        <Parameter name="DSCPMark" wr_attr="3" valueType="unsigned int" dbDomain="DSCPMark" dbTable="VoIPSIP" />
+                                        <Parameter name="InboundAuth" wr_attr="3" valueType="string" dbDomain="InboundAuth" dbTable="VoIPSIP" len="16" />
+                                        <Parameter name="SIPEventSubscribeNumberOfElements" wr_attr="1" valueType="unsigned int" dbDomain="EventSubscribeNumber" dbTable="VoIPSIP" />
+                                    </ParameterList>
+                                    <ObjectList>
+                                        <Object name="EventSubscribe" shortname="SE" objectType="Multi" wr_attr="3" dbTable="VoIPSIPEventSubscribe">
+                                            <ParameterList>
+                                                <Parameter name="Event" wr_attr="3" valueType="string" dbDomain="Event" dbTable="VoIPSIPEventSubscribe" len="32" />
+                                                <Parameter name="Notifier" wr_attr="3" valueType="string" dbDomain="Notifier" dbTable="VoIPSIPEventSubscribe" len="256" />
+                                                <Parameter name="NotifierPort" wr_attr="3" valueType="unsigned int" dbDomain="NotifierPort" dbTable="VoIPSIPEventSubscribe" />
+                                                <Parameter name="NotifierTransport" wr_attr="3" valueType="string" dbDomain="NotifierTransport" dbTable="VoIPSIPEventSubscribe" len="16" />
+                                                <Parameter name="ExpireTime" wr_attr="3" valueType="unsigned int" dbDomain="ExpireTime" dbTable="VoIPSIPEventSubscribe" />
+                                            </ParameterList>
+                                        </Object>
+                                    </ObjectList>
+                                </Object>
+                                <Object name="Line" shortname="VL" objectType="Multi" wr_attr="3" dbTable="VoIPVPLine">
+                                    <ParameterList>
+                                        <Parameter name="Enable" wr_attr="3" valueType="string" dbDomain="Enable" dbTable="VoIPVPLine" len="16" />
+                                        <Parameter name="Status" wr_attr="1" valueType="string" dbDomain="Status" dbTable="VoIPVPLine" len="16" />
+                                    <Parameter name="DirectoryNumber" wr_attr="3" valueType="string" dbDomain="DirectoryNumber" dbTable="VoIPVPLine" len="32" />
+                                    </ParameterList>
+                                    <ObjectList>
+                                        <Object name="SIP" shortname="LS" objectType="Single" wr_attr="3" dbTable="VoIPSIPLine">
+                                            <ParameterList>
+                                                <Parameter name="AuthUserName" wr_attr="3" valueType="string" dbDomain="DigestUserName" dbTable="VoIPSIPLine" len="128" />
+                                                <Parameter name="AuthPassword" wr_attr="3" valueType="string" dbDomain="AuthPassword" dbTable="VoIPSIPLine" len="128" />
+                                                <Parameter name="URI" wr_attr="3" valueType="string" dbDomain="AuthUserName" dbTable="VoIPSIPLine" len="128" />
+                                            </ParameterList>
+                                        </Object>
+                                        <Object name="CallingFeatures" shortname="LF" objectType="Single" wr_attr="3" dbTable="VOIPVPCallFeature">
+                                            <ParameterList>
+                                                <Parameter name="CallerIDEnable" wr_attr="3" valueType="boolean" dbDomain="CallerIDEnable" dbTable="VOIPVPCallFeature" />
+                                                <Parameter name="CallerIDNameEnable" wr_attr="3" valueType="boolean" dbDomain="CallerIDNameEnable" dbTable="VOIPVPCallFeature" />
+                                                <Parameter name="CallerIDName" wr_attr="3" valueType="string" dbDomain="CallerIDName" dbTable="VOIPVPCallFeature" len="32" />
+                                                <Parameter name="CallWaitingEnable" wr_attr="3" valueType="boolean" dbDomain="CallWaitingEnable" dbTable="VOIPVPCallFeature" />
+                                                <Parameter name="MWIEnable" wr_attr="3" valueType="boolean" dbDomain="MWIEnable" dbTable="VOIPVPCallFeature" />
+                                                <Parameter name="MessageWaiting" wr_attr="1" valueType="boolean" dbDomain="MessageWaiting" dbTable="VOIPVPCallFeature" />
+                                            </ParameterList>
+                                        </Object>
+                                        <Object name="Codec" shortname="LC" objectType="Single" wr_attr="1" dbTable="">
+                                            <ObjectList>
+                                                <Object name="List" shortname="CL" objectType="Multi" wr_attr="3" dbTable="VoIPVMediaCfg">
+                                                    <ParameterList>
+                                                        <Parameter name="Priority" wr_attr="3" valueType="unsigned int" dbDomain="MediaVPri" dbTable="VoIPVMediaCfg" />
+                                                        <Parameter name="EntryID" wr_attr="1" valueType="unsigned int" dbDomain="" dbTable="" />
+                                                        <Parameter name="Codec" wr_attr="1" valueType="string" dbDomain="MediaVCodec" dbTable="VoIPVMediaCfg" len="64" />
+                                                        <Parameter name="BitRate" wr_attr="1" valueType="unsigned int" dbDomain="MediaVCR" dbTable="VoIPVMediaCfg" />
+                                                        <Parameter name="PacketizationPeriod" wr_attr="3" valueType="string" dbDomain="MediaVPT" dbTable="VoIPVMediaCfg" len="64" />
+                                                        <Parameter name="SilenceSuppression" wr_attr="3" valueType="boolean" dbDomain="MediaSSuprs" dbTable="VoIPVMediaCfg" />
+                                                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="MediaVEnable" dbTable="VoIPVMediaCfg" />
+                                                    </ParameterList>
+                                                </Object>
+                                            </ObjectList>
+                                        </Object>
+                                    </ObjectList>
+                                </Object>
+                            </ObjectList>
+                        </Object>
+                    </ObjectList>
+                </Object>
+            </ObjectList>
+        </Object>
+        <Object name="Function" shortname="FUNC" objectType="Single" wr_attr="0" dbTable="">
+            <ObjectList>
+                <Object name="Telnet" shortname="TEL" objectType="Single" wr_attr="1" dbTable="TelnetCfg">
+                    <ParameterList>
+                        <Parameter name="Enable" wr_attr="3" valueType="boolean" dbDomain="TS_Enable" dbTable="TelnetCfg" />
+                        <Parameter name="UserName" wr_attr="3" valueType="string" dbDomain="TS_UName" dbTable="TelnetCfg" len="256" />
+                        <Parameter name="Password" wr_attr="3" valueType="string" dbDomain="TS_UPwd" dbTable="TelnetCfg" len="256" />
+                        <Parameter name="Port" wr_attr="3" valueType="int" dbDomain="TS_Port" dbTable="TelnetCfg" />
+                    </ParameterList>
+                </Object>
+            </ObjectList>
+        </Object>
+    </ObjectList>
+</Object>
+

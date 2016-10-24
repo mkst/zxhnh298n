@@ -1,0 +1,58 @@
+<%
+IMPORT FILE "sntp_gch.gch";
+IMPORT FILE "net_sntp_conf_js.gch";
+%>
+<table id="TestContent1"  class="table" width="450px" border="0">
+<tr>
+<td class="td11">&?snco001;</td>
+<td class="td2"><font id="Fnt_CurrentLocalTime" name="Fnt_CurrentLocalTime" ></font></td>
+</tr>
+</table>
+<table id="TestContent2"  class="table" width="450px" border="0">
+<tr>
+<td width="20%" height="26" align="right">&?snco002;</td>
+<td class="td2">
+<select name="Frm_LocalTimeZoneandName" id="Frm_LocalTimeZoneandName" size="1" class="list_3" onchange="timezoneChange()">
+</select></td>
+</tr>
+</table>
+<table id="TestContent4"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?item_001;</td>
+<td class="td2">
+<select id="Frm_SntpConn" name="Frm_SntpConn" class="list_1">
+<option value=""></option>
+<% IMPORT FILE "wan_func.gch";
+if ( 0 != getenv("DevIPv6Effect") )
+{
+wanQueryByApp("voip");
+}
+else
+{
+wanV4QueryByApp("voip");
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_NtpServer1">&?snco003;</font></td>
+<td class="td2"><input id="Frm_NtpServer1" name="textfield22" type="text" class="inputId"  value="" size="15"/></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_NtpServer2">&?snco004;</font></td>
+<td class="td2"><input id="Frm_NtpServer2" name="textfield22" type="text" class="inputId"  value="" size="15"/></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_PollTimeInterval">&?snco005;</font></td>
+<td class="td2"><input id="Frm_PollTimeInterval" name="textfield22" type="text" class="inputId2"  value="" size="15"/>&?wan029;</td>
+</tr>
+<tr id="tr_daylightSaving" style="display:none">
+<td class="td11">&?snco007;</td>
+<td class="td2"><input id="Frm_DaylightSavingsUsed" type="checkbox" checked="checked"/></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_Dscp">&?qos_c008;</font></td>
+<td class="td2"><input id="Frm_Dscp" name="Frm_Dscp" type="text" class="inputId2"  value="" size="15"/>(0 ~ 63)</td>
+</tr>
+</table>

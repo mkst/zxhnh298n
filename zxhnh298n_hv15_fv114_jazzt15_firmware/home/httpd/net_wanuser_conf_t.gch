@@ -1,0 +1,25 @@
+<%
+IMPORT FILE "ethwancpppuser_gch.gch";
+IMPORT FILE "net_wanuser_conf_js.gch";
+%>
+<table id="TestContent" class="table" width="450px" border="0">
+<!--连接名称-->
+<tr>
+<td class="td1"><font id="Fnt_WANCName1">&?wan001;</font></td>
+<td class="td2" >
+<select size="1" class="list_2" style="width:122px" id="Frm_WANCName1" onchange="Change_Link()">
+</select>
+</td>
+</select>
+</td>
+</tr>
+<!--用户名和密码 -->
+<tr id="TR_UserName">
+<td class="td1"><font id="Fnt_UserName">&?wan101;</font></td>
+<td class="td2"><input type="text" id="Frm_UserName" value="" class="inputId"/></td>
+</tr>
+<tr id="TR_Password">
+<td class="td1"><font id="Fnt_Password">&?wan102;</font></td>
+<td class="td2"><input type="password" id="Frm_Password" value="" class="inputId"/></td>
+</tr>
+</table>

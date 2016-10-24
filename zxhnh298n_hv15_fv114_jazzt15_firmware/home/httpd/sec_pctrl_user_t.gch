@@ -1,0 +1,115 @@
+<%
+IMPORT FILE "all_pctrl_gch.gch";
+IMPORT FILE "sec_pctrl_user_js.gch";
+%>
+<div class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?cpcturl017;</td>
+</tr></tbody>
+</table>
+</div>
+<table id="TestContent1"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&nbsp;</td>
+<td class="td2">&nbsp;</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Enable">&?cpcturl001;</font></td>
+<td class="td2"><input name="Frm_Enable" id="Frm_Enable" type="checkbox" value="" onclick="Slect_Enable()"/></td>
+</tr>
+<tr>
+<td class="td1">&?cpcturl002;</td>
+<td class="td2">
+<select  name="Frm_Mode" id="Frm_Mode" size="1" class="list_1" onchange= "Slect_Mode()">
+<option value="0">IP</option>
+<option value="1">MAC</option>
+<option value="2">&?cpcturl016;</option>
+</select></td>
+</tr>
+<!--IP地址过滤-->
+<tr id="TR_IP" >
+<td class="td1"><font id="Fnt_SrcIP">&?cpcturl019;</font></td>
+<td class="td2"><input name="Frm_SrcIP" id="Frm_SrcIP" type="text" class="inputId"   value="" size="15" /></td>
+</tr>
+<!--MAC地址过滤-->
+<tr id="TR_MAC" style="display:none">
+<td class="td1"><font id="Fnt_MAC">&?maco006;</font></td>
+<td class="td2">
+<input name="mac11" type="text" class="inputId3"   size="15" maxlength="2" id="mac11" /> :
+<input name="mac22" type="text" class="inputId3"   size="15" maxlength="2" id="mac22" /> :
+<input name="mac33" type="text" class="inputId3"   size="15" maxlength="2" id="mac33" /> :
+<input name="mac44" type="text" class="inputId3"   size="15" maxlength="2" id="mac44" /> :
+<input name="mac55" type="text" class="inputId3"   size="15" maxlength="2" id="mac55" /> :
+<input name="mac66" type="text" class="inputId3"   size="15" maxlength="2" id="mac66" />
+</td>
+</tr>
+<!--时间策略-->
+<tr>
+<td class="td1"><font id="Frm_Time">&?cpcturl003;</font></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Days">&?cpcturl020;</font>&?colon;</td>
+<td class="td2"><input name="Frm_Everyday" id="Frm_Everyday" type="checkbox" value="" onclick= "Slect_day()"/>&?cpcturl008;</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Frm_Su" id="Frm_Su" type="checkbox" value="" /><font style="color:rgb(200,0,0)">&?cpcturl015;</font>
+<input name="Frm_M" id="Frm_M" type="checkbox" value="" />&?cpcturl009;
+<input name="Frm_T" id="Frm_T" type="checkbox" value="" />&?cpcturl010;
+<input name="Frm_We" id="Frm_We" type="checkbox" value="" />&?cpcturl011;
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Frm_Th" id="Frm_Th" type="checkbox" value="" />&?cpcturl012;
+<input name="Frm_Fri" id="Frm_Fri" type="checkbox" value="" />&?cpcturl013;
+<input name="Frm_Sa" id="Frm_Sa" type="checkbox" value="" /><font style="color:rgb(200,0,0)">&?cpcturl014;</font>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Time">&?cpcturl021;</font>&?colon;</td>
+<td class="td2"><input name="TimeCfg" id="Frm_Hours" onclick="Do24Hours()" checked="checked" value="24Hours" type="radio">&?cpcturl007;</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"><input name="TimeCfg" id="TimePeriod" onclick="DoTimePeriod()" value="SomeTime" type="radio">&?cpcturl022;</td>
+</tr>
+</table>
+<table id="TestContent1"  class="table" width="450px" border="0">
+<tr>
+<td style="width:55%; height:24px; text-align: right;"><font id="Fnt_From">&?cpcturl005;</td>
+<td class="td2">
+<input name="HourSrc" type="text" class="inputId3"   size="15" maxlength="2" id="HourSrc" /> :
+<input name="MinuteSrc" type="text" class="inputId3"   size="15" maxlength="2" id="MinuteSrc" />&?cpcturl004;</td>
+</tr>
+<tr>
+<td style="width:55%; height:24px; text-align: right;"><font id="Fnt_To">&?cpcturl006;</font></td>
+<td class="td2">
+<input name="HourDst" type="text" class="inputId3"   size="15" maxlength="2" id="HourDst"  /> :
+<input name="MinuteDst" type="text" class="inputId3"  size="15" maxlength="2" id="MinuteDst" />&?cpcturl004;
+</td>
+</tr>
+<tr>
+<td class="td3" colspan="2">
+<input name="" type="submit" id="add" class="button2" value="&?btn007;" onclick="Add()"/>
+<input name="Btn_Edit" type="submit" id="Btn_Edit" class="button2" value="&?btn003;" onclick="pageEdit()" style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+</table>
+<table id="URL_Table"  class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">&?cpcturl002;</td>
+<td width="">&?cpcturl018;</td>
+<td width="">&?btn003;</td>
+<td width="">&?btn006;</td>
+</tr>
+</table>

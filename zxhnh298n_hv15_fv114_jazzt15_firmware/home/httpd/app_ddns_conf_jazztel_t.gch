@@ -1,0 +1,72 @@
+<%
+IMPORT FILE "ddns_conf_gch.gch";
+IMPORT FILE "app_ddns_conf_jazztel_js.gch";
+%>
+<div class="space_0" id="note" >
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">
+<table>
+<tr>
+<td valign="top">1.&?ddns003;:&nbsp;</td>
+<td>&?ddns013;</td>
+</tr>
+<tr>
+<td valign="top">2.&?ddns009;:&nbsp;</td>
+<td>&?ddns014;</td>
+</tr>
+<tr>
+<td valign="top">3.&?ddns010;:&nbsp;</td>
+<td>&?ddns015;</td>
+</tr>
+</table>
+</td>
+</tr></tbody>
+</table>
+</div>
+<br/>
+<br/>
+<div class="space_0">
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?ddns001;</td>
+<td class="td2"><input type="checkbox" name="Frm_Enable" id="Frm_Enable" value=""/></td>
+</tr>
+<tr>
+<td class="td1">&?comm002;</td>
+<td class="td2">
+<select size="1" class="list_2" name="Frm_Interface" id="Frm_Interface">
+<option value="" ></option>
+<%IMPORT FILE "wan_func.gch";
+wanV4QueryByApp("ddns");
+%>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Name">&?ddns003;</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Name" id="Frm_Name" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Server">&?ddns009;</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Server" id="Frm_Server" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_URL">&?ddns010;</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_URL" id="Frm_URL" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DomainName">&?ddns006;</font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_DomainName" id="Frm_DomainName" size="15" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Username">&?ddns011;</font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_Username" id="Frm_Username" size="15" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Password">&?ddns012;</font></td>
+<td class="td2"><input type="password" class="inputId" name="Frm_Password" id="Frm_Password" size="15" value=""/></td>
+</tr>
+<tr><td class="td1" colspan="2"></td></tr>
+</table>
+</div>

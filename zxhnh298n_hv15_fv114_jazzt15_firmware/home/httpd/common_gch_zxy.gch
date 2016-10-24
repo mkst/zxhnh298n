@@ -1,0 +1,451 @@
+<%
+function setpara_zxy(handle, objname, para_name)
+{
+set_para(handle, para_name, request(objname+para_name));
+}
+function set_multiinst_para_zxy(handle, objname, para_name, index)
+{
+set_para(handle, para_name, request(objname+para_name+index));
+}
+function create_form_start_zxy(ID, URL)
+{
+="<FORM NAME="+ ID +" ID="+ ID +" METHOD='POST' action="+ URL +">\n";
+}
+function create_form_end_zxy()
+{
+="</FORM>\n";
+}
+function create_hidden_sep_zxy(ID, value)
+{
+="<INPUT type='hidden' name="+ ID +"     ID="+ ID +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=ID;
+="','";
+=value;
+="');";
+="</script>\n";
+}
+function set_hidden_zxy(ID, value)
+{
+="<script language=javascript>Transfer_meaning('";
+=ID;
+="','";
+=value;
+="');";
+="</script>\n";
+}
+function create_hidden_newpara_zxy(objname, PARA[], num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ objname + PARA[i] +"   ID="+ objname + PARA[i] +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=objname + PARA[i];
+="','";
+="');";
+="</script>\n";
+}
+}
+function cover_hidden_zxy(handle, objname, PARA[], num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<script language=javascript>Transfer_meaning('";
+=objname+PARA[i];
+="','";
+=get_para(handle, PARA[i]);
+="');";
+="</script>\n";
+}
+}
+function create_hidden_para_zxy(handle, objname, PARA[], num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ objname+PARA[i] +"   ID="+ objname+PARA[i] +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=objname+PARA[i];
+="','";
+=get_para(handle, PARA[i]);
+="');";
+="</script>\n";
+}
+}
+function create_hidden_multiinstnewpara_zxy(handle, objname, PARA[], instindex,  num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ objname+PARA[i] + instindex +"   ID="+ objname+PARA[i] + instindex +" value=''>\n";
+}
+}
+function create_hidden_multiinstpara_zxy(handle, objname, PARA[], instindex,  num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ objname + PARA[i] + instindex +"   ID="+ objname + PARA[i] + instindex +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=objname + PARA[i] + instindex;
+="','";
+=get_para(handle, PARA[i]);
+="');";
+="</script>\n";
+}
+}
+function create_hidden_multiinstpara1_zxy(handle, objname, PARA[], instindex,  num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ objname + PARA[i] + instindex +"   ID="+ objname + PARA[i] + instindex +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=objname + PARA[i] + instindex;
+="','";
+=get_para(handle, PARA[i]+instindex);
+="');";
+="</script>\n";
+}
+}
+function set_hidden_multiinstpara_zxy(handle, objname, PARA[], instindex,  num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<script language=javascript>Transfer_meaning('";
+=objname + PARA[i] + instindex;
+="','";
+=get_para(handle, PARA[i]);
+="');";
+="</script>\n";
+}
+}
+function create_special_hidden_multiinstpara_zxy(handle, inputName, handleName, instindex)
+{
+="<INPUT type='hidden' name="+ inputName + instindex +"   ID="+ inputName + instindex +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=inputName + instindex;
+="','";
+=get_para(handle, handleName);
+="');";
+="</script>\n";
+}
+function ifIndexNULL_zxy(flag, FP_INDEX)
+{
+if (FP_INDEX IS NULL)
+{
+if ("new" == flag)
+{
+return -1;
+}
+else if("old" == flag)
+{
+return 0;
+}
+}
+return FP_INDEX;
+}
+function getInstIndex_zxy(flag)
+{
+var FP_INDEX = request("IF_INDEX");
+FP_INDEX = ifIndexNULL_zxy(flag, FP_INDEX);
+return FP_INDEX;
+}
+function getInstNum_zxy(FP_OBJNAME)
+{
+return query_list(FP_OBJNAME, "IGD");
+}
+function getInstIdentity_zxy(FP_OBJNAME, FP_INDEX)
+{
+var FP_IDENTITY = "";
+var FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+if (FP_INSTNUM != 888 && FP_INSTNUM > 0 && FP_INDEX >= 0)
+{
+FP_IDENTITY = query_identity(FP_INDEX);
+}
+return FP_IDENTITY;
+}
+function getMultiInstIdentity_zxy(FP_OBJNAME, FP_MULTIDISPLAY, FP_INDEX)
+{
+var FP_IDENTITY = "";
+if(1 == FP_MULTIDISPLAY)
+{
+FP_IDENTITY = getInstIdentity_zxy(FP_OBJNAME, FP_INDEX);
+}
+return FP_IDENTITY;
+}
+function getInstNumByAction_zxy(FP_OBJNAME, FP_MULTIDISPLAY, FP_ACTION)
+{
+if(1 == FP_MULTIDISPLAY && (FP_ACTION == "apply" || FP_ACTION == "delete"))
+{
+return query_list(FP_OBJNAME, "IGD");
+}
+else
+{
+return "";
+}
+}
+function getInstIdentityByAction_zxy(FP_OBJNAME, FP_MULTIDISPLAY, FP_ACTION, FP_INDEX)
+{
+var FP_IDENTITY = "";
+if("new" != FP_ACTION)
+{
+FP_IDENTITY = getMultiInstIdentity_zxy(FP_OBJNAME, FP_MULTIDISPLAY, FP_INDEX);
+}
+return FP_IDENTITY;
+}
+function createBasicHidden_zxy()
+{
+create_hidden_sep("IF_ACTION", "");
+create_hidden_sep("IF_ERRORSTR", "SUCC");
+create_hidden_sep("IF_ERRORPARAM", "SUCC");
+create_hidden_sep("IF_ERRORTYPE", -1);
+}
+function createSingleInstHidden_zxy(OBJNAME, PARA, FP_PARANUM)
+{
+create_hidden_newpara_zxy(OBJNAME, PARA, FP_PARANUM);
+createBasicHidden_zxy();
+}
+function createHigherHidden_zxy(FP_INDEX)
+{
+createBasicHidden_zxy();
+create_hidden_sep_zxy("IF_INDEX", FP_INDEX);
+create_hidden_sep_zxy("IF_INSTNUM", "");
+}
+function createMultiInstHidden_zxy(OBJNAME, PARA, FP_PARANUM, FP_INDEX)
+{
+create_hidden_newpara_zxy(OBJNAME, PARA, FP_PARANUM);
+createHigherHidden_zxy(FP_INDEX);
+}
+function createSubmitHidden_zxy(FP_MULTIDISPLAY, OBJNAME, PARA, FP_PARANUM, FP_INDEX)
+{
+if(0 == FP_MULTIDISPLAY)
+{
+createSingleInstHidden_zxy(OBJNAME, PARA, FP_PARANUM);
+}
+else if(1 == FP_MULTIDISPLAY)
+{
+createMultiInstHidden_zxy(OBJNAME, PARA, FP_PARANUM, FP_INDEX);
+}
+}
+function getNewInstError_zxy(FP_ERRORSTR)
+{
+var FP_ERRORPARAM, FP_ERRORTYPE;
+if (FP_ERRORSTR == "SUCC")
+{
+FP_ERRORSTR = get_cmret();
+if (FP_ERRORSTR != "SUCC")
+{
+if (FP_ERRORSTR != "FAIL")
+{
+var cmret = "cmret_"+FP_ERRORSTR;
+FP_ERRORSTR = load_string(cmret);
+}
+FP_ERRORPARAM = get_errorparam();
+FP_ERRORTYPE = get_cmret_type();
+set_hidden_zxy("IF_ERRORSTR", FP_ERRORSTR);
+set_hidden_zxy("IF_ERRORPARAM", FP_ERRORPARAM);
+set_hidden_zxy("IF_ERRORTYPE", FP_ERRORTYPE);
+}
+}
+return FP_ERRORSTR;
+}
+function setInst_zxy(FP_OBJNAME, FP_IDENTITY, PARA, FP_PARANUM)
+{
+var FP_HANDLE = create_paralist();
+var OBJNAME = FP_OBJNAME + "_";
+for(var i = 0; i < FP_PARANUM; i++)
+{
+setpara_zxy(FP_HANDLE, OBJNAME, PARA[i]);
+}
+FP_IDENTITY = set_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+return FP_IDENTITY;
+}
+function applyOrNewInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR)
+{
+if ("apply" == FP_ACTION ||  "new" == FP_ACTION)
+{
+setInst_zxy(FP_OBJNAME, FP_IDENTITY, PARA, FP_PARANUM);
+}
+return getNewInstError_zxy(FP_ERRORSTR);
+}
+function applyOrNewOrDelInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR)
+{
+if("apply" == FP_ACTION || "new" == FP_ACTION)
+{
+FP_ERRORSTR = applyOrNewInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+}
+else if("delete" == FP_ACTION && "" != FP_IDENTITY)
+{
+del_inst(FP_OBJNAME, FP_IDENTITY);
+FP_ERRORSTR = getNewInstError_zxy(FP_ERRORSTR);
+}
+return FP_ERRORSTR;
+}
+function displayOldSingleInst_zxy(FP_OBJNAME, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR)
+{
+var FP_HANDLE = create_paralist();
+var OBJNAME = FP_OBJNAME + "_";
+get_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+cover_hidden_zxy(FP_HANDLE, OBJNAME, PARA, FP_PARANUM);
+destroy_paralist(FP_HANDLE);
+return getDisplayInstError_zxy(FP_ERRORSTR);
+}
+function displaySingleInst_zxy(FP_OBJNAME, PARA, FP_PARANUM)
+{
+var FP_HANDLE = create_paralist();
+var OBJNAME = FP_OBJNAME + "_";
+get_inst(FP_HANDLE, FP_OBJNAME, "");
+cover_hidden_zxy(FP_HANDLE, OBJNAME, PARA, FP_PARANUM);
+destroy_paralist(FP_HANDLE);
+}
+function displayInstByNum_zxy(FP_OBJNAME, FP_INSTNUM, PARA, FP_PARANUM)
+{
+var FP_IDENTITY = "";
+var OBJNAME = FP_OBJNAME + "_";
+for (var i=0; i<FP_INSTNUM; i++)
+{
+var FP_HANDLE = create_paralist();
+FP_IDENTITY   = query_identity(i);
+get_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+create_hidden_multiinstpara_zxy(FP_HANDLE, OBJNAME, PARA, i, FP_PARANUM);
+destroy_paralist(FP_HANDLE);
+}
+}
+function displayMultiInst_zxy(FP_OBJNAME, PARA, FP_PARANUM)
+{
+var FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+displayInstByNum_zxy(FP_OBJNAME, FP_INSTNUM, PARA, FP_PARANUM);
+return FP_INSTNUM;
+}
+function displayFunctionInst_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ERRORSTR)
+{
+if (FP_MULTIDISPLAY == 0)
+{
+displaySingleInst_zxy(FP_OBJNAME, PARA, FP_PARANUM);
+}
+else if (FP_MULTIDISPLAY == 1)
+{
+displayMultiInst_zxy(FP_OBJNAME, PARA, FP_PARANUM);
+}
+return getDisplayInstError_zxy(FP_ERRORSTR);
+}
+function displayInst_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ERRORSTR)
+{
+var FP_INSTNUM  = 0;
+if (FP_MULTIDISPLAY == 0)
+{
+displaySingleInst_zxy(FP_OBJNAME, PARA, FP_PARANUM);
+}
+else if (FP_MULTIDISPLAY == 1)
+{
+FP_INSTNUM = displayMultiInst_zxy(FP_OBJNAME, PARA, FP_PARANUM);
+}
+getDisplayInstError_zxy(FP_ERRORSTR);
+return FP_INSTNUM;
+}
+function displayInstByAction_zxy(FP_OBJNAME, FP_MULTIDISPLAY, FP_INSTNUM, FP_ACTION, PARA, FP_PARANUM)
+{
+var FP_IDENTITY = "";
+if (FP_MULTIDISPLAY == 0)
+{
+displaySingleInst_zxy(FP_OBJNAME, PARA, FP_PARANUM);
+}
+else if (FP_MULTIDISPLAY == 1)
+{
+if("delete" == FP_ACTION || "new" == FP_ACTION)
+{
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+}
+displayInstByNum_zxy(FP_OBJNAME, FP_INSTNUM, PARA, FP_PARANUM);
+}
+return FP_INSTNUM;
+}
+function getDisplayInstError_zxy(FP_ERRORSTR)
+{
+var FP_ERRORPARAM, FP_ERRORTYPE;
+if ("SUCC" == FP_ERRORSTR)
+{
+FP_ERRORSTR = get_cmret();
+if (FP_ERRORSTR != "FAIL" && FP_ERRORSTR != "SUCC")
+{
+var cmret = "cmret_"+FP_ERRORSTR;
+FP_ERRORSTR = load_string(cmret);
+}
+FP_ERRORPARAM = get_errorparam();
+FP_ERRORTYPE = get_cmret_type();
+set_hidden_zxy("IF_ERRORSTR", FP_ERRORSTR);
+set_hidden_zxy("IF_ERRORPARAM", FP_ERRORPARAM);
+set_hidden_zxy("IF_ERRORTYPE", FP_ERRORTYPE);
+}
+return FP_ERRORSTR;
+}
+function setInstNumHidden_zxy(FP_OBJNAME, FP_MULTIDISPLAY)
+{
+if (FP_MULTIDISPLAY == 1)
+{
+set_hidden_zxy("IF_INSTNUM", getInstNum(FP_OBJNAME));
+}
+}
+function getBasicGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR)
+{
+var FP_INSTNUM  = 0;
+var FP_IDENTITY = "";
+if(1 == FP_MULTIDISPLAY && (FP_ACTION == "apply" || FP_ACTION == "delete"))
+{
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+if (FP_INSTNUM != 888 && FP_INSTNUM > 0 && FP_INDEX >= 0)
+{
+FP_IDENTITY = query_identity(FP_INDEX);
+}
+}
+FP_ERRORSTR = applyOrNewOrDelInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+if("SUCC" != FP_ERRORSTR)
+{
+FP_INDEX    = -1;
+FP_IDENTITY = "";
+}
+FP_INSTNUM = displayInst_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ERRORSTR);
+getDisplayInstError_zxy(FP_ERRORSTR);
+return FP_ERRORSTR;
+}
+function getSubmitGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM)
+{
+var FP_ACTION   = request("IF_ACTION");
+var FP_INDEX    = getInstIndex_zxy("new");
+var FP_ERRORSTR = "SUCC";
+createSubmitHidden_zxy(FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_INDEX);
+getBasicGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR);
+setInstNumHidden_zxy(FP_OBJNAME, FP_MULTIDISPLAY);
+}
+function getFunctionGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR)
+{
+var OBJNAME = FP_OBJNAME + "_";
+create_hidden_newpara_zxy(OBJNAME, PARA, FP_PARANUM);
+FP_ERRORSTR = getBasicGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR);
+return FP_ERRORSTR;
+}
+function getPageGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM)
+{
+create_form_start_zxy("fSubmit", "");
+getSubmitGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);
+create_form_end_zxy();
+}
+function getOldPageGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM)
+{
+var FP_ACTION   = request("IF_ACTION");
+var FP_INDEX = getInstIndex_zxy("old");
+var FP_IDENTITY = getInstIdentity_zxy(FP_OBJNAME, FP_INDEX);
+var FP_ERRORSTR = "SUCC";
+create_form_start_zxy("fSubmit", "");
+createSubmitHidden_zxy(FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_INDEX);
+FP_ERRORSTR = applyOrNewOrDelInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+FP_ERRORSTR = displayOldSingleInst_zxy(FP_OBJNAME, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+create_form_end_zxy();
+}
+function getOldFunctionGCH_zxy(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR)
+{
+var FP_IDENTITY = getInstIdentity_zxy(FP_OBJNAME, FP_INDEX);
+var OBJNAME = FP_OBJNAME + "_";
+create_hidden_newpara_zxy(OBJNAME, PARA, FP_PARANUM);
+FP_ERRORSTR = applyOrNewOrDelInst_zxy(FP_OBJNAME, FP_ACTION, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+FP_ERRORSTR = displayOldSingleInst_zxy(FP_OBJNAME, FP_IDENTITY, PARA, FP_PARANUM, FP_ERRORSTR);
+return FP_ERRORSTR;
+}
+%>

@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_ROUTETPOLICY6_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 10;var PARA[10] ={"SrcInterface","DestInterface","SrcPrefixIP","SrcPrefixLen","DestPrefixIP","DestPrefixLen","SrcMAC","Protocol","SrcPort","DestPort"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

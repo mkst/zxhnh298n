@@ -1,0 +1,41 @@
+<%
+IMPORT FILE "fw_level_gch.gch";
+IMPORT FILE "sec_firewall_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td11"><font id="Fnt_IsProtect">&?fico001;</font></td>
+<td class="td2"><input id="Frm_IsProtect" name="Frm_IsProtect" type="checkbox"/></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_level">&?fico002;(IPv4)</font></td>
+<td class="td2">
+<select id="Frm_level" name="select" size="1" class="list_5" >
+<option value="3" selected="selected">&?fico003;</option>
+<option value="2">&?fico010;</option>
+<option value="1">&?fico004;</option>
+</select></td>
+</tr>
+<tr>
+<td height="4"></td>
+<td></td>
+</tr>
+</table>
+<table id="Frm_Explain" class="table" width="480px" border="0">
+<tr>
+<td colspan="2"> &?fico006;&?colon;</td>
+</tr>
+<tr>
+<td id="Frm_levelHigh" class="td4">&?fico003;&?colon;</td>
+<td id="Frm_HighExlain" class="td2">&?fico007;</td>
+</tr>
+<tr>
+<td id="Frm_levelMiddle" class="td4">&?fico010;&?colon;</td>
+<td id="Frm_MiddleExlain" class="td2">&?fico011;</td>
+</tr>
+<tr>
+<td id="Frm_levelLow" class="td4">&?fico004;&?colon;</td>
+<td id="Frm_LowExlain" class="td2">&?fico008;</td>
+</tr>
+</table>
+<div id="div4"></div>

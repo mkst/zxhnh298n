@@ -1,0 +1,34 @@
+<%
+IMPORT FILE "ipv6switch_gch.gch";
+IMPORT FILE "manager_ipv6_switch_js.gch";
+%>
+<div id="note" class="space_0">
+<table width="450px" border="0" class="table">
+<tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?cmm03;</td>
+</tr>
+<tr>
+<td valign="top" style="width:30px;"></td>
+<td height="18" align="left" style="padding-left:10px;">&?cmm031;</td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>
+<table id="TestContent" class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?cmm08;</td>
+<td class="td2">
+<select class="list_1" size="1" id="Frm_Enable" name="Frm_Enable">
+<option value="1">&?cmm05;</option>
+<option value="0">&?cmm06;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IPv6FunctionLabel">&?cmm07;&?colon;</font></td>
+<td class="td2">
+<font id="Fnt_IPv6Function"></font>
+</td>
+</tr>
+</table>

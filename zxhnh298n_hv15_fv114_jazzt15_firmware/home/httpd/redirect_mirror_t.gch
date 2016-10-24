@@ -1,0 +1,220 @@
+<%
+IMPORT FILE "global.gch";
+IMPORT FILE "auth/api.gch";
+var sess_id = auth_sessid();
+session_start(sess_id, 0);
+var is_login = 0;
+var is_banned = 0;
+if( getenv("elogin") != 1 && auth_check(sess_id) == 0 )
+{
+var login_status = auth_get_status("login");
+if (login_status == "logined")
+{
+is_login = 1;
+}
+else if (login_status == "banned")
+{
+auth_logout();
+is_banned = 1;
+}
+}
+if (0 == is_login || 1 != getenv("Right") )
+{
+setenv("request/is_banned", is_banned);
+IMPORT FILE "auth/timeout_ctl.gch";
+return;
+}
+else
+{
+session_start(sess_id, -1);
+}
+auth_env_sync();
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+<title><%=getenv("WEBTitle");%></title>
+<%
+var ZTE = load_string("ZTE");
+%>
+<style type="text/css">
+<%
+IMPORT FILE "css/template.css";
+%>
+body {
+text-align: center;
+}
+#wrap {
+margin: 0 auto;
+width: 778px;
+border: 1px solid gray;
+line-height: 24px;
+}
+#contentArea {
+height: 350px;
+min-height: 350px;
+text-align: left;
+padding: 30px 135px;
+}
+p {
+background: url("img/info.gif") no-repeat left center;
+padding-left: 30px;
+margin-bottom: 35px;
+}
+.left, .right {
+float:left;
+width: 200px;
+}
+.left {
+width: 150px;
+text-align: right;
+margin-right: 10px;
+clear: both;
+}
+#contentArea div{
+clear: both;
+margin-top: 10px;
+}
+.btn {
+width: 80px;
+margin-left: 200px;
+cursor:pointer;
+border: 1px solid #3E9D01;
+height:20px;
+vertical-align:middle;
+text-align:center;
+font-size: 12px;
+}
+#Dhcp_Table {
+margin: 30px 0;
+width: 500px;
+}
+.cpyright {
+text-align:center;
+font-size:12px;
+}
+#Frm_MirrorEnable {
+margin-top: 5px
+}
+#label_src {
+margin-top: 10px;
+}
+#label_dest {
+margin-top: 10px;
+}
+</style>
+</head>
+<body id="htmlBody" onload="pageLoad('redirect_mirror_t.gch');">
+<script language=javascript>
+<%
+IMPORT FILE "js/common.js";
+IMPORT FILE "js/events.js";
+IMPORT FILE "js/common_check.js";
+IMPORT FILE "js/pro_commom.js";
+IMPORT FILE "js/menu.js";
+%>
+</script>
+<%
+IMPORT FILE "mirror_gch.gch";
+IMPORT FILE "redirect_mirror_js.gch";
+%>
+<div id="wrap">
+<div id="contentArea">
+<p>&?mirro004;</p>
+<div id="label_src">
+<label class="left">&?mirro002;</label>
+<select size="1" id="Frm_MirrorSrc" class="right">
+<%
+var WancId = getenv("ObjWancId");
+var FP_INSTNUM = query_list(WancId, "IGD");
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+var identity = query_identity(i);
+var name     = query_name(i);
+if ( 0 == getenv("DevIPv6Effect") )
+{
+var IpMode = get_IPMode(identity);
+if (IpMode != "2")
+{
+%>
+<option value="<%=identity;%>" ><%=name;%></option>
+<%
+}
+}
+else
+{
+%>
+<option value="<%=identity;%>" ><%=name;%></option>
+<%
+}
+}
+%>
+</select>
+</div>
+<div id="label_dest">
+<label class="left">&?mirro003;</label>
+<select size="1" id="Frm_MirrorDest" class="right">
+<%
+var HANDLE, identity, BRType,WANLANType,name,IFName;
+var FP_INSTNUM = query_list("OBJ_WANLAN_ID", "IGD");
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+var  FP_HANDLE;
+var identity = query_identity(i);
+HANDLE   = create_paralist();
+identity = query_identity(i);
+get_inst(HANDLE, "OBJ_WANLAN_ID", identity);
+BRType     = get_para(HANDLE, "BRType");
+WANLANType = get_para(HANDLE, "WANLANType");
+if(BRType == "0" && WANLANType == "2")
+{
+name = get_para(HANDLE, "Name");
+if ((name != "SSID1") &&(name != "SSID2") &&
+(name != "SSID3") && (name != "SSID4"))
+{
+%>
+<option value="<%=identity;%>"><%=name;%></option>
+<%
+}
+}
+destroy_paralist(HANDLE);
+}
+}
+%>
+</select>
+</div>
+<div>
+<label class="left">&?vs02;</label>
+<input id="Frm_MirrorEnable" name="Frm_MirrorEnable" type="checkbox" value=""/>
+</div>
+<div>
+<input name="" type="button" id="add" value="&?btn007;" class="btn" onclick="Add()"/>
+<input type="button" id="modify" value="&?btn003;" class="btn" style="display:none" onclick="ModifySubmit()"/>
+<input name="back" type="button" id="back" value="&?btn004;"  class="btn" style="display:none" onclick="back4add()"/>
+</div>
+<div id="tableArea">
+<table id="Dhcp_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td>&?vs02;</td>
+<td>&?mirro002;</td>
+<td>&?mirro003;</td>
+<td>&?btn003;</td>
+<td>&?btn006;</td>
+</tr>
+</table>
+</div>
+<!--bottom部分开始-->
+<div class="cpyright"> <%if(get_config("hideCopyRight")!="Y"){=ZTE;}%></div>
+<!--bottom部分结束-->
+</div>
+</div>
+</body>
+</html>

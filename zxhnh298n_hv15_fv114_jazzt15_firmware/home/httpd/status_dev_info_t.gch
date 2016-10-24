@@ -1,0 +1,41 @@
+<%
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DEVINFO_ID", "");
+var ModelName    = get_para(FP_HANDLE,"ModelName");
+var SerialNumber = get_para(FP_HANDLE,"SerialNumber");
+var HardwareVer  = get_para(FP_HANDLE,"HardwareVer");
+var SoftwareVer  = get_para(FP_HANDLE,"SoftwareVer");
+var BootVer      = get_para(FP_HANDLE,"BootVer");
+var SoftwareVerExtent      = get_para(FP_HANDLE,"SoftwareVerExtent");
+destroy_paralist(FP_HANDLE);
+%>
+<div class="space_0">
+<table id="TestContent"  class="infor" id="TABLE_DEV" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?dein001;</td>
+<td id="Frm_ModelName" name="Frm_ModelName" class="tdright"><%=ModelName;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein002;</td>
+<td id="Frm_SerialNumber" name="Frm_SerialNumber" class="tdright"><%=straddbr(SerialNumber, 32);%>
+</td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?cmn53;</td>
+<td id="Frm_SoftwareVerExtent" name="Frm_SoftwareVerExtent" class="tdright"><%=SoftwareVerExtent;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein003;</td>
+<td id="Frm_HardwareVer" name="Frm_HardwareVer" class="tdright"><%=HardwareVer;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?dein004;</td>
+<td id="Frm_SoftwareVer" name="Frm_SoftwareVer" class="tdright"><%=SoftwareVer;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein005;</td>
+<td id="Frm_BootVer" name="Frm_BootVer"  class="tdright"><%=BootVer;%></td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>

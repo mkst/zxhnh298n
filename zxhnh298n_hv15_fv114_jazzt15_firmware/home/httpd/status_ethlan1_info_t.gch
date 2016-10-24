@@ -1,0 +1,146 @@
+<%
+var FP_IDENTITY, FP_HANDLE, FP_OBJNAME, FP_INSTNUM;
+var PacketsReceived = "";
+var BytesReceived   = "";
+var PacketsSent     = "";
+var BytesSent       = "";
+var PortNum         = 0;
+var Frm_MACAddress  = "";
+var Frm_Status      = "";
+var Frm_IPAddress = "";
+var LinkSpeed       = "";
+var LinkDuplex      = "";
+FP_OBJNAME = "OBJ_ETH_ID";
+FP_INSTNUM = 1;
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD.WD1");
+for (var i=0; i<FP_INSTNUM; i++)
+{
+var identity = query_identity(i);
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, FP_OBJNAME, identity);
+PacketsReceived = get_para(FP_HANDLE, "PacketsReceived");
+BytesReceived   = get_para(FP_HANDLE, "BytesReceived");
+PacketsSent     = get_para(FP_HANDLE, "PacketsSent");
+BytesSent       = get_para(FP_HANDLE, "BytesSent");
+Frm_MACAddress  = get_para(FP_HANDLE, "MACAddress");
+Frm_Status      = get_para(FP_HANDLE, "Status");
+LinkSpeed       = get_para(FP_HANDLE, "LinkSpeed");
+LinkDuplex      = get_para(FP_HANDLE, "LinkDuplex");
+if (Frm_MACAddress==""||Frm_MACAddress==null)
+{
+Frm_MACAddress = "00:00:00:00:00";
+}
+if (Frm_Status == "Up")
+{
+Frm_Status = "&?wan061;";
+}
+else if (Frm_Status == "NoLink")
+{
+Frm_Status = "&?wan062;";
+}
+else if (Frm_Status == "Disabled")
+{
+Frm_Status = "&?wan064;";
+}
+else
+{
+Frm_Status = "&?wan063;";
+}
+if(LinkSpeed == "10")
+{
+LinkSpeed="10M";
+}
+else if(LinkSpeed == "100")
+{
+LinkSpeed="100M";
+}
+else if(LinkSpeed == "1000")
+{
+LinkSpeed="1000M";
+}
+else
+{
+LinkSpeed="&?wan075;";
+}
+if(LinkDuplex == "Half")
+{
+LinkDuplex="&?wan092;";
+}
+else if(LinkDuplex == "Full")
+{
+LinkDuplex="&?wan093;";
+}
+else
+{
+LinkDuplex="&?wan075;";
+}
+%>
+<!--分端口显示的内容开始-->
+<div class="space_0">
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?lan003;</td>
+<td class="tdright">&?cew01;</td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dhcp_d006;</td>
+<td class="tdright"><%=Frm_MACAddress;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?sr06;</td>
+<td class="tdright"><%=Frm_Status;%></td>
+</tr>
+<%
+if("&?wan061;" == Frm_Status)
+{
+%>
+<tr class="blue_1">
+<td class="tdleft">&?url02;</td>
+<td class="tdright"><%=LinkSpeed;%>/<%=LinkDuplex;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?lan001;</td>
+<td class="tdright"><%=PacketsReceived;%>/<%=BytesReceived;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?lan002;</td>
+<td class="tdright"><%=PacketsSent;%>/<%=BytesSent;%></td>
+</tr>
+<%
+}
+else
+{
+%>
+<tr class="blue_1">
+<td class="tdleft">&?lan001;</td>
+<td class="tdright"><%=PacketsReceived;%>/<%=BytesReceived;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?lan002;</td>
+<td class="tdright"><%=PacketsSent;%>/<%=BytesSent;%></td>
+</tr>
+<%
+}
+%>
+</table>
+</div>
+<!--分端口显示的内容结束-->
+<div id="div4"></div>
+<%
+destroy_paralist(FP_HANDLE);
+}
+%>
+<form id="fSubmit" method="post" action="">
+<input type="hidden" id="IF_ERRORSTR" name="IF_ERRORSTR" value="">
+</form>
+<SCRIPT>
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+</SCRIPT> 

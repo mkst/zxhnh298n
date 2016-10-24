@@ -1,0 +1,19 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "wlan_config_gch.gch";
+IMPORT FILE "wlan_timer_gch.gch";
+IMPORT FILE "wlan_driver_gch.gch";
+
+create_form_start("fSubmit", "");
+createBasicHidden();
+create_hidden_sep("IF_CONFIGTAG", "");
+var FP_CONFIGTAG = request("IF_CONFIGTAG");
+var FP_ACTION    = request("IF_ACTION");
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+var FP_VIEWID = query_identity(0);
+var FP_ERRORSTR = "SUCC";
+FP_ERRORSTR = timer_func(FP_ACTION, FP_ERRORSTR);
+FP_ERRORSTR = config_func(FP_ACTION, FP_CONFIGTAG, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = driver_func(FP_VIEWID, FP_ERRORSTR);
+create_form_end();
+%>

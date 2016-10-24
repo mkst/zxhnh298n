@@ -1,0 +1,23 @@
+<%
+IMPORT FILE "usbbakrst_gch.gch";
+IMPORT FILE "usbrestore_js.gch";
+%>
+<div class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?usbbak_05;&?pub001;</td>
+</tr></tbody>
+</table>
+</div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&nbsp;</td>
+<td class="td2">&nbsp;</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_RstEnable">&?comm001;</font></td>
+<td class="td2"><input name="Frm_RstEnable" id="Frm_RstEnable" type="checkbox" value="" /></td>
+</tr>
+</table>
+<div id="div4"></div>

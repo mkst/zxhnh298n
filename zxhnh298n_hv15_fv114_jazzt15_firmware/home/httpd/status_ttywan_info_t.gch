@@ -1,0 +1,189 @@
+<%
+IMPORT FILE "common_gch.gch";
+var PPP_NUM,PPP_OBJNAME,PPP_IDENTITY,PPP_HANDLE;
+var PPP_WANCName,PPP_IsNAT;
+var PPP_IPAddress,PPP_ConnStatus,PPP_UpTime,PPP_DNS1,PPP_DNS2,PPP_DNS3,PPP_ConnError;
+PPP_OBJNAME="OBJ_TTYWANCPPP_ID";
+PPP_NUM = query_list(PPP_OBJNAME, "IGD");
+for(var i=0;i<PPP_NUM;i++)
+{
+PPP_HANDLE = create_paralist();
+PPP_IDENTITY = query_identity(i);
+get_inst(PPP_HANDLE, PPP_OBJNAME, PPP_IDENTITY);
+PPP_WANCName    = Escapquotes(get_para(PPP_HANDLE, "WANCName"));
+PPP_IsNAT       = get_para(PPP_HANDLE, "IsNAT");
+if(PPP_IsNAT=="1")
+{
+PPP_IsNAT="&?wan049;";
+}
+else
+{
+PPP_IsNAT="&?wan050;";
+}
+PPP_IPAddress  = get_para(PPP_HANDLE, "IPAddress");
+PPP_ConnStatus = get_para(PPP_HANDLE, "ConnStatus");
+PPP_DNS1       = get_para(PPP_HANDLE, "DNS1");
+PPP_DNS2       = get_para(PPP_HANDLE, "DNS2");
+PPP_DNS3       = get_para(PPP_HANDLE, "DNS3");
+if(PPP_ConnStatus=="Connected")
+{
+PPP_ConnStatus="&?wan051;";
+}
+else if(PPP_ConnStatus=="Demand")
+{
+PPP_ConnStatus="&?wan054;";
+}
+else if(PPP_ConnStatus=="Unconfigured")
+{
+PPP_ConnStatus = "&?wan081;";
+}
+else if(PPP_ConnStatus=="Connecting")
+{
+PPP_ConnStatus = "&?wan082;";
+}
+else if(PPP_ConnStatus=="Authenticating")
+{
+PPP_ConnStatus = "&?wan083;";
+}
+else if(PPP_ConnStatus=="PendingDisconnect")
+{
+PPP_ConnStatus = "&?wan084;";
+}
+else
+{
+PPP_ConnStatus="&?wan052;";
+}
+PPP_UpTime    = get_para(PPP_HANDLE, "UpTime");
+PPP_ConnError = get_para(PPP_HANDLE, "ConnError");
+if(PPP_ConnError=="ERROR_NONE")
+{
+PPP_ConnError="";
+}
+else if(PPP_ConnError=="ERROR_ISP_TIME_OUT")
+{
+PPP_ConnError="&?wan069;";
+}
+else if(PPP_ConnError=="ERROR_USER_DISCONNECT")
+{
+PPP_ConnError="&?wan070;";
+}
+else if(PPP_ConnError=="ERROR_ISP_DISCONNECT")
+{
+PPP_ConnError="&?wan071;";
+}
+else if(PPP_ConnError=="ERROR_IDLE_DISCONNECT")
+{
+PPP_ConnError="&?wan072;";
+}
+else if(PPP_ConnError=="ERROR_FORCED_DISCONNECT")
+{
+PPP_ConnError="&?wan073;";
+}
+else if(PPP_ConnError=="ERROR_AUTHENTICATION_FAILURE")
+{
+PPP_ConnError="&?wan074;";
+}
+else if(PPP_ConnError=="ERROR_UNKNOWN")
+{
+PPP_ConnError="&?wan076;";
+}
+else if(PPP_ConnError=="ERROR_IP_CONFIGURATION")
+{
+PPP_ConnError="&?wan094;";
+}
+else if(PPP_ConnError=="ERROR_NOT_ENABLED_FOR_INTERNET")
+{
+PPP_ConnError="&?wan095;";
+}
+else
+{
+PPP_ConnError="&?wan076;";
+}
+var pdptype = get_para(PPP_HANDLE, "TtyPDPType");  
+    var apn = get_para(PPP_HANDLE, "TtyAPN");
+var dialNum = get_para(PPP_HANDLE, "TtyDialNum");
+if (pdptype == "PDP_IP")
+{
+pdptype = "IP";
+}
+else if (pdptype == "PDP_PPP")
+{
+pdptype = "PPP";
+}
+%>
+<!--PPPoTTY表单信息开始-->
+<div class="space_0">
+<table id="TestContent" class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wan001;</td>
+<td class="tdright"  id="Frm_PPPWANCName<%=i;%>" name="Frm_PPPWANCName<%=i;%>"></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?cmn1;</td>
+<td class="tdright"><%=pdptype;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">APN</td>
+<td class="tdright"><%=apn;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?cmn2;</td>
+<td class="tdright"><%=dialNum;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan042;</td>
+<td class="tdright"><%=PPP_IsNAT;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan043;</td>
+<td class="tdright"><%=PPP_IPAddress;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan055;</td>
+<td class="tdright"><%=PPP_DNS1;%>/<%=PPP_DNS2;%>/<%=PPP_DNS3;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=PPP_ConnStatus;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan068;</td>
+<td class="tdright"><%=PPP_ConnError;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan045;</td>
+<td class="tdright"><%=PPP_UpTime;%>&?wan053;</td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>
+<script>
+HtmlShowSpace("<%=straddbr(PPP_WANCName,20);%>","Frm_PPPWANCName<%=i;%>");
+</script>
+<%
+destroy_paralist(PPP_HANDLE);
+}
+if( PPP_NUM == 0)
+{
+%>
+<table class="infor" width="410" border="0" cellpadding="0" cellspacing="1">
+<tr>
+<td align="center">&?wan056;</td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method="post" action="">
+</form>
+<SCRIPT>
+function pageLoad(url)
+{
+document.getElementById("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+document.getElementById("fSubmit").submit();
+}
+</SCRIPT>

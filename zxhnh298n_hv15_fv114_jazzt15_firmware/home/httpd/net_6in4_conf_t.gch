@@ -1,0 +1,76 @@
+<%
+IMPORT FILE "net_6in4_conf_js.gch";
+IMPORT FILE "tunnel_6in4_gch.gch";
+%>
+<table id="TABLE_TUNNEL"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_6in4Name">&?tunnel001;</font></td>
+<td class="td2">
+<select size="1" class="list_10" id="Frm_6in4Name" onchange="Change_Link()">
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_New6in4Name">&?tunnel002;</font></td>
+<td class="td2"><input name="Frm_New6in4Name" type="text" class="inputId"  value="" id="Frm_New6in4Name" /></td>
+</tr>
+<tr>
+<tr>
+<td class="td1"><font id="Fnt_WANName">&?tunnel004;</font></td>
+<td class="td2">
+<select size="1"  class="list_10" id="Frm_WANName">
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_MTU">&?tunnel011;</font></td>
+<td class="td2"><input name="Frm_MTU" type="text" class="inputId"  value="" id="Frm_MTU" /></td>
+</tr>
+<tr id="TR_6in4">
+<td class="td1"><font id="Fnt_64Type">&?tunnel012;</font></td>
+<td class="td2">
+<select  size="1"  class="list_10" id="Frm_64Type" onchange="Change_64Type()">
+<option value ="manual">&?tunnel013;</option>
+<option value ="6rd">&?tunnel014;</option>
+</select>
+</td>
+</tr>
+</table>
+<table id="TABLE_ManualTun" class="table" width="450px" border="0">
+<tr id="TR_RemoteAddrT64">
+<td class="td1"><font id="Fnt_RemoteAddrT64">&?tunnel015;</font></td>
+<td class="td2">
+<input name="Frm_RemoteAddrT64" type="text" class="inputId"  value="" size="15"  id="Frm_RemoteAddrT64"/>
+</td>
+</tr>
+</table>
+<table id="TABLE_6rdTun" class="table" width="450px" border="0" style="display:none">
+<tr id="TR_6in4">
+<td class="td1"><font id="Fnt_Configuration">&?tunnel016;</font></td>
+<td class="td2">
+<select  size="1"  class="list_10" id="Frm_Configuration" onchange="Change_Configuration()">
+<option value ="Static">Static</option>
+<option value ="Auto">&?tunnel025;</option>
+</select>
+</td>
+</tr>
+<tr id="TR_6rdPrefix" style="display:none">
+<td class="td1"><font id="Fnt_6rdPrefix">&?tunnel017;</font></td>
+<td class="td2">
+<input name="Frm_6rdPrefix" type="text" class="inputId"  value=""   id="Frm_6rdPrefix"/>/
+<input name="Frm_6rdPrefixLen" type="text" class="inputId7"  value=""   id="Frm_6rdPrefixLen"/>
+</td>
+</tr>
+<tr id="TR_6rdMask" style="display:none" >
+<td class="td1"><font id="Fnt_6rdMask">&?tunnel018;</font></td>
+<td class="td2">
+<input name="Frm_6rdMask" type="text" class="inputId"  value="" size="15"  id="Frm_6rdMask"/>
+</td>
+</tr>
+<tr id="TR_6rdBrAddress" style="display:none">
+<td class="td1"><font id="Fnt_6rdBrAddress">&?tunnel019;</font></td>
+<td class="td2">
+<input name="Frm_6rdBrAddress" type="text" class="inputId"  value="" size="15"  id="Frm_6rdBrAddress"/>
+</td>
+</tr>
+</table>

@@ -1,0 +1,238 @@
+<%
+var g_midFlag   = 0;
+var g_subFlag   = 0;
+function chkPageRight(page)
+{
+var pageright = query_page_info(page, "right");
+var userright = getenv("Right");
+if(userright == "N/A")
+{
+return 0;
+}
+else if( userright == 0 || userright == 4 )
+{
+return 1;
+}
+
+var tmpright = 1 << (userright - 1);
+if ( (tmpright & pageright) == tmpright )
+{
+return 1;
+}
+return 0;
+}
+function chkPageUpMode(page)
+{
+var currUpMode = getenv("TypeValue");
+var pageUpMode = query_page_info(page, "upMode");
+if ( (currUpmode & pageUpMode) == pageUpMode )
+{
+return 1;
+}
+return 0;
+}
+function chkPageDisp(page)
+{
+if ( 0 == chkPageRight(page) )
+{
+return 0;
+}
+if ( 0 == chkPageUpMode(page) )
+{
+return 0;
+}
+if ( page == "commontest_t.gch"
+&& get_config("commtestpage") == "N")
+{
+return 0;
+}
+if ( page == "help_t.gch"
+&& get_config("help") == "N")
+{
+return 0;
+}
+if ( 0 == getenv("DevIPv6Effect") )
+{
+switch ( page )
+{
+case "net_v6_dhcp_dynamic_t.gch":
+case "net_v6_static_prefix_t.gch":
+case "net_v6_prefix_delegation_t.gch":
+case "net_v6_prefix_ban_port_t.gch":
+case "net_v6_ra_server_t.gch":
+case "net_route6_default_t.gch":
+case "net_route6_static_t.gch":
+case "app_route6_table_t.gch":
+case "app_route6_policy_t.gch":
+case "app_mld_conf_t.gch":
+case "app_mld_snoop_t.gch":
+case "status_dslite_if_t.gch":
+case "status_dsliteeth_if_t.gch":
+case "net_dslite_conf_t.gch":
+case "net_dsliteeth_conf_t.gch":
+case "net_6in4_conf_t.gch":
+case "net_6in4_eth_t.gch":
+case "status_6in4_info_t.gch":
+case "status_6in4_eth_t.gch":
+case "sec_portfilter6_conf_t.gch":
+case "sec_scv6_t.gch":
+return 0;
+default :
+break;
+}
+}
+return 1;
+}
+function fillMetaMenu(supId, page, flag)
+{
+var nameTag     = query_menu_info(supId, "nameTag");
+var langName    = load_string(nameTag);
+= "meta_menu['" + supId + "'] = new Array();\n";
+= "meta_menu['" + supId + "']['langName'] = '" + langName + "';\n";
+= "meta_menu['" + supId + "']['page']     = '" + page + "';\n\n";
+if ( "1" == flag )
+{
+= "menu_items['" + supId + "']      = new Array();\n";
+= "menu_subitems['" + supId + "']   = new Array();\n";
+}
+}
+function fillMenuItems(supId, midId, page, flag)
+{
+var nameTag     = query_menu_info(midId, "nameTag");
+var langName    = load_string(nameTag);
+= "menu_items['" + supId + "']['" + midId + "'] = new Array();\n";
+= "menu_items['" + supId + "']['" + midId + "']['langName'] = '" + langName + "';\n";
+= "menu_items['" + supId + "']['" + midId + "']['page']     = '" + page +"';\n\n";
+if ( "1" == flag )
+{
+= "menu_subitems['" + supId + "']['" + midId + "'] = new Array();\n";
+}
+}
+function fillMenuSubitems(supId, midId, subId, page)
+{
+var nameTag     = query_menu_info(subId, "nameTag");
+var langName    = load_string(nameTag);
+= "menu_subitems['" + supId + "']['" + midId + "']['" + subId + "'] = new Array();\n";
+= "menu_subitems['" + supId + "']['" + midId + "']['" + subId + "']['langName'] = '" + langName + "';\n";
+= "menu_subitems['" + supId + "']['" + midId + "']['" + subId + "']['page']     = '" + page + "';\n\n";
+}
+function hdlMC1Leave(supId, mode, nextpage, npsi)
+{
+var page = query_menu_info(supId, "page");
+if ( 1==chkPageDisp(page) && 1==hdlMSPageOut(page, nextpage) )
+{
+if ( "initM" == substr(mode, 0, 5) )
+{
+fillMetaMenu(supId, page, "0");
+}
+}
+}
+function hdlMC2Leave(supId, midId, mode, nextpage, npsi)
+{
+var page = query_menu_info(midId, "page");
+if ( 1==chkPageDisp(page) && 1==hdlMSPageOut(page, nextpage) )
+{
+if ( "initM" == substr(mode, 0, 5) )
+{
+if ( 0 == g_midFlag )
+{
+g_midFlag = 1;
+if ( "initMC1"==mode || ("initM"==mode && supId!=npsi) )
+{
+fillMetaMenu(supId, page, "0");
+return;
+}
+fillMetaMenu(supId, page, "1");
+}
+fillMenuItems(supId, midId, page, "0");
+}
+}
+}
+function hdlMC3Leave(supId, midId, subId, mode, nextpage, npsi, npmi)
+{
+var page = query_menu_info(subId, "page");
+if ( 1==chkPageDisp(page) && 1==hdlMSPageOut(page, nextpage) )
+{
+if ( "initM" == substr(mode, 0, 5) )
+{
+if ( 0 == g_subFlag )
+{
+g_subFlag = 1;
+if ( 0 == g_midFlag )
+{
+g_midFlag = 1;
+if ( "initMC1"==mode || ("initM"==mode && supId!=npsi) )
+{
+fillMetaMenu(supId, page, "0");
+return;
+}
+fillMetaMenu(supId, page, "1");
+}
+fillMenuItems(supId, midId, page, "1");
+}
+fillMenuSubitems(supId, midId, subId, page);
+}
+}
+}
+function visitMenuTree(mode, nextpage)
+{
+var supNum         = 0;
+var supId[20]      = {""};
+var midNum         = 0;
+var midId[50]      = {""};
+var subNum         = 0;
+var subId[50]      = {""};
+var npsi;
+var npmi;
+if ( mode == "initM" )
+{
+npsi = query_page_info(nextpage, "supId");
+npmi = query_page_info(nextpage, "midId");
+}
+supNum = query_menu("NULL");
+for (var i=0; i<supNum; i++)
+{
+supId[i] = query_menu_id(i);
+}
+for (var i=0; i<supNum; i++ )
+{
+midNum = query_menu(supId[i]);
+if (0 == midNum)
+{
+hdlMC1Leave(supId[i], mode, nextpage, npsi);
+}
+for (var j=0; j<midNum; j++)
+{
+midId[j] = query_menu_id(j);
+}
+g_midFlag = 0;
+for (var j=0; j<midNum; j++)
+{
+subNum = query_menu(midId[j]);
+if ( 0 == subNum )
+{
+hdlMC2Leave(supId[i], midId[j], mode, nextpage, npsi);
+}
+for (var k=0; k<subNum; k++)
+{
+subId[k] = query_menu_id(k);
+}
+g_subFlag = 0;
+for (var k=0; k<subNum; k++)
+{
+hdlMC3Leave(supId[i], midId[j], subId[k], mode, nextpage, npsi, npmi);
+if ( "initMC1"==mode && 1==g_midFlag
+|| "initM"==mode && supId[i]!=npsi && 1==g_subFlag )
+{
+break;
+}
+}
+if ( "initMC1"==mode && 1==g_midFlag
+|| "initM"==mode && supId[i]!=npsi && 1==g_midFlag )
+{
+break;
+}
+}
+}
+}
+%>

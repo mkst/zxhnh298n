@@ -1,0 +1,261 @@
+
+<%
+IMPORT FILE "common_gch.gch";
+var WANCIP_ERRORSTR,WANCIP_ERRORPARAM, WANCIP_ACTION, WANCIP_ERRTYPE;
+var WANCIP_HANDLE, WANCIP_INSTNUM, WANCIP_IDENTITY, WANCIP_CONNTYPE;
+var WANCIP_DIAGSTART, WANCIP_TIMER;
+var WANCIP_Result, WANCIP_ConnectionResult, WANCIP_IPResult, WANCIP_DNSResult, WANCIP_GATEWAYResult;
+create_form_start("fSubmit", "");
+WANCIP_ERRORSTR = "SUCC";
+WANCIP_ERRTYPE = "-1";
+WANCIP_ERRORPARAM = "SUCC";
+WANCIP_ACTION = request("IF_ACTION");
+WANCIP_IDENTITY = request("IF_IDENTITY");
+WANCIP_INSTNUM = request("IF_INSTNUM");
+WANCIP_Result = request("IF_Result");
+WANCIP_DIAGSTART = request("IF_DIAGSTART");
+WANCIP_TIMER = request("IF_TIMER");
+WANCIP_ConnectionResult = "";
+WANCIP_IPResult = "";
+WANCIP_DNSResult = "";
+WANCIP_GATEWAYResult = "";
+if (WANCIP_ACTION == "set" && WANCIP_IDENTITY != "")
+{
+WANCIP_ConnectionResult = "";
+WANCIP_IPResult = "";
+WANCIP_DNSResult = "";
+WANCIP_GATEWAYResult = "";
+WANCIP_HANDLE = create_paralist();
+set_inst(WANCIP_HANDLE, "OBJ_WANCIPDIAGINFO_ID", WANCIP_IDENTITY);
+}
+else if (WANCIP_ACTION == "get" && WANCIP_IDENTITY != "")
+{
+WANCIP_HANDLE = create_paralist();
+get_inst(WANCIP_HANDLE, "OBJ_WANCIPDIAGINFO_ID", WANCIP_IDENTITY);
+WANCIP_Result = get_para(WANCIP_HANDLE, "Result");
+WANCIP_ConnectionResult = get_para(WANCIP_HANDLE, "ConnectionResult");
+WANCIP_IPResult = get_para(WANCIP_HANDLE, "IPResult");
+WANCIP_DNSResult = get_para(WANCIP_HANDLE, "DNSResult");
+WANCIP_GATEWAYResult = get_para(WANCIP_HANDLE, "GATEWAYResult");
+if (WANCIP_TIMER == "0")
+{
+WANCIP_Result = "fail";
+WANCIP_ConnectionResult = "fail";
+WANCIP_IPResult = "fail";
+WANCIP_DNSResult = "fail";
+WANCIP_GATEWAYResult = "fail";
+}
+if(WANCIP_Result == "1")
+{
+WANCIP_Result = "pass";
+}
+else if(WANCIP_Result == "0")
+{
+WANCIP_Result = "fail";
+}
+if(WANCIP_ConnectionResult == "1")
+{
+WANCIP_ConnectionResult = "pass";
+}
+else if(WANCIP_ConnectionResult == "0")
+{
+WANCIP_ConnectionResult = "fail";
+}
+if(WANCIP_IPResult == "1")
+{
+WANCIP_IPResult = "pass";
+}
+else if(WANCIP_IPResult == "0")
+{
+WANCIP_IPResult = "fail";
+}
+if(WANCIP_DNSResult == "1")
+{
+WANCIP_DNSResult = "pass";
+}
+else if(WANCIP_DNSResult == "0")
+{
+WANCIP_DNSResult = "fail";
+}
+if(WANCIP_GATEWAYResult == "1")
+{
+WANCIP_GATEWAYResult = "pass";
+}
+else if(WANCIP_GATEWAYResult == "0")
+{
+WANCIP_GATEWAYResult = "fail";
+}
+destroy_paralist(WANCIP_HANDLE);
+}
+else
+{
+var FP_INSTNUM, FP_CONNTYPE, FP_HANDLE, FP_IDENTITY;
+FP_INSTNUM = query_list("OBJ_DSLWANCIP_ID", "IGD");
+var j = 0;
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_CONNTYPE = query_wanctype(i);
+if(FP_CONNTYPE == "dhcp/static")
+{
+FP_IDENTITY = query_identity(i);
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DSLWANCIP_ID", FP_IDENTITY);
+FP_CONNTYPE=get_para(FP_HANDLE, "Addressingtype");
+destroy_paralist(FP_HANDLE);
+if(FP_CONNTYPE=="DHCP")
+{
+j++;
+}
+}
+}
+}
+WANCIP_INSTNUM = j;
+}
+WANCIP_ERRORSTR = get_cmret();
+
+if(WANCIP_ERRORSTR != "SUCC" && WANCIP_ERRORSTR != "FAIL")
+{
+if (WANCIP_ERRORSTR != "004")
+{
+WANCIP_Result = "fail";
+WANCIP_ConnectionResult = "fail";
+WANCIP_IPResult = "fail";
+WANCIP_DNSResult = "fail";
+WANCIP_GATEWAYResult = "fail";
+var cmret = "cmret_"+WANCIP_ERRORSTR;
+WANCIP_ERRORSTR = load_string(cmret);
+}
+}
+if (WANCIP_ERRORSTR != "SUCC")
+{
+WANCIP_ERRORPARAM = get_errorparam();
+WANCIP_ERRTYPE = get_cmret_type();
+}
+create_hidden_sep("IF_ACTION", WANCIP_ACTION);
+create_hidden_sep("IF_ERRORSTR", WANCIP_ERRORSTR);
+create_hidden_sep("IF_ERRORTYPE", WANCIP_ERRTYPE);
+create_hidden_sep("IF_ERRORPARAM", WANCIP_ERRORPARAM);
+create_hidden_sep("IF_INSTNUM", WANCIP_INSTNUM);
+create_hidden_sep("IF_IDENTITY", WANCIP_IDENTITY);
+create_hidden_sep("IF_Result", WANCIP_Result);
+create_hidden_sep("IF_DIAGSTART", WANCIP_DIAGSTART);
+create_hidden_sep("IF_TIMER", WANCIP_TIMER);
+create_hidden_sep("IF_ConnectionResult", WANCIP_ConnectionResult);
+create_hidden_sep("IF_IPResult", WANCIP_IPResult);
+create_hidden_sep("IF_DNSResult", WANCIP_DNSResult);
+create_hidden_sep("IF_GATEWAYResult", WANCIP_GATEWAYResult);
+create_form_end();
+IMPORT FILE "manager_diag_ip_js.gch";
+%>
+<div id="note" class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;"><font id="Fnt_Warn">&?diagp01;</font></td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><b>&?diagi01;</b></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><font id="Fnt_Msg">&?diagi02; </font></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+</table>
+<%
+if(WANCIP_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_Interface">&?diagi04;</font></td>
+<td class="td2">
+<select size="1" class="list_2" name="Frm_Interface" id="Frm_Interface">
+<%
+var FP_INSTNUM = "";
+var FP_CONNTYPE, FP_IDENTITY, FP_HANDLE, FP_NAME;
+FP_INSTNUM = query_list("OBJ_DSLWANCIP_ID", "IGD");
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_CONNTYPE = query_wanctype(i);
+if(FP_CONNTYPE == "dhcp/static")
+{
+FP_IDENTITY = query_identity(i);
+FP_NAME = query_name(i);
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DSLWANCIP_ID", FP_IDENTITY);
+FP_CONNTYPE=get_para(FP_HANDLE, "Addressingtype");
+destroy_paralist(FP_HANDLE);
+var IpMode   = get_IPMode(FP_IDENTITY);
+if(FP_CONNTYPE=="DHCP" && IpMode != 2)
+{
+%>
+<option value="<%=FP_IDENTITY;%>" ><%=FP_NAME;%></option>
+<%
+}
+}
+}
+}
+%>
+</select></td>
+</tr>
+</table>
+<%
+}
+%>
+<%
+if(WANCIP_INSTNUM >= 1)
+{
+%>
+<table class="item" width="450" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white">
+<td width="80%">&?diagi03;</td>
+<td id = "ConnectionResult" width="20%"><%=WANCIP_ConnectionResult;%></td>
+</tr>
+<tr class="blue">
+<td>&?diagp07;</td>
+<td id = "IPResult"><%=WANCIP_IPResult;%></td>
+</tr>
+<tr class="white">
+<td>&?diagp08;</td>
+<td id = "DNSResult"><%=WANCIP_DNSResult;%></td>
+</tr>
+<tr class="blue">
+<td>&?diagp09;</td>
+<td id = "GATEWAYResult"><%=WANCIP_GATEWAYResult;%></td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method = "post">
+<%
+if(WANCIP_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td3"><input name="Diagnose" id="Diagnose" type="button" class="button3" value="&?diag001;"  onclick="myDiagStart();"/></td>
+</tr>
+</table>
+<%
+}
+%>
+</form>
+</div>
+<div id="div4"></div>

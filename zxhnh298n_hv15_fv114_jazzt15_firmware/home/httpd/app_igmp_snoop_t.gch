@@ -1,0 +1,22 @@
+<%
+IMPORT FILE "igmp_config.gch";
+IMPORT FILE "app_igmp_snoop_js.gch";
+%>
+<table id="TestContent"  align="center" class="table" width="450px" border="0">
+<tr>
+<td >&nbsp;</td>
+<td >&nbsp;</td>
+</tr>
+<tr align="center">
+<td class="td12"><font id="Fnt_ProxyEnable">&?igco001;</font></td>
+<td class="td13"><input id="Frm_ProxyEnable" name="Frm_ProxyEnable" type="checkbox" value="" onclick="Team2Single_Display()"/></td>
+</tr>
+<tr align="center">
+<td class="td12"><font id="Fnt_Enable">&?igco003;</font></td>
+<td class="td13"><input id="Frm_Enable" name="Frm_Enable" type="checkbox" value="" onclick="Team2Single_Display()"/></td>
+</tr>
+<tr id="TR_MtoU">
+<td class="td12"><font id="Fnt_MtoU" disabled>&?igco004;</font></td>
+<td class="td13"><input id="Frm_MtoU" disabled name="Frm_MtoU" type="checkbox" value=""/></td>
+</tr>
+</table>

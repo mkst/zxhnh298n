@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_STATIC_PREFIX_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 9;var PARA[9] ={"ViewName","Prefix","PrefixLen","Autoconf","Onlink","PreferLifetime","ValidLifetime","Delegation","WorkIfID"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

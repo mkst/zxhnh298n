@@ -1,0 +1,28 @@
+<%
+IMPORT FILE "fm_ftp_gch.gch";
+IMPORT FILE "app_ftp_client_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1" id="Fnt_FtpEnable">&?FTP01;</td>
+<td class="td2">
+<input name="" id="Frm_FtpEnable" type="checkbox" value=""/>
+</td>
+<tr>
+<td class="td1">&?FTP04;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_FtpAnon" onchange="FtpAnon_Choose()"/>
+<option value ="0">&?wan049;</option>
+<option value ="1">&?Disabled;</option>
+</select></td>
+</tr>
+</tr>
+<tr id="name">
+<td class="td1" id="Fnt_Username">&?FTP02;</td>
+<td class="td2"><input name="" id="Frm_Username" type="text" class="inputId5"  value="" maxlength="256" /></td>
+</tr>
+<tr id="pwd">
+<td class="td1" id="Fnt_Password">&?FTP03;</td>
+<td class="td2"><input name="" id="Frm_Password" type="password" class="inputId5"  value="" maxlength="256" /></td>
+</tr>
+</table>

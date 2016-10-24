@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_USBBAKRST_ID";var FP_MULTIDISPLAY = 0;var FP_PARANUM = 3;var PARA[3] ={"RstEnable","SelectPath","StartBackup"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);var FP_TMPSTBACKUP = request("StartBackup");if ( 1 == FP_TMPSTBACKUP ){undoDBSave();}%>

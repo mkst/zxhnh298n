@@ -1,0 +1,36 @@
+
+<%
+IMPORT FILE "prefix_delegation_gch.gch";
+IMPORT FILE "net_v6_prefix_delegation_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td11"><font id="Fnt_IfID">&?comm002;</font></td>
+<td class="td2">
+<input name="Frm_IfID" id="Frm_IfID" type="text" class="inputId" value="" size="15" />
+</td>
+</tr>
+<tr>
+<td id="Fnt_Delegation" class="td1">&?v6_004;</td>
+<td class="td2"><input name="Frm_RA" id="Frm_RA" type="checkbox"  value="" size="15" /> RA</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"><input name="Frm_DHCPV6" id="Frm_DHCPV6" type="checkbox"  value="" size="15" /> DHCPv6</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Btn_Edit" type="button" id="Btn_Edit" value="&?btn003;" onclick="pageEdit()" class="button2"  style="display:none"/>
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<table id="Prefix_Delegation_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="90">&?comm002;</td>
+<td width="90">&?v6_004;</td>
+<td width="40">&?va04;</td>
+</tr>
+</table>
+<div id="div4"></div>

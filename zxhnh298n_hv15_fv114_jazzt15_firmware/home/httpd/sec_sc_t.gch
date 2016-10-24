@@ -1,0 +1,82 @@
+<%
+IMPORT FILE "total_sc_gch.gch";
+IMPORT FILE "sec_sc_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr style="display:none">
+<td class="td11"><font id="Fnt_IPMode">&?ipv6_wan014;</font></td>
+<td class="td2">
+<select name="Frm_IPMode" id="Frm_IPMode" size="1" class="list_1" selected="selected">
+<option value="1">IPv4</option>
+</seclect>
+</td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_Enable">&?comm001;</font></td>
+<td  class="td2"><input name="Frm_Enable" id="Frm_Enable" type="checkbox" value="" /></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_INCViewName">&?ipfl010;</font></td>
+<td class="td2">
+<select name="Frm_INCViewName" id="Frm_INCViewName" size="1" class="list_2">
+<option value=""></option>
+<%IMPORT FILE "wan_lan_query.gch";%>
+<%
+IMPORT FILE "wan_func.gch";
+wanV4QueryByApp("firewall");
+%>
+<option value="IGD.WANIF">WAN</option>
+</select></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_MinSrcIp">&?ipfl004;</font></td>
+<td class="td2"><input name="Frm_MinSrcIp" id="Frm_MinSrcIp" type="text" class="inputId"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_MaxSrcIp">&?ipfl005;</font></td>
+<td class="td2"><input name="Frm_MaxSrcIp" id="Frm_MaxSrcIp" type="text" class="inputId"   value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1">&?url02;</td>
+<td class="td2">
+<select  name="Frm_Mode" id="Frm_Mode" size="1" class="list_1">
+<option value="0">&?maco004;</option>
+<option value="1">&?url04;</option>
+</select></td>
+</tr>
+<tr>
+<!--613001604926_20120925_秦营营_ZXHN H298N V1.1.1T03 针对wan连接
+开启HTTPS远程登录服务后，无法使用HTTPS方式远程登录-->
+<td class="td1 hreftext" rowspan="2">
+<font name="Frm_ServiceType" id="Fnt_ServiceType">&?sc03;</font>
+</td>
+<td class="td2"><input  id="ServiceType0"  type=checkbox  align=left value="0" name="http" />
+<span class="serv_name" style="width: 50px; display: inline-block;">HTTP</span>
+</td>
+</tr>
+<tr>
+<td class="td2"><input id="ServiceType3" type=checkbox align=left value="0" name="telnet" />
+<span class="serv_name" style="width: 50px; display: inline-block;">TELNET</span>
+</td>
+</tr>
+<tr>
+<td class="td11"></td>
+<td class="td2">
+<input name="Btn_Add" id="add" type="button" class="button2" value="&?btn007;" onclick="Add()" />
+<input name="Btn_Edit" id="modify" type="button"  class="button2" value="&?btn003;" onclick="modify()" style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<table id="Sc_Table" class="item_3" border="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">&?comm001;</td>
+<td width="">&?ipfl010;</td>
+<td width="">&?ipfl004;</td>
+<td width="">&?ipfl005;</td>
+<td width="">&?url02;</td>
+<td width="">&?sc03;</td>
+<td width="">&?btn003;</td>
+<td width="">&?btn006;</td>
+</tr>
+</table>

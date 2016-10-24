@@ -1,0 +1,23 @@
+<%
+IMPORT FILE "wlan_wpsweb_gch.gch";
+IMPORT FILE "net_wlan_wpsweb_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;" id="tipLi"></td>
+</tr></tbody>
+</table>
+</div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td3" style="padding-top: 50px;">
+<input id="Frm_WPSWEBBTN" name="Frm_WPSWEBBTN" type="button" class="button3" value="&?wpswebbtn_005;" style="width: 150px;" onClick="WPSWEBSubmit();"/>
+</td>
+</tr>
+<tr>
+<td colspan="2" height="30px">
+</td>
+</tr>
+</table>

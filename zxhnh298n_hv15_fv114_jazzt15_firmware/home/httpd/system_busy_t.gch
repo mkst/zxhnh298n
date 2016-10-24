@@ -1,0 +1,295 @@
+<%
+if(request("recSUCC") == 1)
+{
+IMPORT FILE "frame.gch";
+break;
+}
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DEVINFO_ID", "");
+var ModelName    = get_para(FP_HANDLE,"ModelName");
+setenv("WEBTitle", ModelName);
+destroy_paralist(FP_HANDLE);
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+<title><%=getenv("WEBTitle");%></title>
+<style type="text/css" media="all">
+.login {
+margin-top:7px;
+margin-left:195px;
+width: 70px;
+height:20px;
+}
+.content {
+font-size: 12px
+}
+html, body {
+height: 100%;
+font-size: 12px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+background-color:#fff;
+}
+.content {
+font-size: 12px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+* {
+margin: 0 0 0 0;
+padding: 0;
+}
+#container {
+margin: 0 auto;
+width: 778px;
+text-align: left;
+position: relative;
+min-height: 100%;
+height: auto !important;
+height: 100%;
+}
+#head {
+width:778px;
+text-align: right;
+font-size: 20px
+}
+#banner {
+width:778px;
+height:67px;
+}
+#content {
+width:778px;
+padding-bottom:20px;
+min-height: 270px;
+height: auto !important;
+height: 50%;
+border-left:1px solid #f7f7f7;
+border-right:1px solid #f7f7f7;
+}
+#content:after {
+clear: both;
+display: block;
+font: 1px/0px serif;
+content: ".";
+height: 0;
+visibility: hidden;
+}
+#content li {
+list-style:none;
+display:block;
+}
+#bottom {
+width: 778px;
+height: 28px;
+border-left:1px solid #f7f7f7;
+border-right:1px solid #f7f7f7;
+}
+#bottom li {
+list-style:none;
+float:left;
+height: 28px;
+}
+#bottom a {
+display:block;
+height:28px;
+}
+#bottom a.b1 {
+position:absolute;
+left:1px;
+width:156px;
+}
+#bottom a.b2 {
+width:54px;
+margin-right:2px;
+position:absolute;
+left:157px;
+}
+#bottom a.b2 ul {
+text-align:right;
+padding-top:5px;
+}
+#bottom a.b3 {
+width:564px;
+height:28px;
+position:absolute;
+left:211px;
+background-color:#f7f7f7;
+margin-right:2px;
+text-align:right;
+}
+.copyright {height:16px;width:806px; padding-top:10px; border-left:1px solid #B1B1B1; border-right:1px solid #f7f7f7; text-align:center;}
+.bottom_line {background-color:#f7f7f7;height:8px; width:778px;}
+.submit {padding-top:2px;}
+#bottomx {
+width: 100%;
+position: absolute;
+bottom: 0 !important;
+bottom: -1px;
+height: 1px;
+}
+.bottom_line {background-color:rgb(178,178,178);height:5px; width:778px; over-flow:hidden;}
+.login_bg { width:778px;height:389px;background-color:#f7f7f7; }
+.type{ position:absolute;top:32px;left:623px;font:20px Arial,sans-serif;color:#000000;z-index:999; }
+.wlanlogin01 { text-align:left; font:17px Arial,sans-serif; height:40px; color:#000000}
+.wlanlogin02 { width:400px;height:100px; }
+.wlanlogin03 { text-align:center;}
+.login_frame_1 { width:450px;height:108px;position:absolute;top:155px;left:200px; }
+.white {
+background-color:#FFFFFF;
+text-align:center;
+height:25px;
+}
+.infor1
+{
+font-size: 12px;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+.system_busy_div{ width:778px;height:108px;text-align:center;padding-top:100px; }
+.system_busy_td1{ padding:5px 0; font-size:14px; }
+.system_busy_td2{ padding:5px 0; font-size:12px;color:#CC0000; }
+.system_busy_td3{ padding:5px 0; }
+</style>
+<script languague="javascript">
+<%
+IMPORT FILE "js/common.js";
+%>
+</script>
+</head>
+<body>
+<div id="container">
+<div id="head">
+<div class="type" ></div>
+<div id="banner"  style="background-image:url(img/banner.gif); background-repeat:no-repeat;"></div>
+</div>
+<%
+var g_systemBusyStatus = getenv("g_systemBusyStatus");
+if (g_systemBusyStatus == "DBSaveTimeout")
+{
+IMPORT FILE "common_gch.gch";
+create_form_start("fSubmit", "");
+var qryStrName[65535];
+var qryStrNum = 0;
+function isExisted(qryStr, qryStrName[], qryStrNum)
+{
+var f = 0;
+for (var i=0; i<qryStrNum; i++)
+{
+if (qryStrName[i] == qryStr)
+{
+f = 1;
+break;
+}
+}
+return f;
+}
+var n = getQryStrNum();
+for (var i=0; i<n; i++)
+{
+var qryStr = getQryStrNameByIndex(i);
+if (isExisted(qryStr, qryStrName, qryStrNum) == 0)
+{
+qryStrName[qryStrNum] = qryStr;
+qryStrNum++;
+create_hidden_sep(getQryStrNameByIndex(i), getQryStrValueByIndex(i));
+}
+}
+if (n == 0)
+{
+create_hidden_sep("NULL", "NULL");
+}
+create_form_end();
+if(getenv("gw_refreshtime") != "N/A")
+{
+var value = getenv("gw_refreshtime");
+var time = integer(value) + 1;
+setenv("gw_refreshtime", time);
+}else
+{
+setenv("gw_refreshtime", 0);
+}
+%>
+<div class="login_bg">
+<!--内容开始-->
+<div class="system_busy_div">
+<table id="TestContent" width="778px"  border="0" cellpadding="0" cellspacing="0">
+<tr id="system_save">
+<td class="system_busy_td1"><font id="query_title">&?sb0;</font>&nbsp;&nbsp;<img src="img/uploading.gif"></td>
+</tr>
+<tr id="system_timeout">
+<td class="system_busy_td2"><font id="timeout">&?sb1;</font></td>
+</tr>
+<tr id="system_button">
+<td class="system_busy_td3"><input type="button" size="5" value="&?sb2;" onclick="doIdletime()"/></td>
+</tr>
+<tr id="upload_query_status">
+<td><font id="query_status" ></font></td>
+</tr>
+</table>
+</div>
+<!--内容结束-->
+</div>
+<script language="javascript">
+function doIdletime()
+{
+getObj("fSubmit").action = "system_busy_t.gch?pid=1001&recSUCC=1";
+getObj("fSubmit").submit();
+}
+function refresh()
+{
+getObj("fSubmit").action = "system_busy_t.gch";
+getObj("fSubmit").submit();
+}
+<%
+var value  = getenv("gw_refreshtime");
+var value1 = getenv("gw_savetimeout");
+if(integer(value) <= integer(value1))
+{
+%>
+document.getElementById("system_timeout").style.display = "none";
+document.getElementById("system_button").style.display = "none";
+document.getElementById("system_save").style.display = "";
+<%
+var FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "CmdId", "cmd_getdbflashend");
+dev_action(FP_HANDLE);
+var ret = get_cmret();
+if("SUCC"==ret)
+{
+%>
+doIdletime();
+<%
+}
+else
+{
+%>
+setTimeout("refresh();", 1000);
+<%
+}
+}
+else
+{
+%>
+document.getElementById("system_timeout").style.display = "";
+document.getElementById("system_button").style.display = "";
+document.getElementById("system_save").style.display = "none";
+<%
+}
+%>
+</script>
+<%
+}
+else
+{
+}
+%>
+<div class="content" style="text-align:center;"></div>
+<div class="bottom_line"></div>
+<div id="bottomx"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<%
+IMPORT FILE "qos_qb_gch.gch";
+IMPORT FILE "net_qos_basic_js.gch";
+%>
+<div class="space_0">
+<table id="TestContent"  width="500px" border="0" class="table">
+<tr>
+<td class="td1">&?qos_b002;</td>
+<td class="td2"><input type="checkbox"  id="Frm_Enable" name="Frm_Enable" value="" /></td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?qos_b003;</td>
+<td class="td2"><input type="checkbox" id="Frm_QPEnable" name="Frm_QPEnable" value="" /></td>
+</tr>
+<tr>
+<td class="td1">&?qos_b004;</td>
+<td class="td2"><input type="checkbox" id="Frm_QQEnable" name="Frm_QQEnable" value=""/></td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?qos_b006;</td>
+<td class="td2"><input type="checkbox" id="Frm_DSCPRemarkEnable" name="Frm_DSCPRemarkEnable"/></td>
+</tr>
+<tr>
+<td class="td1">&?qos_b007;</td>
+<td class="td2"><input type="checkbox" id="Frm_VlanprioRemarkEnable" name="Frm_VlanprioRemarkEnable"/></td>
+</tr>
+</table>
+</div>

@@ -1,0 +1,3 @@
+<%
+IMPORT FILE  "IPv46_net_wan_conf_t.gch";
+%>

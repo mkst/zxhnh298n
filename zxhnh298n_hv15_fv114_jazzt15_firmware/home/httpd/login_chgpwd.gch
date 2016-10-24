@@ -1,0 +1,222 @@
+<%
+IMPORT FILE "auth/api.gch";
+var sess_id         = auth_sessid();
+var chgpwd_err_type = getenv("request/chgpwd_err_type");
+session_start(sess_id, 0);
+var username      = session_get("login_name");
+var chgpwd_status = auth_get_status("chgpwd");
+var chgpwd_err_msg = "";
+switch (chgpwd_err_type)
+{
+case "":
+break;
+case "INVALID_PASSWORD":
+chgpwd_err_msg = "&?error_212;";
+break;
+case "CONFIRM_PASSWORD_NOT_MATCH":
+chgpwd_err_msg = "&?error_124;";
+break;
+default:
+chgpwd_err_msg = getenv("request/FP_ERRORSTR");
+if ("N/A" == chgpwd_err_msg)
+{
+chgpwd_err_msg = "&?error_118;";
+}
+break;
+}
+if (1 != chgpwd_status) {
+auth_logout();
+="<html><body><script>alert(\"&?login007;\");top.location.href=\"/\";</script></body></html>";
+return;
+}
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+<title><%=getenv("WEBTitle");%></title>
+<LINK REL="stylesheet" HREF="&?css2path;" TYPE="text/css" />
+<LINK REL="stylesheet" HREF="&?csslang;" TYPE="text/css" />
+<style>
+html, body {
+height: 100%;
+min-height:101%;
+}
+div.chgpwd {
+width: 450px;
+margin: 0 auto;
+padding-top: 95px;
+}
+#msg-table, #chgpwd-table {
+width: 450px;
+}
+#chgpwd-table {
+margin-top: 20px;
+}
+#loginArea { width:778px;height:389px;background-color:#f7f7f7; }
+</style>
+<script>
+<%
+IMPORT FILE "js/common.js";
+IMPORT FILE "js/common_check.js";
+IMPORT FILE "js/pro_commom.js";
+%>
+var SetTFlag = 0;
+var g_errorInfo = "";
+function getmsg(id)
+{
+var str = [
+[102, "&?error_102;"],
+[114, "&?error_114;"],
+[124, "&?error_124;"]
+];
+return getMsgFormArray(str, arguments);
+}
+function setinner(type)
+{
+if (SetTFlag ==0)
+{
+getObj("myLayer").style.visibility = type ;
+}
+}
+function Transfer_meaning(id,value)
+{
+getObj(id).value=value;
+}
+function onFocusAndStyle()
+{
+if( getObj("Frm_Username").disabled == false )
+{
+getObj("Frm_Username").focus();
+}
+}
+function relogin()
+{
+alert("&?note_003;");
+document.flogout.submit();
+}
+function checkform()
+{
+var msg = "";
+var Frm_NewPassword = getValue("Frm_NewPassword");
+var Frm_NewPassword2 = getValue("Frm_NewPassword2");
+if(checkGenStringForASC(getValue("Frm_NewPassword")) != true)
+{
+msg = getmsg(114);
+ShowErrorForCom("Frm_NewPassword","Fnt_NewPassword",msg);
+return false;
+}
+var value = getValue("Frm_NewPassword");
+if(checkStrLengthRange(value, 0, 256) == -3)
+{
+msg = getmsg(102,0,256);
+ShowErrorForCom("Frm_NewPassword","Fnt_NewPassword",msg);
+return false;
+}
+if(Frm_NewPassword != Frm_NewPassword2)
+{
+msg =getmsg(124);
+ShowErrorForCom("Fnt_NewPassword2",null,msg);
+return false;
+}
+getObj("Btn_Submit").disabled = true;
+return true;
+}
+</script>
+</head>
+<%
+%>
+<body onload="onFocusAndStyle();">
+<div id="container">
+<!--FHS 613001747135 ZXHN H298N V1.1.1T03_关于配置QOS页面，出现文字在框外的情况 20121129-->
+<div id="myLayer" onmousedown="setinner('hidden')">
+<div id="Layer1" style="position:absolute; width:180px; height:45px; z-index:10; left: 2px; top: 28px;">
+<table width="183" border="0">
+<tr>
+<td width="183">&nbsp;&nbsp;<font id="errmsg" class="notecontent" ></font><span id="time" style="color:red;display:none;"></span></td>
+</tr>
+</table>
+</div>
+<div id="Layer3" style="position:absolute; width:140px; height:10px; z-index:11; left: 34px; top: 9px; font-size: 8pt;">
+<font  class="note" id="errnote">&nbsp;&?ErrRep;</font>
+</div>
+</div>
+<!--head部分开始-->
+<div id="head">
+<div class="type"><font id=""><%=getenv("WEBTitle");%></font></div>
+<div id="banner" style="background-image:url(img/banner.gif); background-repeat:no-repeat"></div>
+</div>
+<!--head部分结束-->
+<!--content部分开始-->
+<!--内容开始-->
+<div id="loginArea">
+<form name="chgpwd-form" id="chgpwd-form" method="post"  onsubmit="return checkform();" action="">
+<div class="chgpwd">
+<table border="0" class="table" id="msg-table"><tbody>
+<tr>
+<td valign="top" style="width: 30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left: 10px;">&?login006;</td>
+</tr>
+</tbody></table>
+<table border="0" class="table" id="chgpwd-table"><tbody>
+<tr><td colspan="2"></td></tr>
+<tr>
+<td class="td1"><font id="Fnt_Username">&?login002;</font></td>
+<td class="td2"><input type="text" disabled="disabled" size="15" value="<%=username;%>" id="Frm_Username" name="Username" class="inputId"></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_NewPassword">&?user_m003;</font></td>
+<td class="td2"><input type="password" size="15" value="" id="Frm_NewPassword" name="NewPassword" class="inputId"></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_NewPassword2">&?user_m004;</font></td>
+<td class="td2"><input type="password" size="15" value="" id="Frm_NewPassword2" name="NewPassword2" class="inputId"></td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input type="hidden" value="chgpwd" name="action" />
+<input type="submit" value="&?btn005;" class="button7" id="Btn_Submit" name="Submit">
+</td>
+</tr>
+</tbody></table>
+</div>
+</form>
+<form name="flogout" id="flogout" method="post" onsubmit="return false;" action="/" target="_top">
+<input type="hidden" name="logout" id="logout" value="1" >
+</form>
+<!--内容结束-->
+</div>
+<!--bottom部分开始-->
+<%
+if(get_config("hideCopyRight")!="Y")
+{
+%>
+<div style="font-family: Arial;font-size: 12px;text-align:center;"> &?ZTE; </div>
+<%
+}
+%>
+<div class="bottom_line"></div>
+<div id="bottomx"></div>
+<!--bottom部分结束-->
+</div>
+<script>
+<%
+if (chgpwd_err_msg != "" && chgpwd_err_msg != "N/A")
+{
+%>
+getObj("errmsg").innerHTML = "<%=chgpwd_err_msg;%>";
+getObj("myLayer").style.visibility = "visible" ;
+<%
+}
+setenv("request/callback", "relogin()");
+IMPORT FILE "auth/timeout_ctl_js.gch";
+%>
+</script>
+</body>
+</html>

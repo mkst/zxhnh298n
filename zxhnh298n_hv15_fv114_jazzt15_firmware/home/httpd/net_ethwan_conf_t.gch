@@ -1,0 +1,206 @@
+<%
+IMPORT FILE "ethwanctype_gch.gch";
+WANC_TYPE();
+var Edit_type=getenv("wanc_type");
+var type = request("IF_TYPE");
+var wanc_type;
+if(Edit_type=="N/A")
+{
+var type = request("IF_TYPE");
+if(type==""||type=="NULL")
+{
+wanc_type = "PPPoE";
+}
+else
+{
+wanc_type=type;
+}
+}
+else
+{
+wanc_type=Edit_type;
+}
+if(wanc_type=="PPPoE")
+{
+IMPORT FILE "ethwancppp_gch.gch";
+}
+else if(wanc_type=="Static"||wanc_type=="DHCP")
+{
+IMPORT FILE "ethwancip_gch.gch";
+}
+else if(wanc_type=="BRIDGE")
+{
+IMPORT FILE "ethwancbridge_gch.gch";
+}
+IMPORT FILE "net_ethwan_conf_js.gch";
+%>
+<div id="note" class="space_0" style="display:none">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wan096;</td>
+</tr></tbody>
+</table>
+</div>
+<table id="TestContent" class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?wan004;</td>
+<td class="td2">
+<select size="1" class="list_8" id="Frm_mode" onchange="Change_mode()">
+<option value="PPPoE">PPPoE</option>
+<option value="Static">Static</option>
+<option value="DHCP">DHCP</option>
+<option value="BRIDGE">&?maco009;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?wan001;</td>
+<td class="td2" >
+<select size="1" class="list_2" id="Frm_WANCName0" onchange="Change_Link()">
+<option value="-1" >&?wan002;</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WANCName1">&?wan003;</font></td>
+<td class="td2"><input type="text" id="Frm_WANCName1" value="" class="inputId"/ ></td>
+</tr>
+<tr id="TR_nat">
+<td class="td1">&?wan006;</td>
+<td class="td2"><input name="Frm_IsNAT" type="checkbox" value="" id="Frm_IsNAT" checked/></td>
+</tr>
+<tr id="TR_WBDMode">
+<td class="td1">&?wan066;</td>
+<td class="td2"><input  name="Frm_WBDMode" type="checkbox" value="" id="Frm_WBDMode"  onclick="Change_WBDMode()"/></td>
+</tr>
+<tr id="TR_VLANID">
+<td class="td1"><font id="Fnt_VLANID">&?wan065;</font></td>
+<td class="td2"><input type="text" name="Frm_VLANID" id="Frm_VLANID" class="inputId"/></td>
+</tr>
+<tr id="TR_PRO">
+<td class="td1">&?wan057;</td>
+<td class="td2">
+<select size="1" class="list_5" id="Frm_Priority">
+<option value="0">0</option>
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+<option value="5">5</option>
+<option value="6">6</option>
+<option value="7">7</option>
+</select></td>
+</tr>
+<tr id="TR_DSCP0">
+<td class="td1">&?wan078;</td>
+<td class="td2"><input  name="Frm_DSCP0" type="checkbox" value="" id="Frm_DSCP0"  onclick="Change_DSCP()"/></td>
+</tr>
+<tr id="TR_DSCP1">
+<td class="td1"><font id="Fnt_DSCP1">&?wan079;</font></td>
+<td class="td2"><input type="text" name="Frm_DSCP1" id="Frm_DSCP1" class="inputId"/></td>
+</tr>
+<tr id="TR_MTU">
+<td class="td1"><font id="Fnt_MTU">&?wan086;</font></td>
+<td class="td2"><input type="text" id="Frm_MTU" value="" class="inputId" /></td>
+</tr>
+</table>
+<!--pppoe的参数设置-->
+<table class="table" width="450px" border="0" id="TABLE_pppoe">
+<tr>
+<td class="td1">&?wan080;</td>
+<td class="td2"><input name="Frm_EnablePassThrough" type="checkbox" value="" id="Frm_EnablePassThrough"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_UserName">&?wan019;</font></td>
+<td class="td2"><input type="text" id="Frm_UserName" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Password">&?va02;</font></td>
+<td class="td2"><input type="password" id="Frm_Password" value="" class="inputId"/></td>
+</tr>
+<tr id="TR_EnableProxy"  style="display:none">
+<td class="td1">&?wan058;</td>
+<td class="td2"><input name="Frm_EnableProxy" type="checkbox" onclick="Change_EnableProxy()" checked="" value="" id="Frm_EnableProxy" /></td>
+</tr>
+<tr  style="display:none">
+<td class="td1"><font id="Fnt_MaxUser">&?wan059;</font></td>
+<td class="td2"><input name="Frm_MaxUser" type="text" id="Frm_MaxUser"  value="4" class="inputId" /></td>
+</tr>
+<tr>
+<td class="td1">&?wan021;</td>
+<td class="td2">
+<select size="1" class="list_8" id="Frm_AuthType">
+<option value="PAP,CHAP,MS-CHAP">&?wan022;</option>
+<option value="PAP">&?wan023;</option>
+<option value="CHAP">&?wan024;</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1">&?wan025;</td>
+<td class="td2">
+<select size="1" class="list_8" id="Frm_ConnTrigger" onchange="Change_Dialup()" >
+<option value="AlwaysOn" selected>&?wan026;</option>
+<option value="OnDemand">&?wan027;</option>
+<option value="Manual">&?wan030;</option>
+</select></td>
+</tr>
+<tr >
+<td class="td1"><font id="Fnt_IdleTime">&?wan028;</font></td>
+<td class="td2"><input size="1" class="inputId" id="Frm_IdleTime" value="" disabled="disabled">&?wan029;</td>
+</tr>
+<tr>
+<td class="td1">&?wan089;</td>
+<td class="td2"><input name="Frm_ValidWANRx" type="checkbox" value="" id="Frm_ValidWANRx" disabled="disabled"/></td>
+</tr>
+<tr>
+<td class="td1">&?wan090;</td>
+<td class="td2"><input name="Frm_ValidLANTx" type="checkbox" value="" id="Frm_ValidLANTx" disabled="disabled"/></td>
+</tr>
+<tr>
+<td class="td1">&?wan091;</td>
+<td class="td2"><input name="Frm_HostTrigger" type="checkbox" value="" id="Frm_HostTrigger" disabled="disabled"/></td>
+</tr>
+<tr id="TR_connect" style="display:none">
+<td class="td7" colspan="2">
+<input name="Btn_Connect" id="Btn_Connect" type="button" class="button2" value="&?btn008;" onclick="PPP_connect()" />
+<input name="Btn_Disconnect" id="Btn_Disconnect" type="button"  class="button5" value="&?btn009;" onclick="PPP_disconnect()" />
+</td>
+</tr>
+</table>
+<!--static的参数设置-->
+<table class="table" width="450px" border="0" id="TABLE_static" style="display:none">
+<tr>
+<td class="td1"><font id="Fnt_IPAddress">&?wan035;</font></td>
+<td class="td2"><input type="text" id="Frm_IPAddress" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SubnetMask">&?wan036;</font></td>
+<td class="td2"><input type="text" id="Frm_SubnetMask" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_GateWay">&?dhcp_d010;</font></td>
+<td class="td2"><input type="text" id="Frm_GateWay" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DNS1">&?wan038;</font></td>
+<td class="td2"><input type="text" id="Frm_DNS1" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DNS2">&?wan039;</font></td>
+<td class="td2"><input type="text" id="Frm_DNS2" value="" class="inputId"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DNS3">&?wan040;</font></td>
+<td class="td2"><input type="text" id="Frm_DNS3" value="" class="inputId"/></td>
+</tr>
+</table>
+<!--dhcp的参数设置-->
+<table class="table" width="450px" border="0" id="TABLE_dhcp" style="display:none">
+<tr>
+<td class="td7" colspan="2">
+<input name="Btn_Release" id="Btn_Release" type="button" class="button2" value="&?btn010;" onclick="dhcp_release()" />
+<input name="Btn_Renew" id="Btn_Renew" type="button"  class="button2" value="&?btn011;" onclick="dhcp_renew()" />
+</td>
+</tr>
+</table>
+<div id="div4"></div>

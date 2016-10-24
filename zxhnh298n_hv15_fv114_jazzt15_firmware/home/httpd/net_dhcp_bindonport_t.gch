@@ -1,0 +1,44 @@
+<%
+IMPORT FILE "dhcp_bindonport_gch.gch";
+IMPORT FILE "net_dhcp_bindonport_js.gch";
+%>
+<div class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?dhcp_p001;</td>
+</tr></tbody>
+</table>
+</div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1_1"></td>
+<td class="td2">&nbsp;</td>
+</tr>
+<%
+var FP_LAN_INSTNUM = query_list("OBJ_DHCPBINDONPORT_ID", "IGD");
+var LAN_HANDLE     = null;
+var LAN_identity   = "";
+var index = 0;
+var LAN_Name;
+var ViewName;
+if(FP_LAN_INSTNUM >= 1 && FP_LAN_INSTNUM != 888)
+{
+for(var i = 0; i < FP_LAN_INSTNUM; i++ )
+{
+LAN_HANDLE   = create_paralist();
+LAN_identity = query_identity(i);
+get_inst(LAN_HANDLE, "OBJ_DHCPBINDONPORT_ID", LAN_identity);
+LAN_Name     = get_para(LAN_HANDLE, "VendorClassID");
+%>
+<tr>
+<td class="td1_1"></td>
+<td class="td2"><input id="FRM_VendorClassID<%=index;%>" type="checkbox" value=""/> <%=LAN_name;%></td>
+</tr>
+<%
+index++;
+destroy_paralist(LAN_HANDLE);
+}
+}
+%>
+</table>

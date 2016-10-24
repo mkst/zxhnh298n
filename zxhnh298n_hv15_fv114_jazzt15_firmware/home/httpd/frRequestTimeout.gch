@@ -1,0 +1,10 @@
+<HTML>
+<HEAD><TITLE><%=getenv("WEBTitle");%></TITLE>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;"/>
+</HEAD>
+<BODY>
+<CENTER><H3>&?csb2;</H3></CENTER>
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<%
+IMPORT FILE "igmp_proxy_gch.gch";
+IMPORT FILE "app_igmp_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_WanName">&?comm002;</font></td>
+<td class="td2">
+<select id="Frm_WanName" name="Frm_WanName" size="1" class="list_2" >
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="" type="submit" id="add" class="button2" value="&?btn007;" onclick="Add()"/>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+</table>
+<table id="WAN_Table"  class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="305px">&?comm002;</td>
+<td width="" >&?btn006;</td>
+</tr>
+</table>
+<table>
+<tr style="display:none">
+<td>
+<select id="Frm_WanName_hidden" name="Frm_WanName_hidden">
+<%
+var FP_INSTNUM = "";
+var identity   = "";
+var WANLAN_HANDLE     = null;
+var WANLAN_name       = "";
+var WANLAN_brtype;
+var IpMode    = "";
+FP_INSTNUM = query_list("OBJ_LISTWANC_ID", "igmpproxy");
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+IpMode   = get_IPMode(identity);
+if (IpMode != "2")
+{
+WANLAN_HANDLE   = create_paralist();
+get_inst(WANLAN_HANDLE, "OBJ_WANLAN_ID", identity);
+WANLAN_name = get_para(WANLAN_HANDLE, "Name");
+WANLAN_brtype = get_para(WANLAN_HANDLE, "BRType");
+%>
+<option value="<%=identity;%>" title="<%=WANLAN_brtype;%>"><%=WANLAN_name;%></option>
+<%
+destroy_paralist(WANLAN_HANDLE);
+}
+}
+}
+var upmode = getenv("TypeValue");
+if (upmode == 1)
+{
+var BRIDGE_OBJNAME = "OBJ_DSLWANCBRIDGE_ID";
+FP_INSTNUM = query_list(BRIDGE_OBJNAME, "IGD");
+for(var i=0; i<FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+WANLAN_HANDLE   = create_paralist();
+get_inst(WANLAN_HANDLE, BRIDGE_OBJNAME, identity);
+WANLAN_name = get_para(WANLAN_HANDLE, "WANCName");
+%>
+<option value="<%=identity;%>" title="0"><%=WANLAN_name;%></option>
+<%
+destroy_paralist(WANLAN_HANDLE);
+}
+}
+else if (upmode == 2)
+{
+var BRIDGE_OBJNAME = "OBJ_ETHWANCBRIDGE_ID";
+FP_INSTNUM = query_list(BRIDGE_OBJNAME, "IGD");
+for(var i=0; i<FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+WANLAN_HANDLE   = create_paralist();
+get_inst(WANLAN_HANDLE, BRIDGE_OBJNAME, identity);
+WANLAN_name = get_para(WANLAN_HANDLE, "WANCName");
+%>
+<option value="<%=identity;%>" title="0"><%=WANLAN_name;%></option>
+<%
+destroy_paralist(WANLAN_HANDLE);
+}
+}
+%>
+</select>
+</td>
+</tr>
+</table>

@@ -1,0 +1,25 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "wlan_wmm_gch.gch";
+IMPORT FILE "wlan_driver_gch.gch";
+
+create_form_start("fSubmit", "");
+createBasicHidden();
+create_hidden_sep("IF_CONFIGTAG", "");
+var FP_CONFIGTAG  = request("IF_CONFIGTAG");
+var FP_ACTION     = request("IF_ACTION");
+var FP_MEDIAINDEX = request("IF_MEDIAINDEX");
+
+var FP_ERRORSTR = "SUCC";
+if(FP_MEDIAINDEX IS NULL)
+{
+FP_MEDIAINDEX = 0;
+}
+FP_ERRORSTR = wmm_func(FP_ACTION, FP_CONFIGTAG, FP_MEDIAINDEX, FP_ERRORSTR);
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+var FP_VIEWID = query_identity(0);
+FP_ERRORSTR = driver_func(FP_VIEWID, FP_ERRORSTR);
+config_func(0);
+create_hidden_sep("IF_MEDIAINDEX", FP_MEDIAINDEX);
+create_form_end();
+%>

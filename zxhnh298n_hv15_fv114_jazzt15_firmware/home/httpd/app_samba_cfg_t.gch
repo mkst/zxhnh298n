@@ -1,0 +1,18 @@
+<%
+IMPORT FILE "samba_cfg_gch.gch";
+IMPORT FILE "app_samba_cfg_js.gch";
+%>
+<table id="TestContent"  class="table" width="500px" border="0">
+<tr>
+<td class="td1">&?csa001;</td>
+<td class="td2"><input type="checkbox" id="Frm_EnableSmb" name="Frm_EnableSmb" onclick="PageEnableSmb()"></td>
+</tr>
+<tr>
+<td class="td1">&?csa002;</td>
+<td class="td2"><input type="checkbox" id="Frm_AutoRun" name="Frm_AutoRun" onclick="PageAutoRun()"></td>
+</tr>
+<tr>
+<td class="td1" ><font id="Fnt_NetbiosName">&?dena002;</font></td>
+<td class="td2"><input type="text"  class="inputId" id="Frm_NetbiosName" name="Frm_NetbiosName">&?csa003;</td>
+</tr>
+</table>

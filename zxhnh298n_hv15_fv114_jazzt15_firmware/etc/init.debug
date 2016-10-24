@@ -1,0 +1,117 @@
+# /etc/init.debug:debug mode system-wide  for the Bourne shells
+
+#################################
+# 创建临时内存文件系统       #
+#################################
+mkdir -p /var/tmp
+mkdir -p /var/log
+mkdir -p /var/run
+mkdir -p /var/lock
+mkdir -p /var/usb
+mkdir -p /var/cache
+mkdir -p /var/local/tmp
+mkdir -p /var/state/dhcp
+mkdir -p /var/respawnd/fatal
+mkdir -p /var/respawnd/non_fatal
+mkdir -p /var/etc
+mkdir -p /var/ct/tmp
+mkdir -p /var/paed
+mkdir -p /var/iproute2
+
+
+#echo 2 > /proc/cpu/alignment
+
+ifconfig lo 127.0.0.1
+route add -net 127.0.0.0 netmask 255.0.0.0 lo
+
+echo 0 > /proc/sys/net/ipv4/ip_forward
+#生成配置文件
+#user cfg region  
+#mount ct mid filesystem 
+#mount_ctjffs 
+ 
+#################################
+# 加载eth、dsl、usb驱动   #
+#################################
+#busybox echo " Loading ETH&SW Drivers"
+#busybox insmod switch_rtl8306.ko;
+#busybox insmod vnet.ko
+#busybox insmod rtl8672_cs.ko
+
+
+
+
+#################################
+#3。配置eth和dsl                     #
+#################################
+
+br2684ctl -b -c 0 -e 0 -q cbr,aal5:max_pcr=1000,pcr=1000,min_pcr=0,cdvt=1000,mbs=1000 -a 8.83
+ifconfig nas0 devcommon 512
+ifconfig nas0 up
+ifconfig eth0 up 
+ifconfig eth1 up
+ifconfig eth2 up
+ifconfig eth3 up
+usleep 10000
+wbctl addif nas0 nbif0 0 00:00:00:00:00:00
+ifconfig nbif0 up 
+usleep 10000
+brctl addbr br0
+usleep 10000
+brctl addif br0 eth0
+brctl addif br0 eth1
+brctl addif br0 eth2
+brctl addif br0 eth3
+brctl addif br0 nbif0
+usleep 10000
+ifconfig br0 192.168.1.1 
+ifconfig br0 promisc
+ifconfig br0 hw ether 00:d0:d0:11:21:32
+ifconfig br0 up
+brctl show
+usleep 10000
+
+
+
+
+#################################
+# 加载和配置wlan              #
+#################################
+
+
+#set channel
+iwpriv wifi0 set_mib channel=1
+iwpriv wifi0 set_mib MIMO_TR_mode=4
+iwpriv wifi0 set_mib intf_map=31
+iwpriv wifi0 set_mib vap_enable=1
+iwpriv wifi0 set_mib led_type=7
+iwpriv wifi0 set_mib func_off=1
+
+#set mac
+ifconfig wifi0 hw ether 00:d0:d0:32:13:14
+#set mac
+ifconfig wlan0 hw ether 00:d0:d0:32:13:15
+
+#set ssid
+iwpriv wlan0 set_mib ssid=wlan_test
+
+ifconfig wifi0 up
+ifconfig wlan0 up
+brctl addif br0 wlan0
+
+echo "wlan configuration ended"
+
+echo "*******************************************************"
+echo "wlan parameters have been set up, wait 1 minite...
+ESSID:      wlan_test
+Security:   NONE
+IP:         192.168.1.1
+MAC         00:d0:d0:32:13:15"
+echo "Remember config your wireless netcad ip: 192.168.1.8"
+echo "*******************************************************"
+
+#################################
+# 5 设置主机名称，不启动telnetd #
+#################################
+hostname "ZXHN H298N"
+#telnetd&

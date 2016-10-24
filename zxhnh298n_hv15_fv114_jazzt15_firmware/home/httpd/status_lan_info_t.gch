@@ -1,0 +1,122 @@
+<%
+var FP_IDENTITY, FP_HANDLE, FP_OBJNAME, FP_INSTNUM;
+var PacketsReceived = "";
+var BytesReceived   = "";
+var PacketsSent     = "";
+var BytesSent       = "";
+var PortNum         = 0;
+var Frm_MACAddress  = "";
+var Frm_Status      = "";
+var Frm_IPAddress = "";
+var BRGRP_INSTNUM = 1;
+BRGRP_INSTNUM = query_list("OBJ_BRGRP_ID", "IGD");
+for (var i=0; i<BRGRP_INSTNUM; i++)
+{
+var BRGRP_HANDLE = create_paralist();
+var BRGRP_IDENTITY = query_identity(i);
+get_inst(BRGRP_HANDLE, "OBJ_BRGRP_ID", BRGRP_IDENTITY);
+Frm_IPAddress = get_para(BRGRP_HANDLE, "IPAddr");
+if (Frm_IPAddress==""||Frm_IPAddress==null)
+{
+Frm_IPAddress = "0.0.0.0";
+}
+destroy_paralist(BRGRP_HANDLE);
+}
+var lanname[10] = {0};
+FP_OBJNAME = "OBJ_ETH_ID";
+FP_INSTNUM = 1;
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+for (var i=0; i<FP_INSTNUM; i++)
+{
+var identity = query_identity(i);
+var WL_HANDLE = create_paralist();
+get_inst(WL_HANDLE, "OBJ_WANLAN_ID", identity);
+var WLname = get_para(WL_HANDLE, "Name");
+lanname[i] = WLname ;
+destroy_paralist(WL_HANDLE);
+}
+FP_OBJNAME = "OBJ_ETH_ID";
+FP_INSTNUM = 1;
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+for (var i=0; i<FP_INSTNUM; i++)
+{
+PortNum = i+1;
+var FP_HANDLE = create_paralist();
+FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+PacketsReceived = get_para(FP_HANDLE, "PacketsReceived");
+BytesReceived   = get_para(FP_HANDLE, "BytesReceived");
+PacketsSent     = get_para(FP_HANDLE, "PacketsSent");
+BytesSent       = get_para(FP_HANDLE, "BytesSent");
+Frm_MACAddress     = get_para(FP_HANDLE, "MACAddress");
+Frm_Status            = get_para(FP_HANDLE, "Status");
+if (Frm_MACAddress==""||Frm_MACAddress==null)
+{
+Frm_MACAddress = "00:00:00:00:00";
+}
+if (Frm_Status == "Up")
+{
+Frm_Status = "&?wan061;";
+}
+else if (Frm_Status == "NoLink")
+{
+Frm_Status = "&?wan062;";
+}
+else if (Frm_Status == "Disabled")
+{
+Frm_Status = "&?wan064;";
+}
+else
+{
+Frm_Status = "&?wan063;";
+}
+%>
+<!--分端口显示的内容开始-->
+<div class="space_0">
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?lan003;</td>
+<td class="tdright"><%=lanname[i];%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan035;</td>
+<td class="tdright"><%=Frm_IPAddress;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?dhcp_d006;</td>
+<td class="tdright"><%=Frm_MACAddress;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?sr06;</td>
+<td class="tdright"><%=Frm_Status;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?lan001;</td>
+<td class="tdright"><%=PacketsReceived;%>/<%=BytesReceived;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?lan002;</td>
+<td class="tdright"><%=PacketsSent;%>/<%=BytesSent;%></td>
+</tr>
+</table>
+</div>
+<!--分端口显示的内容结束-->
+<div id="div4"></div>
+<%
+destroy_paralist(FP_HANDLE);
+}
+%>
+<form id="fSubmit" method="post" action="">
+<input type="hidden" id="IF_ERRORSTR" name="IF_ERRORSTR" value="">
+</form>
+<SCRIPT>
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+</SCRIPT> 

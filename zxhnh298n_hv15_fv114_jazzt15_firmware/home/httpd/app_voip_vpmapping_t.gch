@@ -1,0 +1,68 @@
+<%
+IMPORT FILE "voip_vpmapping_gch.gch";
+IMPORT FILE "app_voip_vpmapping_js.gch";
+%>
+<style type="text/css">
+table.sipTable {
+border-collapse£ºcollapse;
+}
+table.sipTable td {
+width: 115px;
+height: 25px;
+border: 0;
+text-align: center;
+background-color: #ECEBEA;
+}
+table.sipTable td.firstCol {
+background-color: #3d9e01;
+}
+table.sipTable td.firstRow {
+background-color: #81D549;
+}
+.spanStyle {
+display: inline-block;
+font-weight: bold;
+margin: 5px;
+}
+</style>
+<div id="div4"></div>
+<div class="space_0">
+<span class="spanStyle">&?pro_vpmap001;</span>
+<table id="InComingTable" class="sipTable"  cellspacing="1">
+<tr>
+<td class="firstCol">&nbsp;</td>
+<td class="firstRow">&?pro_vpmap005;1</td>
+<td class="firstRow">&?pro_vpmap005;2</td>
+</tr>
+<tr>
+<td class="firstCol">&?pro_vpmap007;1</td>
+<td><input type="checkbox" id="Frm_FXS1toSIP1" name="Frm_FXS1toSIP1" value="" /></td>
+<td><input type="checkbox" id="Frm_FXS1toSIP2" name="Frm_FXS1toSIP2" value="" /></td>
+</tr>
+<tr>
+<td class="firstCol">&?pro_vpmap007;2</td>
+<td><input type="checkbox" id="Frm_FXS2toSIP1" name="Frm_FXS2toSIP1" value="" /></td>
+<td><input type="checkbox" id="Frm_FXS2toSIP2" name="Frm_FXS2toSIP2" value="" /></td>
+</tr>
+</table>
+<div id="div4"></div>
+<div id="div4"></div>
+<span class="spanStyle">&?pro_vpmap002;</span>
+<table id="OutGoingTable" class="sipTable"  cellspacing="1" >
+<tr>
+<td class="firstCol">&nbsp;</td>
+<td class="firstRow">&?pro_vpmap005;1</td>
+<td class="firstRow">&?pro_vpmap005;2</td>
+</tr>
+<tr>
+<td class="firstCol">&?pro_vpmap007;1</td>
+<td><input type="radio" id="Frm_OUTFXS10" name="Frm_OUTFXS1" value="0" /></td>
+<td><input type="radio" id="Frm_OUTFXS11" name="Frm_OUTFXS1" value="1" /></td>
+</tr>
+<tr>
+<td class="firstCol">&?pro_vpmap007;2</td>
+<td><input type="radio" id="Frm_OUTFXS20" name="Frm_OUTFXS2" value="0" /></td>
+<td><input type="radio" id="Frm_OUTFXS21" name="Frm_OUTFXS2" value="1" /></td>
+</tr>
+</table>
+</div>

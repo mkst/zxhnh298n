@@ -1,0 +1,117 @@
+<%
+IMPORT FILE "ttywancppp_gch.gch";
+IMPORT FILE "net_ttywan_conf_js.gch";
+%>
+<div id="ppp_note" class="space_0" style="display:none">
+<table width="450px" border="0" class="table">
+<tbody>
+<tr>
+<td style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wan100;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<table id="TestContent" class="table" width="450px" border="0">
+<tr id="Tr_QryStatTip" style="display:none">
+<td colspan="2" align="center">&?cmn0;</td>
+</tr>
+<tr>
+<td class="td1">&nbsp;</td>
+<td class="td2"></td>
+</tr>
+<!--新连接名称-->
+<tr id="TR_wancname1">
+<td class="td1"><font id="Fnt_WANCName1">&?wan001;</font></td>
+<td class="td2"><input type="text" id="Frm_WANCName1" value="" class="inputId"/ ></td>
+</tr>
+<!--启用NAT-->
+<tr id="TR_nat">
+<td class="td1">&?wan006;</td>
+<td class="td2"><input name="Frm_IsNAT" type="checkbox" value="" id="Frm_IsNAT"/></td>
+</tr>
+<!--PDP Type-->
+<tr>
+<td class="td1"><font id="Fnt_PdpType">&?cmn1;</font></td>
+<td class="td2">
+<select size="1" class="list_5" id="Frm_PdpType">
+<option value="PDP_IP" selected>IP</option>
+<option value="PDP_PPP">PPP</option>
+</select></td>
+</tr>
+<!--APN-->
+<tr>
+<td class="td1"><font id="Fnt_Apn">APN</font></td>
+<td class="td2">
+<input type="text" id="Frm_Apn" name="APN" class="inputId">
+</td>
+</tr>
+<!--Dial Number-->
+<tr>
+<td class="td1"><font id="Fnt_DialNumber">&?cmn2;</font></td>
+<td class="td2">
+<input type="text" id="Frm_DialNumber" name="DialNumber" class="inputId">
+</td>
+</tr>
+<!--MTU-->
+<tr id="TR_MTU">
+<td class="td1"><font id="Fnt_MTU">&?wan086;</font></td>
+<td class="td2"><input type="text" id="Frm_MTU" value="" class="inputId" /></td>
+</tr>
+<!--用户名-->
+<tr>
+<td class="td1"><font id="Fnt_UserName">&?wan019;</font></td>
+<td class="td2"><input type="text" id="Frm_UserName" value="" class="inputId"/></td>
+</tr>
+<!--密码-->
+<tr>
+<td class="td1"><font id="Fnt_Password">&?login003;</font></td>
+<td class="td2"><input type="password" id="Frm_Password" value="" class="inputId"/></td>
+</tr>
+<!--认证类型-->
+<tr>
+<td class="td1">&?wan021;</td>
+<td class="td2">
+<select size="1" class="list_8" id="Frm_AuthType">
+<option value="PAP,CHAP,MS-CHAP">&?wan022;</option>
+<option value="PAP">&?wan023;</option>
+<option value="CHAP">&?wan024;</option>
+</select></td>
+</tr>
+<!--拨号模式-->
+<tr>
+<td class="td1">&?wan025;</td>
+<td class="td2">
+<select size="1" class="list_8" id="Frm_ConnTrigger"  onchange="Change_Dialup()">
+<option value="AlwaysOn" selected>&?wan026;</option>
+<option value="OnDemand">&?wan027;</option>
+<option value="Manual">&?wan030;</option>
+</select></td>
+</tr>
+<!--超时时间-->
+<tr >
+<td class="td1"><font id="Fnt_IdleTime">&?wan028;</font></td>
+<td class="td2"><input size="1" class="inputId" id="Frm_IdleTime" value="" disabled="disabled">&?wan029;</td>
+</tr>
+<!--按需要拨号使用-->
+<tr>
+<td class="td1">&?wan089;</td>
+<td class="td2"><input name="Frm_ValidWANRx" type="checkbox" value="" id="Frm_ValidWANRx" disabled="disabled"/></td>
+</tr>
+<tr>
+<td class="td1">&?wan090;</td>
+<td class="td2"><input name="Frm_ValidLANTx" type="checkbox" value="" id="Frm_ValidLANTx" disabled="disabled"/></td>
+</tr>
+<tr>
+<td class="td1">&?wan091;</td>
+<td class="td2"><input name="Frm_HostTrigger" type="checkbox" value="" id="Frm_HostTrigger" disabled="disabled"/></td>
+</tr>
+<!--pppotty拨号，连接断开按钮-->
+<tr id="TR_connect" style="display:none">
+<td class="td7" colspan="2">
+<input name="Btn_Connect" id="Btn_Connect" type="button" class="button2" value="&?btn008;" onclick="PPP_connect()" />
+<input name="Btn_Disconnect" id="Btn_Disconnect" type="button"  class="button5" value="&?btn009;" onclick="PPP_disconnect()" />
+</td>
+</tr>
+</table>
+<div id="div4"></div>

@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_MULTIDISPLAY = 1;var FP_OBJNAME = "OBJ_VOIPHOMELINE_ID";var FP_PARANUM = 4;var FP_PARA[4] ={"PhyNumber","Password","OutByWanId","Enable"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, FP_PARA, FP_PARANUM);%>

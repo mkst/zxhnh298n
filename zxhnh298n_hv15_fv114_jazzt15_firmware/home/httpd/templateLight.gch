@@ -1,0 +1,72 @@
+<%
+IMPORT FILE "global.gch";
+IMPORT FILE "pageinfo_func.gch";
+IMPORT FILE "frameComAPI.gch";
+if ( "N/A" == getenv("IsLogin") )
+{
+var HANDLE = create_paralist();
+get_inst(HANDLE, "OBJ_USERIF_ID", "");
+var language = get_para(HANDLE,"Language");
+destroy_paralist(HANDLE);
+setLangconf(language);
+}
+var nextpage = raw_request("nextpage");
+if ( "IPv46_status_wan2_if_t.gch" != nextpage
+&& "IPv46_status_wan_if_t.gch" != nextpage
+&& "status_ttywan_info_t.gch" != nextpage
+&& "status_wlan_info_t.gch" != nextpage )
+{
+redirectTop("/");
+break;
+}
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+<title><%=getenv("WEBTitle");%></title>
+<style type="text/css">
+<%
+IMPORT FILE "css/template.css";
+IMPORT FILE "&?csslang;";
+%>
+</style>
+<script type="text/javascript">
+<%
+IMPORT FILE "js/common.js";
+IMPORT FILE "js/common_check.js";
+IMPORT FILE "js/pro_commom.js";
+IMPORT FILE "js/menu.js";
+IMPORT FILE "js/events.js";
+%>
+</script>
+</head>
+<body>
+<div id="container"><!--总体最大的父级DIV块-->
+<div id="banner"><!--头部区域DIV块 包含中兴LOGO、管理员注销、语言切换-->
+<div id="logo"><img src="img/logo.gif"/></div>
+<div id="versionTop"><%=getenv("WEBTitle");%></div>
+</div>
+<div id="content">
+<div id="content_left_light">
+<div id="pageContent_light">
+<%
+IMPORT FILE nextpage;
+%>
+</div>
+</div>
+<div id="div_common_button"></div>
+</div>
+<div id="footer">
+<div id="ft_left"><%if(get_config("hideCopyRight")!="Y"){%>&?ZTE;<%}%></div>
+<div id="versionBottom"><%=getenv("WEBTitle");%></div>
+<div id="ft_right"><img src="img/logo_bottom.gif"></div>
+</div>
+</div>
+</body>
+</html>

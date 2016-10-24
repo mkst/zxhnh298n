@@ -1,0 +1,21 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "voip_faxt38_gch.gch";
+var FP_ERRORSTR,FP_ERRORPARAM, FP_ACTION;
+var FP_INDEX;
+create_form_start("fSubmit", "");
+create_hidden_sep("IF_ERRORSTR", "SUCC");
+create_hidden_sep("IF_ERRORTYPE", "-1");
+create_hidden_sep("IF_ERRORPARAM", "SUCC");
+create_hidden_sep("IF_ACTION", "");
+FP_ACTION = request("IF_ACTION");
+var FP_INDEX  = request("IF_INDEX");
+if (FP_INDEX IS NULL)
+{
+FP_INDEX = 0;
+}
+FP_ERRORSTR = "SUCC";
+create_hidden_sep("IF_INDEX", FP_INDEX);
+FP_ERRORSTR = faxt38_func(FP_ACTION,FP_INDEX,FP_ERRORSTR);
+create_form_end();
+%>

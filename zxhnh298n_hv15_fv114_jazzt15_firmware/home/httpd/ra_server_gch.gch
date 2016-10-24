@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_RA_SERVER_ID";var FP_MULTIDISPLAY = 0;var FP_PARANUM = 7;var PARA[7] ={"RaViewName","MinWaitTime","MaxWaitTime","Mangment","OtherCfg","ReachTime","RetranTime"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

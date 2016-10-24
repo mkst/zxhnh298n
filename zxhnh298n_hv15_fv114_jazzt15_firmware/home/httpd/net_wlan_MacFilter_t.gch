@@ -1,0 +1,107 @@
+
+<%
+IMPORT FILE "wlan_total_mac_gch.gch ";
+IMPORT FILE "net_wlan_mac_filter_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;" id="tipLi"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?wlan040;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_SSID_SET" onchange= "ESSID_Choose()">
+<option value ="IGD.LD1.WLAN1" id="Frm_SSID_SET0">SSID1</option>
+<option value ="IGD.LD1.WLAN2" id="Frm_SSID_SET1">SSID2</option>
+<option value ="IGD.LD1.WLAN3" id="Frm_SSID_SET2">SSID3</option>
+<option value ="IGD.LD1.WLAN4" id="Frm_SSID_SET3">SSID4</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1">&?url02;</td>
+<td class="td2">
+<select  name="Frm_Mode" id="Frm_Mode" size="1" class="list_1" onchange= "Slect_Mode()">
+<option value="Disabled">&?wlan048;</option>
+<option value="Ban">&?url03;</option>
+<option value="Allow">&?url04;</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Frm_MAC">&?dhcp_d006;</font></td>
+<td class="td2">
+<input name="mac1" type="text" class="inputId3"   size="15" maxlength="2" id="mac1" onkeyup="toNext(this)"  /> :
+<input name="mac2" type="text" class="inputId3"   size="15" maxlength="2" id="mac2" onkeyup="toNext(this)"  /> :
+<input name="mac3" type="text" class="inputId3"   size="15" maxlength="2" id="mac3" onkeyup="toNext(this)"  /> :
+<input name="mac4" type="text" class="inputId3"   size="15" maxlength="2" id="mac4" onkeyup="toNext(this)"  /> :
+<input name="mac5" type="text" class="inputId3"   size="15" maxlength="2" id="mac5" onkeyup="toNext(this)"  /> :
+<input name="mac6" type="text" class="inputId3"   size="15" maxlength="2" id="mac6" onkeyup="toNext(this)" />
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="" type="submit" id="add" class="button2" value="&?WDS007;" onclick="Add()">
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+</table>
+<table id="MAC_Table"  class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">SSID</td>
+<td width="">&?dhcp_d006;</td>
+<td width="" >&?btn006;</td>
+</tr>
+</table>
+</div>
+<script language="javascript">
+
+var instNum = getValue("WLAN_INSTNUM");
+var instFlag = new Array(4);
+for (var i=0; i<4; i++)
+{
+instFlag[i] = 0;
+}
+var index = 0;
+for (var i=0; i<instNum; i++)
+{
+var viewName = getValue("WLAN_SSID"+i);
+switch(viewName)
+{
+case "IGD.LD1.WLAN1":
+instFlag[0] = 1;
+break;
+case "IGD.LD1.WLAN2":
+instFlag[1] = 1;
+break;
+case "IGD.LD1.WLAN3":
+instFlag[2] = 1;
+break;
+case "IGD.LD1.WLAN4":
+instFlag[3] = 1;
+break;
+};
+}
+var ssidObj = getObj("Frm_SSID_SET");
+for (var i=0; i<4; i++)
+{
+if (instFlag[i] == 0)
+{
+
+var ssidOptObj = getObj("Frm_SSID_SET"+i);
+ssidObj.removeChild(ssidOptObj);
+}
+}
+</script>

@@ -1,0 +1,296 @@
+
+<%
+IMPORT FILE "common_gch.gch";
+var WANCPPP_ERRORSTR,WANCPPP_ERRORPARAM, WANCPPP_ACTION, WANCPPP_ERRTYPE;
+var WANCPPP_HANDLE, WANCPPP_INSTNUM, WANCPPP_IDENTITY;
+var WANCPPP_DIAGSTART, WANCPPP_TIMER;
+var WANCPPP_DiagResult, WANCPPP_DiagServerConnResult, WANCPPP_DiagServerSessionResult, WANCPPP_DiagAuthResult;
+var WANCPPP_DiagIPResult, WANCPPP_DiagDNSResult, WANCPPP_DiagGetwayResult;
+create_form_start("fSubmit", "");
+WANCPPP_ERRORSTR = "SUCC";
+WANCPPP_ERRTYPE = "-1";
+WANCPPP_ERRORPARAM = "SUCC";
+WANCPPP_ACTION = request("IF_ACTION");
+WANCPPP_IDENTITY = request("IF_IDENTITY");
+WANCPPP_INSTNUM = request("IF_INSTNUM");
+WANCPPP_DiagResult = request("IF_DiagResult");
+WANCPPP_DIAGSTART = request("IF_DIAGSTART");
+WANCPPP_TIMER = request("IF_TIMER");
+WANCPPP_DiagServerConnResult = "";
+WANCPPP_DiagServerSessionResult = "";
+WANCPPP_DiagAuthResult = "";
+WANCPPP_DiagIPResult = "";
+WANCPPP_DiagDNSResult = "";
+WANCPPP_DiagGetwayResult = "";
+if (WANCPPP_ACTION == "set" && WANCPPP_IDENTITY != "")
+{
+WANCPPP_DiagServerConnResult = "";
+WANCPPP_DiagServerSessionResult = "";
+WANCPPP_DiagAuthResult = "";
+WANCPPP_DiagIPResult = "";
+WANCPPP_DiagDNSResult = "";
+WANCPPP_DiagGetwayResult = "";
+WANCPPP_HANDLE = create_paralist();
+set_inst(WANCPPP_HANDLE, "OBJ_WANCPPPDIAGINFO_ID", WANCPPP_IDENTITY);
+}
+else if (WANCPPP_ACTION == "get" && WANCPPP_IDENTITY != "")
+{
+WANCPPP_HANDLE = create_paralist();
+get_inst(WANCPPP_HANDLE, "OBJ_WANCPPPDIAGINFO_ID", WANCPPP_IDENTITY);
+WANCPPP_DiagResult = get_para(WANCPPP_HANDLE, "DiagResult");
+WANCPPP_DiagServerConnResult = get_para(WANCPPP_HANDLE, "DiagServerConnResult");
+WANCPPP_DiagServerSessionResult = get_para(WANCPPP_HANDLE, "DiagServerSessionResult");
+WANCPPP_DiagAuthResult = get_para(WANCPPP_HANDLE, "DiagAuthResult");
+WANCPPP_DiagIPResult = get_para(WANCPPP_HANDLE, "DiagIPResult");
+WANCPPP_DiagDNSResult = get_para(WANCPPP_HANDLE, "DiagDNSResult");
+WANCPPP_DiagGetwayResult = get_para(WANCPPP_HANDLE, "DiagGetwayResult");
+if (WANCPPP_TIMER == "0")
+{
+WANCPPP_DiagServerConnResult = "fail";
+WANCPPP_DiagServerSessionResult = "fail";
+WANCPPP_DiagAuthResult = "fail";
+WANCPPP_DiagIPResult = "fail";
+WANCPPP_DiagDNSResult = "fail";
+WANCPPP_DiagGetwayResult = "fail";
+}
+if (WANCPPP_DiagServerConnResult == "1")
+{
+WANCPPP_DiagServerConnResult = "pass";
+}
+else if (WANCPPP_DiagServerConnResult == "0")
+{
+WANCPPP_DiagServerConnResult = "fail";
+}
+if(WANCPPP_DiagServerSessionResult == "1")
+{
+WANCPPP_DiagServerSessionResult = "pass";
+}
+else if(WANCPPP_DiagServerSessionResult == "0")
+{
+WANCPPP_DiagServerSessionResult = "fail";
+}
+if(WANCPPP_DiagAuthResult == "1")
+{
+WANCPPP_DiagAuthResult = "pass";
+}
+else if(WANCPPP_DiagAuthResult == "0")
+{
+WANCPPP_DiagAuthResult = "fail";
+}
+if(WANCPPP_DiagIPResult == "1")
+{
+WANCPPP_DiagIPResult = "pass";
+}
+else if(WANCPPP_DiagIPResult == "0")
+{
+WANCPPP_DiagIPResult = "fail";
+}
+if(WANCPPP_DiagDNSResult == "1")
+{
+WANCPPP_DiagDNSResult = "pass";
+}
+else if(WANCPPP_DiagDNSResult == "0")
+{
+WANCPPP_DiagDNSResult = "fail";
+}
+if(WANCPPP_DiagGetwayResult == "1")
+{
+WANCPPP_DiagGetwayResult = "pass";
+}
+else if(WANCPPP_DiagGetwayResult == "0")
+{
+WANCPPP_DiagGetwayResult = "fail";
+}
+destroy_paralist(WANCPPP_HANDLE);
+}
+else
+{
+var FP_INSTNUM, FP_CONNTYPE, FP_HANDLE, FP_IDENTITY;
+FP_INSTNUM = query_list("OBJ_DSLWANCPPP_ID", "IGD");
+var j = 0;
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_CONNTYPE = query_wanctype(i);
+if (FP_CONNTYPE == "pppoe")
+{
+FP_IDENTITY = query_identity(i);
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DSLWANCPPP_ID", FP_IDENTITY);
+var mode = get_para(FP_HANDLE, "ATMLinkType");
+if( mode != "PPPoA")
+{
+j++;
+}
+destroy_paralist(FP_HANDLE);
+}
+}
+}
+WANCPPP_INSTNUM = j;
+}
+WANCPPP_ERRORSTR = get_cmret();
+
+if(WANCPPP_ERRORSTR != "SUCC" && WANCPPP_ERRORSTR != "FAIL")
+{
+if (WANCPPP_ERRORSTR != "004")
+{
+WANCPPP_DiagServerConnResult = "fail";
+WANCPPP_DiagServerSessionResult = "fail";
+WANCPPP_DiagAuthResult = "fail";
+WANCPPP_DiagIPResult = "fail";
+WANCPPP_DiagDNSResult = "fail";
+WANCPPP_DiagGetwayResult = "fail";
+var cmret = "cmret_"+WANCPPP_ERRORSTR;
+WANCPPP_ERRORSTR = load_string(cmret);
+}
+}
+if (WANCPPP_ERRORSTR != "SUCC")
+{
+WANCPPP_ERRORPARAM = get_errorparam();
+WANCPPP_ERRTYPE = get_cmret_type();
+}
+create_hidden_sep("IF_ACTION", WANCPPP_ACTION);
+create_hidden_sep("IF_ERRORSTR", WANCPPP_ERRORSTR);
+create_hidden_sep("IF_ERRORTYPE", WANCPPP_ERRTYPE);
+create_hidden_sep("IF_ERRORPARAM", WANCPPP_ERRORPARAM);
+create_hidden_sep("IF_INSTNUM", WANCPPP_INSTNUM);
+create_hidden_sep("IF_IDENTITY", WANCPPP_IDENTITY);
+create_hidden_sep("IF_DiagResult", WANCPPP_DiagResult);
+create_hidden_sep("IF_DIAGSTART", WANCPPP_DIAGSTART);
+create_hidden_sep("IF_TIMER", WANCPPP_TIMER);
+create_hidden_sep("IF_DiagServerConnResult", WANCPPP_DiagServerConnResult);
+create_hidden_sep("IF_DiagServerSessionResult", WANCPPP_DiagServerSessionResult);
+create_hidden_sep("IF_DiagAuthResult", WANCPPP_DiagAuthResult);
+create_hidden_sep("IF_DiagIPResult", WANCPPP_DiagIPResult);
+create_hidden_sep("IF_DiagDNSResult", WANCPPP_DiagDNSResult);
+create_hidden_sep("IF_DiagGetwayResult", WANCPPP_DiagGetwayResult);
+create_form_end();
+IMPORT FILE "manager_diag_pppoe_js.gch";
+%>
+<div id="note" class="space_0">
+<table width="450px" border="0" class="table">
+<tbody>
+<tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">
+<font id="Fnt_Warn">
+1.&?diagp01;<br>
+2.&?diagp011;<br>
+</font>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><b>&?diagp02;</b></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><font id="Fnt_Msg">&?diagp03; </font></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+</table>
+<%
+if(WANCPPP_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_Interface">&?diagp10;</font></td>
+<td class="td2">
+<select size="1" class="list_2" name="Frm_Interface" id="Frm_Interface">
+<%
+var FP_INSTNUM = "";
+var FP_CONNTYPE, FP_IDENTITY, FP_HANDLE, FP_NAME;
+FP_INSTNUM = query_list("OBJ_DSLWANCPPP_ID", "IGD");
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_CONNTYPE = query_wanctype(i);
+if(FP_CONNTYPE == "pppoe")
+{
+FP_IDENTITY = query_identity(i);
+FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DSLWANCPPP_ID", FP_IDENTITY);
+var mode = get_para(FP_HANDLE, "ATMLinkType");
+var IpMode   = get_IPMode(FP_IDENTITY);
+if( mode != "PPPoA" && IpMode != 2)
+{
+FP_IDENTITY = query_identity(i);
+FP_NAME = query_name(i);
+%>
+<option value="<%=FP_IDENTITY;%>" ><%=FP_NAME;%></option>
+<%
+}
+destroy_paralist(FP_HANDLE);
+}
+}
+}
+%>
+</select></td>
+</tr>
+</table>
+<%
+}
+%>
+<%
+if(WANCPPP_INSTNUM >= 1)
+{
+%>
+<table class="item" width="450" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white">
+<td width="80%">&?diagp04;</td>
+<td id = "DiagServerConnResult" width="20%"><%=WANCPPP_DiagServerConnResult;%></td>
+</tr>
+<tr class="blue">
+<td>&?diagp05;</td>
+<td id = "DiagServerSessionResult"><%=WANCPPP_DiagServerSessionResult;%></td>
+</tr>
+<tr class="white">
+<td>&?diagp06; </td>
+<td id = "DiagAuthResult"><%=WANCPPP_DiagAuthResult;%></td>
+</tr>
+<tr class="blue">
+<td>&?diagp07; </td>
+<td id = "DiagIPResult"><%=WANCPPP_DiagIPResult;%></td>
+</tr>
+<tr class="white">
+<td>&?diagp08; </td>
+<td id = "DiagDNSResult"><%=WANCPPP_DiagDNSResult;%></td>
+</tr>
+<tr class="blue">
+<td>&?diagp09; </td>
+<td id = "DiagGetwayResult"><%=WANCPPP_DiagGetwayResult;%></td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method = "post">
+<%
+if(WANCPPP_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td3"><input name="Diagnose" id="Diagnose" type="button" class="button3" value="&?diag001;"  onclick="myDiagStart();"/></td>
+</tr>
+</table>
+<%
+}
+%>
+</form>
+</div>
+<div id="div4"></div>

@@ -1,0 +1,3 @@
+<%
+IMPORT FILE "status_lan_info_t.gch";
+%>

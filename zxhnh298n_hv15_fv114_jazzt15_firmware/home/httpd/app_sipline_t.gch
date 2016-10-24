@@ -1,0 +1,91 @@
+<%
+IMPORT FILE "voip_sip_line_gch.gch";
+IMPORT FILE "app_sipline_js.gch";
+%>
+<table id="TestContent"  class="table" width="480px" border="0">
+<tr>
+<td id="Fnt_Enable" class="td1">&?comm001;</td>
+<td class="td2"><input type="checkbox"  id="Frm_Enable" name="Frm_Enable" value="" disabled="true" /></td>
+</tr>
+<tr>
+<td id="Fnt_AuthUserName" class="td1">&?va01;</td>
+<td  class="td2"><input id="Frm_AuthUserName" type="text" disabled="true" class="inputId" /></td>
+</tr>
+<tr>
+<td id="Fnt_AuthPassword" class="td1">&?va02;</td>
+<td  class="td2"><input id="Frm_AuthPassword" type="password" disabled="true" class="inputId" /></td>
+</tr>
+<tr>
+<td id="Fnt_DigestUserName" class="td1">&?va03;</td>
+<td  class="td2"><input id="Frm_DigestUserName" type="text" disabled="true" class="inputId" /></td>
+</tr>
+<tr>
+<td id="Fnt_PhyList" style="display:none";class="td1">&?voip003;</td>
+<td class="td2" style="display:none";>
+<%
+IMPORT FILE "common_gch.gch";
+var HomeLine_OBJNAME    = "OBJ_VOIPHOMELINE_ID";
+var HomeLine_INSTNUM = query_list(HomeLine_OBJNAME, "IGD");
+create_form_start("", "");
+create_hidden_sep("HomeLine_INSTNUM", HomeLine_INSTNUM);
+create_form_end();
+%>
+<table>
+<%
+for (var i = 0; i < HomeLine_INSTNUM; i = i+2)
+{
+var FP_HANDLE   = create_paralist();
+var FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, HomeLine_OBJNAME, FP_IDENTITY);
+var phyNumber   = get_para(FP_HANDLE, "PhyNumber");
+var termID      = get_para(FP_HANDLE, "TermID");
+destroy_paralist(FP_HANDLE);
+%>
+<tr>
+<td style="width: 80px;">
+<input type="checkbox" id="Frm_HomeLine<%=i;%>" _tid="<%=termID;%>" disabled="true" />
+<span><%=phyNumber;%></span>
+</td>
+<td style="width: 80px;">
+<%
+if (i+1 < HomeLine_INSTNUM)
+{
+var FP_HANDLE   = create_paralist();
+var FP_IDENTITY = query_identity(i+1);
+get_inst(FP_HANDLE, HomeLine_OBJNAME, FP_IDENTITY);
+var phyNumber   = get_para(FP_HANDLE, "PhyNumber");
+var termID      = get_para(FP_HANDLE, "TermID");
+destroy_paralist(FP_HANDLE);
+%>
+<input type="checkbox" id="Frm_HomeLine<%=i+1;%>" _tid="<%=termID;%>" disabled="true" />
+<span><%=phyNumber;%></span>
+<%
+}
+%>
+</td>
+</tr>
+<%
+}
+%>
+</table>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td  class="td2">
+<input type="button" class="button2" value="&?btn003;" id="modify" style="display:none" onclick="ModifySubmit()" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<div class="space_0">
+<table id="Sipline_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="90">&?comm001;</td>
+<td width="90">&?va01;</td>
+<td width="220">&?va03;</td>
+<!--<td width="220">&?voip003; </td>-->
+<td width="90">&?va04;</td>
+</tr>
+</table>
+</div>

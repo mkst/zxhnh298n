@@ -1,0 +1,30 @@
+<HTML>
+<HEAD><TITLE><%=getenv("WEBTitle");%></TITLE>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<META http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+</HEAD>
+<script language="javascript">
+<%
+IMPORT FILE "js/common.js";
+%>
+function redir()
+{
+try
+{
+getObj("fSubmit").action = "system_busy_t.gch";
+getObj("fSubmit").target = "_top";
+getObj("fSubmit").submit();
+}
+catch(e)
+{
+
+top.location.href = "system_busy_t.gch";
+}
+}
+</script>
+<BODY onload="redir();">
+<%=getServerOutput();%>
+<CENTER><H1></H1></CENTER>
+</BODY>
+</HTML>

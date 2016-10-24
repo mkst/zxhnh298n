@@ -1,0 +1,109 @@
+<%
+IMPORT FILE "mirror_gch.gch";
+IMPORT FILE "manager_mirro_js.gch";
+%>
+<div id="note" class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?mirro004;</td>
+</tr></tbody>
+</table>
+</div>
+<div id="div4"></div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?mirro002;</td>
+<td class="td2" >
+<select size="1" class="list_2" id="Frm_MirrorSrc">
+<%
+var WancId = getenv("ObjWancId");
+var FP_INSTNUM = query_list(WancId, "IGD");
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+var identity = query_identity(i);
+var name     = query_name(i);
+if ( 0 == getenv("DevIPv6Effect") )
+{
+var IpMode = get_IPMode(identity);
+if (IpMode != "2")
+{
+%>
+<option value="<%=identity;%>" ><%=name;%></option>
+<%
+}
+}
+else
+{
+%>
+<option value="<%=identity;%>" ><%=name;%></option>
+<%
+}
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?mirro003;</td>
+<td class="td2" >
+<select size="1" class="list_2" id="Frm_MirrorDest">
+<%
+var HANDLE, identity, BRType,WANLANType,name,IFName;
+var FP_INSTNUM = query_list("OBJ_WANLAN_ID", "IGD");
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+var  FP_HANDLE;
+var identity = query_identity(i);
+HANDLE   = create_paralist();
+identity = query_identity(i);
+get_inst(HANDLE, "OBJ_WANLAN_ID", identity);
+BRType     = get_para(HANDLE, "BRType");
+WANLANType = get_para(HANDLE, "WANLANType");
+if(BRType == "0" && WANLANType == "2")
+{
+name = get_para(HANDLE, "Name");
+if ((name != "SSID1") &&(name != "SSID2") &&
+(name != "SSID3") && (name != "SSID4"))
+{
+%>
+<option value="<%=identity;%>"><%=name;%></option>
+<%
+}
+}
+destroy_paralist(HANDLE);
+}
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?vs02;</td>
+<td class="td2">
+<input id="Frm_MirrorEnable" name="Frm_MirrorEnable" type="checkbox" value=""/>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="" type="button" id="add" value="&?btn007;"  class="button2" onclick="Add()"/>
+<input type="button" class="button2" id="modify" value="&?btn003;"  onclick="ModifySubmit()"  style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<div class="space_0">
+<table id="Dhcp_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td>&?vs02;</td>
+<td>&?mirro002;</td>
+<td>&?mirro003;</td>
+<td>&?btn003;</td>
+<td>&?btn006;</td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>

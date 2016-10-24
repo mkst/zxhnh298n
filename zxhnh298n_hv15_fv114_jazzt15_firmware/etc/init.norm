@@ -1,0 +1,39 @@
+# /etc/init.norm: system-wide  file for the Bourne shells
+#set hostname
+hostname "ZXHN H298N"
+
+#make var diretory
+
+mkdir -p /var/tmp
+mkdir -p /var/log
+mkdir -p /var/run
+mkdir -p /var/lock
+mkdir -p /var/usb
+mkdir -p /var/cache
+mkdir -p /var/local/tmp
+mkdir -p /var/state/dhcp
+mkdir -p /var/respawnd/fatal
+mkdir -p /var/respawnd/non_fatal
+mkdir -p /var/etc
+mkdir -p /var/ct/tmp
+mkdir -p /var/paed
+mkdir -p /var/iproute2
+mount -t yaffs2 -o inband-tags /dev/mtdblock2 /cfg/
+echo "Loading drivers and kernel modules... "
+
+ifconfig lo 127.0.0.1 netmask 255.0.0.0 broadcast 127.255.255.255 up
+route add -net 127.0.0.0 netmask 255.0.0.0 lo
+
+echo 0 > /proc/sys/net/ipv4/ip_forward
+echo 8192 > /proc/sys/net/netfilter/nf_conntrack_max
+echo 16384 > /proc/net/fastforward/max_size
+cp /etc/flag_usrfs /cfg/
+
+#################################
+# 设置主机名称，不启动telnetd   #
+#################################
+#telnetd&
+
+# auto start cpsd
+pc&
+

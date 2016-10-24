@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_QOSQP_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 6;var PARA[6] ={"ViewName","PolicerNum","Enable","Status","Dev","Rate"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

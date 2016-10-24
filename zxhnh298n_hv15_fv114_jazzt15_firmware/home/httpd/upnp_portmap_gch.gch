@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_UPNPPORTMAP_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 10;var PARA[10] ={"Name","Application","LeaseDuration","Protocol","RemoteHost","ServerIPAddress","ExternalPort","InternalPort","InternalClient","Description"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

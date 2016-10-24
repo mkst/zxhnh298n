@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_IPV6SWITCH_ID";var FP_MULTIDISPLAY = 0;var FP_PARANUM = 2;var PARA[2] ={"Enable","Effect"};var FP_ACTION = request("IF_ACTION");var FP_ERRORSTR = "SUCC";getOldPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

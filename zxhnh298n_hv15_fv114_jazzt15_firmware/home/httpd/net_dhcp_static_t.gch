@@ -1,0 +1,40 @@
+<%
+IMPORT FILE "dhcp_bind_gch.gch";
+IMPORT FILE "net_dhcp_static_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_IPAddr">&?wan035;</font></td>
+<td class="td2"><input name="textfield22" type="text" class="inputId" id="Frm_IPAddr" name="Frm_IPAddr" value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_MACAddr">&?dhcp_d006;</font></td>
+<td class="td2">
+<input name="mac1" type="text" class="inputId3"   size="15" maxlength="2" id="mac1" onkeyup="toNext(this)"  /> :
+<input name="mac2" type="text" class="inputId3"   size="15" maxlength="2" id="mac2" onkeyup="toNext(this)"  /> :
+<input name="mac3" type="text" class="inputId3"   size="15" maxlength="2" id="mac3" onkeyup="toNext(this)"  /> :
+<input name="mac4" type="text" class="inputId3"   size="15" maxlength="2" id="mac4" onkeyup="toNext(this)"  /> :
+<input name="mac5" type="text" class="inputId3"   size="15" maxlength="2" id="mac5" onkeyup="toNext(this)"  /> :
+<input name="mac6" type="text" class="inputId3"   size="15" maxlength="2" id="mac6" onkeyup="toNext(this)" />
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="" type="button" id="add" value="&?btn007;"  class="button2" onclick="Add()"/>
+<input type="button" class="button2" id="modify" value="&?btn003;"  onclick="ModifySubmit()"  style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<div class="space_0">
+<table id="Dhcp_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td>&?wan035;</td>
+<td>&?dhcp_d006;</td>
+<td>&?btn003;</td>
+<td>&?btn006;</td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>

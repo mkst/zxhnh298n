@@ -1,0 +1,113 @@
+<%
+IMPORT FILE "wlan_config.gch";
+IMPORT FILE "net_11n_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?cwb0;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_RFMODE" onchange="Wireless_switch()">
+<option value ="Enabled">&?wan049;</option>
+<option value ="Disabled">&?Disabled;</option>
+<option value ="Scheduled">&?cwb1;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?zcl04;</td>
+<td class="td2"><input name="" type="checkbox" value=""id="Frm_SSIDIsolationEnable"  checked="checked" /></td>
+</tr>
+<tr >
+<td class="td1"><font id="Fnt_DataRates">&?wlan014;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_9" id="Frm_DataRates" onchange="PageUpdate()">
+<option value ="b">IEEE 802.11b Only</option>
+<option value ="g">IEEE 802.11g Only</option>
+<option value ="n">IEEE 802.11n Only</option>
+<option value ="g,n">Mixed(802.11g+802.11n)</option>
+<option value ="b,g">Mixed(802.11b+802.11g)</option>
+<option value ="b,g,n">Mixed(802.11b+802.11g+802.11n)</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_CountryCode">&?wlan035;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_4" id="Frm_CountryCode" onchange="PageUpdate()">
+<option value ="cnI">&?wlan049;</option>
+<option value ="auI">&?wlan050;</option>
+<option value ="brI">&?wlan051;</option>
+<option value ="caI">&?wlan052;</option>
+<option value ="egI">&?wlan053;</option>
+<option value ="frI">&?wlan054;</option>
+<option value ="deI">&?wlan055;</option>
+<option value ="grI">&?wlan056;</option>
+<option value ="hkI">&?wlan057;</option>
+<option value ="itI">&?wlan058;</option>
+<option value ="krI">&?wlan059;</option>
+<option value ="esI">&?wlan060;</option>
+<option value ="gbI">&?wlan061;</option>
+<option value ="usI">&?wlan062;</option>
+</select></td>
+</tr>
+<tr id="11n_BandWidth">
+<td class="td1"><font id="Fnt_BandWidth">&?11n001;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_BandWidth" onchange="PageUpdate()">
+<option value ="20Mhz">20Mhz</option>
+<option value ="40Mhz">40Mhz</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Channel">&?wlan015;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_Channel" onchange="PageUpdate()">
+</select></td>
+</tr>
+<tr id="11n_SideBand">
+<td class="td1"><font id="Fnt_SideBand">&?11n002;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_SideBand">
+</select></td>
+</tr>
+<tr id="11n_SGIEnabled">
+<td class="td1"><font id="Fnt_SGIEnabled">&?11n003;</font></td>
+<td class="td2"><input name="" type="checkbox" value=""id="Frm_SGIEnabled" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_BeaconInterval">&?wlan021;</font></td>
+<td class="td2"><input name="" type="text" class="inputId2"  value="" size="15"  id="Frm_BeaconInterval"/> &?wlan013;</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TxPower">&?wlan017;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_TxPower">
+<option value ="100%">100%</option>
+<option value ="80%">80%</option>
+<option value ="60%">60%</option>
+<option value ="40%">40%</option>
+<option value ="20%">20%</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_QosType">&?wlan036;</font></td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_QosType">
+<option value ="Disabled">&?wlan048;</option>
+<option value ="WMM">WMM</option>
+<option value ="SSID">SSID</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_RtsCts">&?wlan037;</font></td>
+<td class="td2"><input name="" type="text" class="inputId2"  value="" size="15"  id="Frm_RtsCts"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DTIM">&?wlan038;</font></td>
+<td class="td2"><input name="" type="text" class="inputId2"  value="" size="15"  id="Frm_DTIM"/></td>
+</tr>
+<tr id="tr_fragment">
+<td class="td1"><font id="Fnt_Fragment">&?wlan039;</font></td>
+<td class="td2"><input name="" type="text" class="inputId2"  value="" size="15"  id="Frm_Fragment"/></td>
+</tr>
+</table>
+<div id="div4"></div>

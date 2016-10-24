@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>GetInfo</name>
+<argumentList>
+<argument>
+<name>NewURL</name>
+<direction>out</direction>
+<relatedStateVariable>URL</relatedStateVariable>
+</argument>
+<argument>
+<name>NewPeriodicInformEnable</name>
+<direction>out</direction>
+<relatedStateVariable>PeriodicInformEnable</relatedStateVariable>
+</argument>
+<argument>
+<name>NewPeriodicInformInterval</name>
+<direction>out</direction>
+<relatedStateVariable>PeriodicInformInterval</relatedStateVariable>
+</argument>
+<argument>
+<name>NewPeriodicInformTime</name>
+<direction>out</direction>
+<relatedStateVariable>PeriodicInformTime</relatedStateVariable>
+</argument>
+<argument>
+<name>NewParameterKey</name>
+<direction>out</direction>
+<relatedStateVariable>ParameterKey</relatedStateVariable>
+</argument>
+<argument>
+<name>NewParameterHash</name>
+<direction>out</direction>
+<relatedStateVariable>ParameterHash</relatedStateVariable>
+</argument>
+<argument>
+<name>NewConnectionRequestURL</name>
+<direction>out</direction>
+<relatedStateVariable>ConnectionRequestURL</relatedStateVariable>
+</argument>
+<argument>
+<name>NewConnectionRequestUsername</name>
+<direction>out</direction>
+<relatedStateVariable>ConnectionRequestUsername</relatedStateVariable>
+</argument>
+<argument>
+<name>NewUpgradesManaged</name>
+<direction>out</direction>
+<relatedStateVariable>UpgradesManaged</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+<action>
+<name>SetManagementServerURL</name>
+<argumentList>
+<argument>
+<name>NewURL</name>
+<direction>in</direction>
+<relatedStateVariable>URL</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+</actionList>
+<serviceStateTable>
+<stateVariable sendEvents="no">
+<name>URL</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>PeriodicInformEnable</name>
+<dataType>Boolean</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>PeriodicInformInterval</name>
+<dataType>ui4</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>PeriodicInformTime</name>
+<dataType>DateTime</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ParameterKey</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ParameterHash</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ConnectionRequestURL</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ConnectionRequestUsername</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>UpgradesManaged</name>
+<dataType>Boolean</dataType>
+</stateVariable>
+</serviceStateTable>
+</scpd>
+

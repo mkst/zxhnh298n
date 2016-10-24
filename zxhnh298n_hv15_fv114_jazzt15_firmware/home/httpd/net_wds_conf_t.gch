@@ -1,0 +1,172 @@
+<%
+IMPORT FILE "wds_conf_gch.gch";
+IMPORT FILE "net_wds_conf_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wlan064;&?pub002;</td>
+</tr></tbody>
+</table>
+</div>
+<%
+
+var wds_mode = getenv("wdsMode");
+if (wds_mode == "WDS_Disable")
+{
+%>
+<div id="div4"></div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td9">&?WDS001;</td>
+<td class="td2">
+<select name="Frm_WDS_Mode" id="Frm_WDS_Mode" size="1" tabIndex="1" style="width:130px;" onchange="WDS_Mode_switch()">
+<option value ="WDS_Disable">&?wlan048;</option>
+<option value ="WDS_Root">WDS+Root</option>
+<option value ="WDS_Repeater">WDS+Repeater</option>
+</select>
+</td>
+</tr>
+</table>
+<div id="div4"></div>
+<%
+}
+else if (wds_mode == "WDS_Root")
+{
+%>
+<div id="div4"></div>
+<div class="space_0">
+<div id="t_tip" style="width:450px;text-align:center;">
+<ul>
+<li style="padding-top:8px;text-align:left; margin-left:70px;">
+<span style="width:70px;display:inline-block;margin-left:-70px;text-align:right;">&?cwn2;&nbsp;</span>&?cwd01;
+</li>
+</ul>
+</div>
+</div>
+<div id="div4"></div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td9">&?WDS001;</td>
+<td class="td2">
+<select name="Frm_WDS_Mode" id="Frm_WDS_Mode" size="1" tabIndex="1" style="width:130px;" onchange="WDS_Mode_switch()">
+<option value ="WDS_Disable">&?wlan048;</option>
+<option value ="WDS_Root">WDS+Root</option>
+<option value ="WDS_Repeater">WDS+Repeater</option>
+</select>
+</td>
+</tr>
+<!--WDS Interface Mac-->
+<tr>
+<td class="td9"><font id="Fnt_wds_interface_mac_label">&?WDS002;</font></td>
+<td class="td2"><font id="Fnt_wds_interface_mac_value"><%=getenv("Bssid");%></font></td>
+</tr>
+<!--Repeater Mac 1-->
+<tr>
+<td class="td9"><font id="Fnt_repeater_mac1">&?WDS003;-1</td>
+<td class="td2">
+<input name="mac11" type="text" class="inputId3"   size="15" maxlength="2" id="mac11" onkeyup="toNext(this)"  /> :
+<input name="mac12" type="text" class="inputId3"   size="15" maxlength="2" id="mac12" onkeyup="toNext(this)"  /> :
+<input name="mac13" type="text" class="inputId3"   size="15" maxlength="2" id="mac13" onkeyup="toNext(this)"  /> :
+<input name="mac14" type="text" class="inputId3"   size="15" maxlength="2" id="mac14" onkeyup="toNext(this)"  /> :
+<input name="mac15" type="text" class="inputId3"   size="15" maxlength="2" id="mac15" onkeyup="toNext(this)"  /> :
+<input name="mac16" type="text" class="inputId3"   size="15" maxlength="2" id="mac16" onkeyup="toNext(this)" />
+</td>
+</tr>
+<!--Repeater Mac 2-->
+<tr>
+<td class="td9"><font id="Fnt_repeater_mac2">&?WDS003;-2</td>
+<td class="td2">
+<input name="mac21" type="text" class="inputId3"   size="15" maxlength="2" id="mac21" onkeyup="toNext(this)"  /> :
+<input name="mac22" type="text" class="inputId3"   size="15" maxlength="2" id="mac22" onkeyup="toNext(this)"  /> :
+<input name="mac23" type="text" class="inputId3"   size="15" maxlength="2" id="mac23" onkeyup="toNext(this)"  /> :
+<input name="mac24" type="text" class="inputId3"   size="15" maxlength="2" id="mac24" onkeyup="toNext(this)"  /> :
+<input name="mac25" type="text" class="inputId3"   size="15" maxlength="2" id="mac25" onkeyup="toNext(this)"  /> :
+<input name="mac26" type="text" class="inputId3"   size="15" maxlength="2" id="mac26" onkeyup="toNext(this)" />
+</td>
+</tr>
+<!--Repeater Mac 3-->
+<tr>
+<td class="td9"><font id="Fnt_repeater_mac3">&?WDS003;-3</td>
+<td class="td2">
+<input name="mac31" type="text" class="inputId3"   size="15" maxlength="2" id="mac31" onkeyup="toNext(this)"  /> :
+<input name="mac32" type="text" class="inputId3"   size="15" maxlength="2" id="mac32" onkeyup="toNext(this)"  /> :
+<input name="mac33" type="text" class="inputId3"   size="15" maxlength="2" id="mac33" onkeyup="toNext(this)"  /> :
+<input name="mac34" type="text" class="inputId3"   size="15" maxlength="2" id="mac34" onkeyup="toNext(this)"  /> :
+<input name="mac35" type="text" class="inputId3"   size="15" maxlength="2" id="mac35" onkeyup="toNext(this)"  /> :
+<input name="mac36" type="text" class="inputId3"   size="15" maxlength="2" id="mac36" onkeyup="toNext(this)" />
+</td>
+</tr>
+<!--Repeater Mac 4-->
+<tr>
+<td class="td9"><font id="Fnt_repeater_mac4">&?WDS003;-4</td>
+<td class="td2">
+<input name="mac41" type="text" class="inputId3"   size="15" maxlength="2" id="mac41" onkeyup="toNext(this)"  /> :
+<input name="mac42" type="text" class="inputId3"   size="15" maxlength="2" id="mac42" onkeyup="toNext(this)"  /> :
+<input name="mac43" type="text" class="inputId3"   size="15" maxlength="2" id="mac43" onkeyup="toNext(this)"  /> :
+<input name="mac44" type="text" class="inputId3"   size="15" maxlength="2" id="mac44" onkeyup="toNext(this)"  /> :
+<input name="mac45" type="text" class="inputId3"   size="15" maxlength="2" id="mac45" onkeyup="toNext(this)"  /> :
+<input name="mac46" type="text" class="inputId3"   size="15" maxlength="2" id="mac46" onkeyup="toNext(this)" />
+</td>
+</tr>
+<tr>
+<td class="td9"></td>
+<td class="td2"><input type="button" name="Frm_repeater_set" id="Frm_repeater_set" class="button2" value="&?WDS008;"
+onclick="repeater_mac_add();"/></td>
+</tr>
+</table>
+<div id="div4"></div>
+<%
+}
+else if (wds_mode == "WDS_Repeater")
+{
+%>
+<div id="div4"></div>
+<div class="space_0">
+<div id="t_tip" style="width:450px;text-align:center;">
+<ul>
+<li style="padding-top:8px;text-align:left; margin-left:70px;">
+<span style="width:70px;display:inline-block;margin-left:-70px;text-align:right;">&?cwn2;&nbsp;</span>&?cwd01;
+</li>
+</ul>
+</div>
+</div>
+<div id="div4"></div>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td9">&?WDS001;</td>
+<td class="td2">
+<select name="Frm_WDS_Mode" id="Frm_WDS_Mode" size="1" tabIndex="1" style="width:130px;" onchange="WDS_Mode_switch()">
+<option value ="WDS_Disable">&?wlan048;</option>
+<option value ="WDS_Root">WDS+Root</option>
+<option value ="WDS_Repeater">WDS+Repeater</option>
+</select>
+</td>
+</tr>
+<!--WDS Interface Mac-->
+<tr>
+<td class="td9"><font id="Fnt_wds_interface_mac_label">&?WDS002;</font></td>
+<td class="td2"><font id="Fnt_wds_interface_mac_value"><%=getenv("Bssid");%></font></td>
+</tr>
+<!--Root Mac Add-->
+<tr>
+<td class="td9"><font id="Fnt_root_mac">&?WDS005;</font></td>
+<td class="td2">
+<!--<input type="text" name="Frm_root_mac" id="Frm_root_mac" class="inputId2"  value="" size="17"/></td>-->
+<input name="mac1" type="text" class="inputId3"   size="15" maxlength="2" id="mac1" onkeyup="toNext(this)"  /> :
+<input name="mac2" type="text" class="inputId3"   size="15" maxlength="2" id="mac2" onkeyup="toNext(this)"  /> :
+<input name="mac3" type="text" class="inputId3"   size="15" maxlength="2" id="mac3" onkeyup="toNext(this)"  /> :
+<input name="mac4" type="text" class="inputId3"   size="15" maxlength="2" id="mac4" onkeyup="toNext(this)"  /> :
+<input name="mac5" type="text" class="inputId3"   size="15" maxlength="2" id="mac5" onkeyup="toNext(this)"  /> :
+<input name="mac6" type="text" class="inputId3"   size="15" maxlength="2" id="mac6" onkeyup="toNext(this)" />
+</tr>
+<tr>
+<td class="td9"></td>
+<td class="td2"><input type="button" name="Frm_root_set" id="Frm_root_set" class="button2" value="&?WDS008;" onclick="root_mac_set();"/></td>
+</tr>
+</table>
+<div id="div4"></div>
+<%
+}
+%>

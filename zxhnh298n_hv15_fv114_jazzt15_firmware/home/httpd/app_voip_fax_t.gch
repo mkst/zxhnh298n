@@ -1,0 +1,25 @@
+<%
+IMPORT FILE "voip_fax.gch";
+IMPORT FILE "app_voip_fax_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td id="Fnt_VP" class="td11">&?pro_public001;</td>
+<td class="td2">
+<select name="Frm_VP" id="Frm_VP" size="1" class="list_1" onchange="ChangeVP()">
+<option value="0">&?pro_public002;1</option>
+<option value="1">&?pro_public002;2</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td11">&nbsp;</td>
+<td class="td2">&nbsp;</td>
+</tr>
+<tr>
+<td class="td1">&?fax01;</td>
+<td class="td2">
+<input id="Frm_Enable" name="Frm_Enable" type="checkbox" value=""/>
+</td>
+</tr>
+</table>

@@ -1,0 +1,332 @@
+<ActionList>
+
+<Action name="FactoryReset" serviceType="DeviceConfig" actionType="9" objName="IGD.DEV.CONFIG" optFunc="" needAuth="1">   
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="Reboot" serviceType="DeviceConfig" actionType="9" objName="IGD.DEV.CONFIG" optFunc="" needAuth="1">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="ConfigurationStarted" serviceType="DeviceConfig" actionType="9" objName="IGD.DEV.CONFIG" optFunc="" needAuth="1">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="ConfigurationFinished" serviceType="DeviceConfig" actionType="9" objName="IGD.DEV.CONFIG" optFunc="" needAuth="1">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+
+<Action name="GetInfo" serviceType="DeviceInfo" actionType="41" objName="IGD.DEV" optFunc="" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewManufacturerName" tr69Name="Manufacturer" />
+   		<Para tr64Name="NewManufacturerOUI" tr69Name="ManufacturerOUI" />
+   		<Para tr64Name="NewModelName" tr69Name="ModelName" />
+   		<Para tr64Name="NewDescription" tr69Name="Description" />
+   		<Para tr64Name="NewProductClass" tr69Name="ProductClass" />
+   		<Para tr64Name="NewSerialNumber" tr69Name="SerialNumber" />
+   		<Para tr64Name="NewSoftwareVersion" tr69Name="SoftwareVersion" />
+   		<Para tr64Name="NewAdditionalSoftwareVersions" tr69Name="AdditionalSoftwareVersions" />
+   		<Para tr64Name="NewModemFirmwareVersion" tr69Name="ModemFirmwareVersion" />
+   		<Para tr64Name="NewEnabledOptions" tr69Name="EnabledOptions" />
+   		<Para tr64Name="NewHardwareVersion" tr69Name="HardwareVersion" />
+   		<Para tr64Name="NewAdditionalHardwareVersions" tr69Name="AdditionalHardwareVersions" />
+   		<Para tr64Name="NewSpecVersion" tr69Name="SpecVersion" />
+   		<Para tr64Name="NewProvisioningCode" tr69Name="ProvisioningCode" />
+   		<Para tr64Name="NewUpTime" tr69Name="UpTime" />
+   		<Para tr64Name="NewFirstUseDate" tr69Name="FirstUseDate" />   		
+   </OutParaList>
+</Action>
+<Action name="SetProvisioningCode" serviceType="DeviceInfo" actionType="31" objName="IGD.DEV" optFunc="" needAuth="1">  
+   <InParaList>  
+   		<Para tr64Name="NewProvisioningCode" tr69Name="ProvisioningCode" />      		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetDeviceLog" serviceType="DeviceInfo" actionType="41" objName="IGD.DEV" optFunc="" needAuth="1">  
+   <InParaList>     		    		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewDeviceLog" tr69Name="DeviceLog" />  
+   </OutParaList>
+</Action>
+
+
+<Action name="GetInfo" serviceType="ManagementServer" actionType="41" objName="IGD.MGT" optFunc="" needAuth="0">  
+   <InParaList>     		    		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewURL" tr69Name="URL" />  
+   		<Para tr64Name="NewPeriodicInformEnable" 	tr69Name="PeriodicInformEnable" />  
+   		<Para tr64Name="NewPeriodicInformInterval" 	tr69Name="PeriodicInformInterval" />  
+   		<Para tr64Name="NewPeriodicInformTime" 		tr69Name="PeriodicInformTime" />  
+   		<Para tr64Name="NewParameterKey" 		    tr69Name="ParameterKey" />  
+   		<Para tr64Name="NewParameterHash" 			tr69Name="ParameterHash" />  
+   		<Para tr64Name="NewConnectionRequestURL" 	tr69Name="ConnectionRequestURL" />  
+   		<Para tr64Name="NewConnectionRequestUsername" tr69Name="ConnectionRequestUsername" />  
+   		<Para tr64Name="NewUpgradesManaged" 		tr69Name="UpgradesManaged" />  
+   </OutParaList>
+</Action>
+<Action name="SetManagementServerURL" serviceType="ManagementServer" actionType="31" objName="IGD.MGT" optFunc="" needAuth="1">  
+   <InParaList>    
+   		<Para tr64Name="NewURL" tr69Name="URL" /> 		    		
+   </InParaList>
+   <OutParaList>   		
+   </OutParaList>
+</Action>
+
+<Action name="GetInfo" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewEnable" tr69Name="Enable" />
+   		<Para tr64Name="NewStatus" tr69Name="Status" />
+   		<Para tr64Name="NewMaxBitRate" tr69Name="Status" />
+   		<Para tr64Name="NewChannel" tr69Name="Channel" />
+   		<Para tr64Name="NewSSID" tr69Name="SSID" />
+   		<Para tr64Name="NewPrefixSSID"  tr69Name="PrefixSSID" />
+   		<Para tr64Name="NewBeaconType" tr69Name="BeaconType" />
+   		<Para tr64Name="NewMACAddressControlEnabled" tr69Name="MACAddressControlEnabled" />
+   		<Para tr64Name="NewStandard" tr69Name="Standard" />
+   		<Para tr64Name="NewBSSID" tr69Name="BSSID" />
+   		<Para tr64Name="NewBasicEncryptionModes" tr69Name="BasicEncryptionModes" />
+   		<Para tr64Name="NewBasicAuthenticationMode" tr69Name="BasicAuthenticationMode" />
+   </OutParaList>
+</Action>
+<Action name="GetBasBeaconSecurityProperties" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewBasicEncryptionModes" tr69Name="BasicEncryptionModes" />
+   		<Para tr64Name="NewBasicAuthenticationMode" tr69Name="BasicAuthenticationMode" />
+   </OutParaList>
+</Action>
+<Action name="SetBasBeaconSecurityProperties" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewBasicEncryptionModes" tr69Name="BasicEncryptionModes" />  
+   		<Para tr64Name="NewBasicAuthenticationMode" tr69Name="BasicAuthenticationMode" />  		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetWPABeaconSecurityProperties" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewWPAEncryptionModes" tr69Name="WPAEncryptionModes" />
+   		<Para tr64Name="NewWPAAuthenticationMode" tr69Name="WPAAuthenticationMode" />
+   </OutParaList>
+</Action>
+<Action name="SetWPABeaconSecurityProperties" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewWPAEncryptionModes" tr69Name="WPAEncryptionModes" />  
+   		<Para tr64Name="NewWPAAuthenticationMode" tr69Name="WPAAuthenticationMode" />  		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetList" serviceType="WLANConfiguration" actionType="52" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetEnable" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewEnable" tr69Name="Enable" />  		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetConfig" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewMaxBitRate" tr69Name="MaxBitRate" />  
+   		<Para tr64Name="NewChannel" tr69Name="Channel" />  
+   		<Para tr64Name="NewSSID" tr69Name="SSID" />  
+   		<Para tr64Name="NewBeaconType" tr69Name="BeaconType" />  
+   		<Para tr64Name="NewMACAddressControlEnabled" tr69Name="MACAddressControlEnabled" />  
+   		<Para tr64Name="NewBasicEncryptionModes" tr69Name="BasicEncryptionModes" />  
+   		<Para tr64Name="NewBasicAuthenticationMode" tr69Name="BasicAuthenticationMode" />  		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetSecurityKeys" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="Tr64SetWlanKey" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewWEPKey0" tr69Name="WEPKey0" />  
+   		<Para tr64Name="NewWEPKey1" tr69Name="WEPKey1" />  
+   		<Para tr64Name="NewWEPKey2" tr69Name="WEPKey2" />  
+   		<Para tr64Name="NewWEPKey3" tr69Name="WEPKey3" />  
+   		<Para tr64Name="NewPreSharedKey" tr69Name="PreSharedKey" />  
+   		<Para tr64Name="NewKeyPassphrase" tr69Name="KeyPassphrase" />     			
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetSecurityKeys" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="Tr64GetWlanKey" needAuth="1">  
+   <InParaList>    
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewWEPKey0" tr69Name="WEPKey0" />  
+   		<Para tr64Name="NewWEPKey1" tr69Name="WEPKey1" />  
+   		<Para tr64Name="NewWEPKey2" tr69Name="WEPKey2" />  
+   		<Para tr64Name="NewWEPKey3" tr69Name="WEPKey3" />  
+   		<Para tr64Name="NewPreSharedKey" tr69Name="PreSharedKey" />  
+   		<Para tr64Name="NewKeyPassphrase" tr69Name="KeyPassphrase" />     	
+   </OutParaList>
+</Action>
+<Action name="SetSSID" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewSSID" tr69Name="SSID" />  		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetSSID" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>         				
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewSSID" tr69Name="SSID" />  
+   </OutParaList>
+</Action>
+<Action name="GetChannelInfo" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>         				
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewChannel" tr69Name="Channel" />  
+   		<Para tr64Name="NewPossibleChannels" tr69Name="PossibleChannels" />  
+   </OutParaList>
+</Action>
+<Action name="SetChannel" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewChannel" tr69Name="Channel" />     				
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetBeaconType" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewBeaconType" tr69Name="BeaconType" />     				
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetBeaconType" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>         		   				
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewBeaconType" tr69Name="BeaconType" />  
+   </OutParaList>
+</Action>
+
+<Action name="SetBeaconAdvertisement" serviceType="WLANConfiguration" actionType="32" objName="IGD.LD.WLAN" optFunc="" needAuth="1">  
+   <InParaList>      
+   		<Para tr64Name="NewBeaconAdvertisementEnabled" tr69Name="BeaconAdvertisementEnabled" />     				
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+
+<Action name="GetBeaconAdvertisement" serviceType="WLANConfiguration" actionType="42" objName="IGD.LD.WLAN" optFunc="" needAuth="0">  
+   <InParaList>         		     				
+   </InParaList>
+   <OutParaList>
+                <Para tr64Name="NewBeaconAdvertisementEnabled" tr69Name="BeaconAdvertisementEnabled" />
+   </OutParaList>
+</Action>
+
+<Action name="GetWWWServicePermission" serviceType="LANConfigSecurity" actionType="41" objName="IGD.LD" optFunc="VerifyWWWServerPermission" needAuth="0">  
+   <InParaList>  
+   		<Para tr064Name="NewUserName" tr69Name="" />
+   		<Para tr064Name="NewPassword" tr69Name="" />
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewPermission" tr69Name="" />
+   </OutParaList>
+</Action>
+<Action name="GetList" serviceType="WANPPPConnection" actionType="51" objName="IGD.WD.WCD.WCPPP" optFunc="Tr64GetWcpppList" needAuth="0">  
+   <InParaList>        		
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetInfo" serviceType="WANPPPConnection" actionType="42" objName="IGD.WD.WCD.WCPPP" optFunc="" needAuth="0">  
+   <InParaList>    
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewEnable" tr69Name="Enable" />  
+   		<Para tr64Name="NewConnectionType" tr69Name="ConnectionType" />  
+   		<Para tr64Name="NewPossibleConnectionTypes" tr69Name="PossibleConnectionTypes" />  
+   		<Para tr64Name="NewConnectionStatus" tr69Name="ConnectionStatus" />  
+   		<Para tr64Name="NewName" tr69Name="Name" />  
+   		<Para tr64Name="NewUptime" tr69Name="Uptime" />  
+   		<Para tr64Name="NewUpstreamMaxBitRate" tr69Name="UpstreamMaxBitRate" />  
+   		<Para tr64Name="NewDownstreamMaxBitRate" tr69Name="DownstreamMaxBitRate" />  
+   		<Para tr64Name="NewLastConnectionError" tr69Name="LastConnectionError" />  
+   		<Para tr64Name="NewAutoDisconnectTime" tr69Name="AutoDisconnectTime" />  
+   		<Para tr64Name="NewIdleDisconnectTime" tr69Name="IdleDisconnectTime" />  
+   		<Para tr64Name="NewWarnDisconnectDelay" tr69Name="WarnDisconnectDelay" />  
+   		<Para tr64Name="NewConnectionTrigger" tr69Name="ConnectionTrigger" />  
+   		<Para tr64Name="NewRSIPAvailable" tr69Name="RSIPAvailable" />     		
+   		<Para tr64Name="NewNATEnabled" tr69Name="NATEnabled" /> 
+   		<Para tr64Name="NewUserName" tr69Name="Username" /> 
+   		<Para tr64Name="NewPPPEncryptionProtocol" tr69Name="PPPEncryptionProtocol" /> 
+   		<Para tr64Name="NewPPPCompressionProtocol" tr69Name="PPPCompressionProtocol" /> 
+   		<Para tr64Name="NewPPPAuthenticationProtocol" tr69Name="PPPAuthenticationProtocol" /> 
+   		<Para tr64Name="NewExternalIPAddress" tr69Name="ExternalIPAddress" /> 
+   		<Para tr64Name="NewRemoteIPAddress" tr69Name="RemoteIPAddress" /> 
+   		<Para tr64Name="NewMACAddress" tr69Name="MACAddress" /> 
+   		<Para tr64Name="NewMACAddressOverride" tr69Name="MACAddressOverride" />    		
+   		<Para tr64Name="NewMaxMRUSize" tr69Name="MaxMRUSize" /> 
+   		<Para tr64Name="NewCurrentMRUSize" tr69Name="CurrentMRUSize" /> 
+   		<Para tr64Name="NewDNSEnabled" tr69Name="DNSEnabled" /> 
+   		<Para tr64Name="NewDNSOverrideAllowed" tr69Name="DNSOverrideAllowed" /> 
+   		<Para tr64Name="NewDNSServers" tr69Name="DNSServers" /> 
+   		<Para tr64Name="NewTransportType" tr69Name="TransportType" /> 
+   		<Para tr64Name="NewPPPoEACName" tr69Name="PPPoEACName" />    		
+   		<Para tr64Name="NewPPPoEServiceName" tr69Name="PPPoEServiceName" />
+   		<Para tr64Name="NewRouteProtocolRx" tr69Name="RouteProtocolRx" />
+   		<Para tr64Name="NewPPPLCPEcho" tr69Name="PPPLCPEcho" />
+   		<Para tr64Name="NewPPPLCPEchoRetry" tr69Name="PPPLCPEchoRetry" />   		
+   </OutParaList>
+</Action>
+<Action name="SetEnable" serviceType="WANPPPConnection" actionType="32" objName="IGD.WD.WCD.WCPPP" optFunc="" needAuth="1">  
+   <InParaList>        		
+   		<Para tr64Name="NewEnable" tr69Name="Enable" />
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetUserName" serviceType="WANPPPConnection" actionType="32" objName="IGD.WD.WCD.WCPPP" optFunc="" needAuth="1">  
+   <InParaList>    
+   		<Para tr64Name="NewUserName" tr69Name="Username" />
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="SetPassword" serviceType="WANPPPConnection" actionType="32" objName="IGD.WD.WCD.WCPPP" optFunc="" needAuth="1">  
+   <InParaList>    
+   		<Para tr64Name="NewPassword" tr69Name="Password" />
+   </InParaList>
+   <OutParaList>
+   </OutParaList>
+</Action>
+<Action name="GetUserName" serviceType="WANPPPConnection" actionType="42" objName="IGD.WD.WCD.WCPPP" optFunc="" needAuth="1">  
+   <InParaList>       		
+   </InParaList>
+   <OutParaList>
+   		<Para tr64Name="NewUserName" tr69Name="Username" />
+   </OutParaList>
+</Action>
+</ActionList>

@@ -1,0 +1,150 @@
+<%
+IMPORT FILE "common_gch.gch";
+var FP_INSTNUM,WAN_OBJNAME,FP_HANDLE,FP_IDENTITY,T64_NAME,T64_MTU,T64_TYPE,T64_CONFIGTYPE,T6RD_PREFIX,T64_MASKLEN,T64_BRADDR;
+var T64_WANNAME,T64_CONSTATUS,T64_RemoteAddr,T64_PREFIXLEN,T64_TYPEVALUE;
+var Obj6in4Name = "OBJ_6IN4TUNL_ID";
+var FP_OBJNAME  = "OBJ_TUNNEL64_ID";
+var   FP_Uplink = getenv("TypeValue");
+if (1 == FP_Uplink)  
+     WAN_OBJNAME = "OBJ_DSLWANC_ID";
+else if (2 == FP_Uplink)  
+     WAN_OBJNAME = "OBJ_ETHWANC_ID";
+FP_INSTNUM = query_list(Obj6in4Name, "IGD");
+if(FP_INSTNUM>0&&FP_INSTNUM!=888)
+{
+for(var i=0;i < FP_INSTNUM;i++)
+{
+FP_HANDLE = create_paralist();
+query_list(Obj6in4Name, "IGD");
+FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+T64_NAME = encodeHTML(get_para(FP_HANDLE,"Tunl64Aliasname"));
+T64_MTU  = get_para(FP_HANDLE,"MTU");
+T64_TYPE = get_para(FP_HANDLE,"Tunl64type");
+T64_RemoteAddr = get_para(FP_HANDLE,"REMOTEIPAddr");
+T64_CONFIGTYPE = get_para(FP_HANDLE,"6rdtype");
+T6RD_PREFIX   = get_para(FP_HANDLE,"6rdprefix");
+T64_PREFIXLEN = get_para(FP_HANDLE,"6rdprefixLen");
+T64_MASKLEN   = get_para(FP_HANDLE,"IPv4MaskLen");
+T64_BRADDR    = get_para(FP_HANDLE,"6rdBRIPv4Addr");
+T64_CONSTATUS = get_para(FP_HANDLE,"ConnStatus");
+if("manual" == T64_TYPE)
+{
+T64_TYPEVALUE = "&?tunnel024;";
+}
+else if("6rd" == T64_TYPE)
+{
+T64_TYPEVALUE = "&?tunnel014;";
+}
+if("0" == T64_CONSTATUS)
+{
+T64_CONSTATUS = "&?tunnel023;";
+}
+else if("1" == T64_CONSTATUS)
+{
+T64_CONSTATUS = "&?tunnel022;";
+}
+%>
+<!--表单信息开始-->
+<div class="space_0">
+<table id="Content<%=i;%>" class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?tunnel001;</td>
+<td class="tdright"><Input type="text" id="Text64Name<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=T64_NAME;%>" readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?tunnel011;</td>
+<td class="tdright"><%=T64_MTU;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel012;</td>
+<td class="tdright"><Input type="text" id="TextTYPEVALUE<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=encodeHTML(T64_TYPEVALUE);%>" readonly></td>
+</tr>
+<%
+if("manual" == T64_TYPE)
+{
+%>
+<tr class="white_1">
+<td class="tdleft">&?tunnel015;</td>
+<td class="tdright"><Input type="text" id="TextRemoteAddr<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=encodeHTML(T64_RemoteAddr);%>" readonly></td>
+</tr>
+<%
+}
+else if("6rd" == T64_TYPE)
+{
+%>
+<tr class="white_1">
+<td class="tdleft">&?tunnel016;</td>
+<td class="tdright"><%=T64_CONFIGTYPE;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel017;</td>
+<td class="tdright"><Input type="text" id="TextPREFIX<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=encodeHTML(T6RD_PREFIX);%>/<%=encodeHTML(T64_PREFIXLEN);%>" readonly></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel018;</td>
+<td class="tdright"><%=T64_MASKLEN;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel019;</td>
+<td class="tdright"><Input type="text" id="TextBRADDR<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=encodeHTML(T64_BRADDR);%>" readonly></td>
+</tr>
+<%
+}
+%>
+<tr class="white_1">
+<td class="tdleft">&?tunnel021;</td>
+<td class="tdright"><%=encodeHTML(T64_CONSTATUS);%></td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>
+<!--表单信息结束-->
+<%
+destroy_paralist(FP_HANDLE);
+}
+}
+if(FP_INSTNUM == 0)
+{
+%>
+<table class="infor" width="410" border="0" cellpadding="0" cellspacing="1">
+<tr>
+<td align="center">&?wan056;</td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method="post" action="">
+</form>
+<script language="javascript">
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+var totalnum = "<%=FP_INSTNUM;%>"; 
+var tem = new Array();
+for(var i = 0;i<totalnum; i++)
+{
+tem[i] = document.getElementById("Content"+i);
+if(tem[i] != '' && tem[i] != null)
+{
+for(var j = 0;j<tem[i].rows.length;j++)
+{
+if(j%2 ==0)
+{
+tem[i].rows[j].className="blue_1";
+}
+else
+{
+tem[i].rows[j].className="white_1";
+}
+        }
+    }
+}
+</script>

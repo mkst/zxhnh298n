@@ -1,0 +1,169 @@
+<%
+function wanGetUpLink()
+{
+return getenv("TypeValue");
+}
+function wanGetObjName()
+{
+var objName = "";
+var upLink = wanGetUpLink();
+if (1 == upLink)  
+    {
+objName = "OBJ_DSLWANC_ID";
+}
+else if (2 == upLink)  
+    {
+objName = "OBJ_ETHWANC_ID";
+}
+return objName;
+}
+function wanOption(identity)
+{
+var OptionIp46Attr = 0;
+var IpMode = get_IPMode(identity);
+switch (IpMode)
+{
+case "1":
+OptionIp46Attr = 1;
+break;
+case "2":
+OptionIp46Attr = 2;
+break;
+case "3":
+OptionIp46Attr = 3;
+break;
+default:
+break;
+}
+var WANLAN_HANDLE = create_paralist();
+get_inst(WANLAN_HANDLE, "OBJ_WANLAN_ID", identity);
+var WANLAN_name = encodeHTML(get_para(WANLAN_HANDLE, "Name"));
+var HTMLStr = "<option value=\"" + identity
++ "\" ipmode=\"" + OptionIp46Attr + "\" >"
++ WANLAN_name + "</option>";;
+destroy_paralist(WANLAN_HANDLE);
+return HTMLStr;
+}
+function wanQuery()
+{
+var FP_INSTNUM = "";
+var FP_OBJNAME = wanGetObjName();
+var identity   = "";
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+=wanOption(identity);
+}
+}
+function wanV4Query()
+{
+var FP_INSTNUM = "";
+var FP_OBJNAME = wanGetObjName();
+var identity   = "";
+var IpMode     = "";
+FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+IpMode   = get_IPMode(identity);
+if (IpMode != "2")
+{
+=wanOption(identity);
+}
+}
+}
+function wanQueryByApp(appName)
+{
+var FP_INSTNUM = "";
+var identity   = "";
+var WANLAN_HANDLE     = null;
+var WANLAN_name       = "";
+FP_INSTNUM = query_list("OBJ_LISTWANC_ID", appName);
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+=wanOption(identity);
+}
+}
+}
+function wanV4QueryByApp(appName)
+{
+var FP_INSTNUM = "";
+var identity   = "";
+var WANLAN_HANDLE     = null;
+var WANLAN_name       = "";
+var IpMode            = "";
+FP_INSTNUM = query_list("OBJ_LISTWANC_ID", appName);
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+IpMode   = get_IPMode(identity);
+if (IpMode != "2")
+{
+=wanOption(identity);
+}
+}
+}
+}
+function wanV6QueryByApp(appName)
+{
+var FP_INSTNUM = "";
+var identity   = "";
+var WANLAN_HANDLE     = null;
+var WANLAN_name       = "";
+var IpMode            = "";
+FP_INSTNUM = query_list("OBJ_LISTWANC_ID", appName);
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i = 0; i < FP_INSTNUM; i++ )
+{
+identity = query_identity(i);
+IpMode   = get_IPMode(identity);
+if (IpMode != "1")
+{
+=wanOption(identity);
+}
+}
+}
+}
+function Tunnel46QueryByApp(appName)
+{
+var identity       = "";
+var name           = "";
+var TUN_HANDLE     = null;
+if ( 0 != getenv("DevIPv6Effect") )
+{
+var TUN_INSTNUM = query_list("OBJ_TUNNEL_ID", "IGD");
+if(TUN_INSTNUM >= 1 && TUN_INSTNUM != 888)
+{
+for(var i = 0; i < TUN_INSTNUM; i++ )
+{
+identity = query_identity(i);
+name     = query_name(i);
+="<option value='" + identity + "' >" + encodeHTML(name) + "</option>";
+}
+}
+}
+}
+function Tunnel64Query()
+{
+if ( 0 != getenv("DevIPv6Effect") )
+{
+var T64INSTNUM = query_list("OBJ_6IN4TUNL_ID", "IGD");
+if(T64INSTNUM >= 1 && T64INSTNUM != 888)
+{
+for(var i = 0; i < T64INSTNUM; i++ )
+{
+var identity = query_identity(i);
+var name     = query_name(i);
+="<option value='" + identity + "' >" + encodeHTML(name) + "</option>";
+}
+}
+}
+}
+%>

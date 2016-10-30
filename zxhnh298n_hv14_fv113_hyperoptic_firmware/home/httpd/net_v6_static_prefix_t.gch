@@ -1,0 +1,47 @@
+
+<%
+IMPORT FILE "static_prefix_gch.gch";
+IMPORT FILE "net_v6_static_prefix_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td id="Fnt_Prefix" class="td1">&?v6_001;</td>
+<td class="td2"><input name="Frm_Prefix" id="Frm_Prefix" type="text" class="inputId" value="" size="15" />
+/ <input name="Frm_PrefixLen" id="Frm_PrefixLen" type="text" value="" class="inputId7" /></td>
+</tr>
+<tr>
+<td id="Fnt_PreferLifetime" class="td1">&?v6_002;</td>
+<td class="td2"><input name="Frm_PreferLifetime" id="Frm_PreferLifetime" type="text" class="inputId"  value="" size="15" />&?wan029;</td>
+</tr>
+<tr>
+<td id="Fnt_ValidLifetime" class="td1">&?v6_003;</td>
+<td class="td2"><input name="Frm_ValidLifetime" id="Frm_ValidLifetime" type="text" class="inputId"  value="" size="15" />&?wan029;</td>
+</tr>
+<tr>
+<td id="Fnt_Delegation" class="td1">&?v6_004;</td>
+<td class="td2"><input name="Frm_RA" id="Frm_RA" type="checkbox"  value="" size="15" /> RA</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"><input name="Frm_DHCPV6" id="Frm_DHCPV6" type="checkbox"  value="" size="15" /> DHCPv6</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Btn_Add" type="button" id="Btn_Add" value="&?btn007;" onclick="pageAdd()" class="button2" />
+<input name="Btn_Edit" type="button" id="Btn_Edit" value="&?btn003;" onclick="pageEdit()" class="button2" style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<table id="Static_Prefix_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="90">&?v6_001;</td>
+<td width="90">&?v6_002;</td>
+<td width="90">&?v6_003;</td>
+<td width="90">&?v6_004;</td>
+<td width="40">&?va04;</td>
+<td width="40">&?sr08;</td>
+</tr>
+</table>
+<div id="div4"></div>

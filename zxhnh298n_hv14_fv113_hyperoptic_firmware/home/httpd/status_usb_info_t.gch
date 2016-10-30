@@ -1,0 +1,76 @@
+<%
+IMPORT FILE "common_gch.gch";
+var FP_IDENTITY, FP_HANDLE,FP_INSTNUM;
+var PanelPort,DevName,DevID,ClassInfoStr,tmp;
+FP_INSTNUM = query_list("OBJ_USBDEV_ID", "IGD");
+tmp = "";
+if(FP_INSTNUM == 0 || FP_INSTNUM == "0")
+{
+%>
+<table class="infor" width="410" border="0" cellpadding="0" cellspacing="1">
+<tr>
+<td align="center">&?usb10;</td>
+</tr>
+</table>
+<%
+}
+for (var i=0; i<FP_INSTNUM; i++)
+{
+FP_HANDLE = create_paralist();
+FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, "OBJ_USBDEV_ID", FP_IDENTITY);
+PanelPort     = get_para(FP_HANDLE,"PanelPort");
+DevName       = encodeHTML(get_para(FP_HANDLE,"DevName"));
+DevID          = get_para(FP_HANDLE,"DevID");
+ClassInfoStr = get_para(FP_HANDLE,"ClassInfoStr");
+destroy_paralist(FP_HANDLE);
+if(i != 0 && tmp != PanelPort)
+{
+%>
+<div id="div4"></div>
+<%
+}
+%>
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<%
+if(tmp != PanelPort)
+{
+%>
+<tr class="white_1">
+<td class="tdleft">&?usb01;</td>
+<td class="tdright"><% = PanelPort;%></td>
+</tr>
+<%
+tmp = PanelPort;
+}
+%>
+<tr class="blue_1">
+<td class="tdleft">&?usb02;</td>
+<td class="tdright"><% = DevName;%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?usb03;</td>
+<td class="tdright"><% = ClassInfoStr;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?usb04;</td>
+<td class="tdright"><% = DevID;%></td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method="post" action="">
+<input type="hidden" id="IF_ERRORSTR" name="IF_ERRORSTR" value="">
+</form>
+<SCRIPT>
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+</SCRIPT>

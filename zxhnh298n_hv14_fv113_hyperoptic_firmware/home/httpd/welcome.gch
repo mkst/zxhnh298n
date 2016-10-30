@@ -1,0 +1,524 @@
+<div id="div_wlc_error_tip">&?cwelcome14;</div>
+<div id="ct_left">
+<table style="margin-left:20px; margin-top:30px; font-size:12px" border="0" cellpadding="0" cellspacing="5">
+<tr>
+<td rowspan="3" align="left" width="80px">
+<img src="img/earth.png">
+</td>
+<td height="40px" valign="bottom" width="160px">
+<strong>&?cwelcome3;</strong></td>
+</tr>
+<tr>
+<td valign="bottom" colspan="2">
+&?cwelcome4;:&nbsp;<span id="span_upload_rate">&?cwelcome12;</span>
+</td>
+</tr>
+<tr>
+<td valign="top" colspan="2">
+&?cwelcome5;:&nbsp;<span id="span_download_rate">&?cwelcome12;</span>
+</td>
+</tr>
+</table>
+<div style="position:absolute;top:160px;left:195px;height:24px;">
+<input type="button" class="button" id="Frm_WANDetail" value="&?cwelcome6;" />
+</div>
+</div>
+<div id="ct_middle"></div>
+<div id="ct_right">
+<table style="margin-left:20px; margin-top:30px; font-size:12px" border="0" cellpadding="0" cellspacing="5">
+<tr>
+<td rowspan="3" align="left" width="80px">
+<img src="img/wireless.png">
+</td>
+<td height="40px" valign="bottom" width="160px">
+<strong>&?cwelcome7;</strong>
+</td>
+</tr>
+<tr>
+<td valign="bottom">
+&?wlan014;:&nbsp;<span id="span_wireless_mode">&?cwelcome12;</span>
+</td>
+</tr>
+<tr>
+<td valign="top">
+&?cwb0;:&nbsp;<span id="sliderLength">&?cwelcome12;</span>
+<div id="slider" style="width:100px"></div>
+</td>
+</tr>
+</table>
+<div style="position:absolute;top:160px;left:500px;height:24px;">
+<input type="button" class="button" id="Frm_WLANDetail" value="&?cwelcome6;" />
+</div>
+</div>
+<div id="ct_down">
+<div style=" position:absolute; overflow: hidden; left:10px; top:220px; width: 590px; height:60px; font-size:12px;">
+<div style="float:left; width: 90px; height:60px;"><img class="png_bg" src="img/linkedsetout.png"></div>
+<div style="float:left; height: 20px; padding-top: 35px; font-weight:bolder">&?cwelcome8;</div>
+</div>
+<div class="scroll-pane png_bg">
+<div class="scroll-content">
+<table style=" margin-top:10px" border="0" cellpadding="0" cellspacing="0" align="center">
+<tr height="50px" align="center" id="tr_device_image">
+</tr>
+<tr height="40px" align="center" style="font-size:12px" id="tr_device_name">
+</tr>
+</table>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+var ajaxObjWANRate = new AJAXObj();
+var RxBytes = 0;
+var TxBytes = 0;
+var RxBytes_pre = 0;
+var TxBytes_pre = 0;
+var responeNum = 0;
+var timeIntervalWAN = 8;
+function updatePageWANRate()
+{
+if ( ajaxObjWANRate.getReadyState() == xmlHTTPStatus['Loaded'] )
+{
+if (200 == ajaxObjWANRate.getStatus())
+{
+var xmlDoc2 = new XMLDocObj(ajaxObjWANRate.getResponseText());
+if (xmlDoc2.xmlDoc == null)
+{
+$("#div_wlc_error_tip").show();
+clearInterval(WANRateQueryTimeHandle);
+}
+else
+{
+if (xmlDoc2.getXMLNodeValue("IF_ERRORSTR") != "SUCC")
+{
+$("#div_wlc_error_tip").show();
+clearInterval(WANRateQueryTimeHandle);
+}
+else
+{
+RxBytes_pre = RxBytes;
+TxBytes_pre = TxBytes;
+RxBytes = 0;
+TxBytes = 0;
+var TypeValue = xmlDoc2.getXMLNodeValue("TypeValue");
+if ( 1 == TypeValue )
+{
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_DSLWANCPPP_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCPPP_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCPPP_ID", IDListArr[i], "TxBytes"), 10);
+}
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_DSLWANCIP_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCIP_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCIP_ID", IDListArr[i], "TxBytes"), 10);
+}
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_DSLWANCBRIDGE_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCBRIDGE_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_DSLWANCBRIDGE_ID", IDListArr[i], "TxBytes"), 10);
+}
+}
+else if ( 2 == TypeValue )
+{
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_ETHWANCPPP_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCPPP_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCPPP_ID", IDListArr[i], "TxBytes"), 10);
+}
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_ETHWANCIP_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCIP_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCIP_ID", IDListArr[i], "TxBytes"), 10);
+}
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_ETHWANCBRIDGE_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCBRIDGE_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_ETHWANCBRIDGE_ID", IDListArr[i], "TxBytes"), 10);
+}
+}
+else if ( 4 == TypeValue )
+{
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_TTYWANCPPP_ID");
+for (var i=0; i<IDListArr.length; i++)
+{
+RxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_TTYWANCPPP_ID", IDListArr[i], "RxBytes"), 10);
+TxBytes += parseInt(xmlDoc2.getCMAPIParaValue("OBJ_TTYWANCPPP_ID", IDListArr[i], "TxBytes"), 10);
+}
+}
+responeNum++;
+if (responeNum >= 2)
+{
+var TxBytes_rate = parseInt(((TxBytes - TxBytes_pre)/1024) / timeIntervalWAN, 10);
+var RxBytes_rate = parseInt(((RxBytes - RxBytes_pre)/1024) / timeIntervalWAN, 10);
+$("#span_upload_rate").text(TxBytes_rate+"KBps");
+$("#span_download_rate").text(RxBytes_rate+"KBps");
+<%
+if ( "Y" != get_config("wlcAJAXRefresh") )
+{
+%>
+clearInterval(WANRateQueryTimeHandle);
+<%
+}
+%>
+}
+}
+}
+}
+else if ( 0 != ajaxObjDevice.getStatus() )
+{
+$("#div_wlc_error_tip").show();
+clearInterval(WANRateQueryTimeHandle);
+}
+}
+}
+function callServerWANRate()
+{
+ajaxObjWANRate.post("ajaxQueryWANRate.gch", updatePageWANRate);
+}
+var WANRateQueryTimeHandle;
+$(function() {
+callServerWANRate();
+WANRateQueryTimeHandle = setInterval("callServerWANRate()", timeIntervalWAN*1000);
+})
+var ajaxObjWLAN = new AJAXObj();
+function updatePageWLAN()
+{
+if ( ajaxObjWLAN.getReadyState() == xmlHTTPStatus['Loaded'] )
+{
+if (200 == ajaxObjWLAN.getStatus())
+{
+var xmlDoc2 = new XMLDocObj(ajaxObjWLAN.getResponseText());
+if (xmlDoc2.xmlDoc == null)
+{
+$("#div_wlc_error_tip").show();
+}
+else
+{
+if (xmlDoc2.getXMLNodeValue("IF_ERRORSTR") != "SUCC")
+{
+$("#div_wlc_error_tip").show();
+}
+else
+{
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_WLANCONFIG_ID");
+var TimerEnable = xmlDoc2.getCMAPIParaValue("OBJ_WLANTIMECFG_ID", "IGD", "TimerEnable");
+var RadioStatus = xmlDoc2.getCMAPIParaValue("OBJ_WLANCONFIG_ID", IDListArr[0], "RadioStatus");
+if ( TimerEnable == "1" )
+{
+$("#slider").slider( "value" , 2 );
+$("#sliderLength").text("&?cwb1;");
+}
+else if ( TimerEnable == "0" )
+{
+if( RadioStatus == "1" )
+{
+$("#slider").slider( "value" , 1 );
+$("#sliderLength").text("&?wan049;");
+}
+else if ( RadioStatus == "0" )
+{
+$("#slider").slider( "value" , 0 );
+$("#sliderLength").text("&?Disabled;");
+}
+}
+if ( 1 == getValue("TPIsLogin") )
+{
+$("#slider").slider( "enable" );
+}
+var Standard = xmlDoc2.getCMAPIParaValue("OBJ_WLANCONFIG_ID", IDListArr[0], "Standard");
+var wlsmode;
+switch ( Standard )
+{
+case "b":
+wlsmode = "IEEE 802.11b Only";
+break;
+case "g":
+wlsmode = "IEEE 802.11g Only";
+break;
+case "n":
+wlsmode = "IEEE 802.11n Only";
+break;
+case "g,n":
+wlsmode = "Mixed(802.11g+802.11n)";
+break;
+case "b,g":
+wlsmode = "Mixed(802.11b+802.11g)";
+break;
+case "b,g,n":
+wlsmode = "Mixed(802.11b+802.11g+802.11n)";
+break;
+}
+$("#span_wireless_mode").text(wlsmode);
+}
+}
+}
+else if ( 0 != ajaxObjDevice.getStatus() )
+{
+$("#div_wlc_error_tip").show();
+}
+}
+}
+$("#slider").slider({
+min: 0,
+max: 2,
+stop: function(event, ui) {
+$("#slider").slider( "disable" );
+switch (ui.value){
+case 0 :
+$("#sliderLength").text("&?Disabled;");
+ajaxObjWLAN.addPostItem("TimerEnable", "0");
+ajaxObjWLAN.addPostItem("RadioStatus", "0");
+break;
+case 1 :
+$("#sliderLength").text("&?wan049;");
+ajaxObjWLAN.addPostItem("TimerEnable", "0");
+ajaxObjWLAN.addPostItem("RadioStatus", "1");
+break;
+case 2 :
+$("#sliderLength").text("&?cwb1;");
+ajaxObjWLAN.addPostItem("TimerEnable", "1");
+ajaxObjWLAN.addPostItem("RadioStatus", "NULL");
+break;
+}
+ajaxObjWLAN.post("ajaxWirelessSpirit.gch?pid=999&IF_ACTION=switchRadio", updatePageWLAN);
+}
+});
+$("#slider").slider( "disable" );
+$(function() {
+<%
+if ( "Y" == get_config("wlcWLANSwitch") )
+{
+%>
+ajaxObjWLAN.post("ajaxWirelessSpirit.gch", updatePageWLAN);
+<%
+}
+%>
+})
+var ajaxObjDevice = new AJAXObj();
+var timeIntervalDevice = 60;
+function bindBuble(imgid, msgcontent)
+{
+$("#"+imgid).mouseover
+(
+function()
+{
+if( $(".qtip_connectdevice").data("qtip") )
+{
+$(".qtip_connectdevice").qtip("destroy");
+}
+$(this).qtip({
+content: msgcontent,
+position: {
+corner: {
+tooltip: 'bottomMiddle',
+target: 'topMiddle'
+}
+},
+show: {
+when: false,
+ready: true
+},
+hide: {
+when: {
+target: false,
+event: 'unfocus'
+},
+fixed: true
+},
+style: {
+border: {
+width: 5,
+radius: 5,
+color: '#1e618c'
+},
+background: '#1e618c',
+color: '#FFF',
+width: {min: 200},
+tip: true,
+fontSize: '1.1em',
+classes: { tooltip: 'qtip_connectdevice' }
+}
+})
+}
+);
+}
+function updatePageDevice()
+{
+if ( ajaxObjDevice.getReadyState() == xmlHTTPStatus['Loaded'] )
+{
+if (200 == ajaxObjDevice.getStatus())
+{
+var xmlDoc2 = new XMLDocObj(ajaxObjDevice.getResponseText());
+if (xmlDoc2.xmlDoc == null)
+{
+$("#div_wlc_error_tip").show();
+clearInterval(deviceQueryTimeHandle);
+}
+else
+{
+if (xmlDoc2.getXMLNodeValue("IF_ERRORSTR") != "SUCC")
+{
+$("#div_wlc_error_tip").show();
+clearInterval(deviceQueryTimeHandle);
+}
+else
+{
+$("#tr_device_image").html("");
+$("#tr_device_name").html("");
+$(".scroll-content").css("width", 408);
+var setoutNum = 0;
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_USBDEV_ID");
+setoutNum += IDListArr.length;
+for (var i=0; i<IDListArr.length; i++)
+{
+var imagehtml = "<td width='67px' height='50px'>";
+imagehtml += "<img id='img_usb_num"+ i +"' src='img/USB.gif' />";
+imagehtml += "</td>";
+imagehtml += "<td width='1px' rowspan='2' height='75px'>";
+imagehtml += "<img src='img/line.gif' />";
+imagehtml += "</td>";
+$("#tr_device_image").append(imagehtml);
+$("#tr_device_name").append("<td width='67px' height='50px'>&?usbbak_03;</td>");
+var info = "&?usb01;:&nbsp;";
+info += xmlDoc2.getCMAPIParaValue("OBJ_USBDEV_ID", IDListArr[i], "PanelPort")+"<br>";
+info += "&?usb02;:&nbsp;";
+info += xmlDoc2.getCMAPIParaValue("OBJ_USBDEV_ID", IDListArr[i], "DevName")+"<br>";
+info += "&?usb03;:&nbsp;";
+info += xmlDoc2.getCMAPIParaValue("OBJ_USBDEV_ID", IDListArr[i], "ClassInfoStr")+"<br>";
+info += "&?usb04;:&nbsp;";
+info += xmlDoc2.getCMAPIParaValue("OBJ_USBDEV_ID", IDListArr[i], "DevID")+"<br>";
+bindBuble("img_usb_num"+i, info);
+}
+var IDListArr = xmlDoc2.getMIIDListArr("OBJ_ACCESSDEV_ID");
+setoutNum += IDListArr.length;
+if (setoutNum > 6)
+{
+$(".scroll-content").css("width", (setoutNum - 6) * 68 + $(".scroll-content").width());
+}
+for (var i=0; i<IDListArr.length; i++)
+{
+var imagehtml = "<td width='67px' height='50px'>";
+var namehtml  = "<td width='67px' height='50px'>";
+var Category = xmlDoc2.getCMAPIParaValue("OBJ_ACCESSDEV_ID", IDListArr[i], "Category");
+switch (Category)
+{
+case "Unknown":
+case "Miscellaneous":
+case "Other":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/unknown.gif' />";
+namehtml += "&?dhcp_c010;";
+break;
+case "Computing":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/PC.gif' />";
+namehtml += "&?dhcp_c009;";
+break;
+case "Communication":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/phone.gif' />";
+namehtml += "&?dhcp_c007;";
+break;
+case "Games":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/game.gif' />";
+namehtml += "&?cwelcome9;";
+break;
+case "Multimedia":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/media.gif' />";
+namehtml += "&?cwelcome10;";
+break;
+case "Home Control":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/homegateway.gif' />";
+namehtml += "&?cwelcome13;";
+break;
+case "Camera":
+imagehtml += "<img id='image_adev_num"+ i +"' src='img/camera.gif' />";
+namehtml += "&?cwelcome11;";
+break;
+default:
+break;
+}
+imagehtml += "</td>";
+imagehtml += "<td width='1px' rowspan='2' height='75px'>";
+imagehtml += "<img src='img/line.gif' />";
+imagehtml += "</td>";
+$("#tr_device_image").append(imagehtml);
+$("#tr_device_name").append(namehtml+"</td>");
+var info = "";
+var hname = xmlDoc2.getCMAPIParaValue("OBJ_ACCESSDEV_ID", IDListArr[i], "HostName");
+if ( "" != hname )
+{
+info += "&?ddns006;:&nbsp;";
+info += hname+"<br>";
+}
+var addr = xmlDoc2.getCMAPIParaValue("OBJ_ACCESSDEV_ID", IDListArr[i], "IPAddress");
+if ( "" != addr )
+{
+info += "&?wan035;:&nbsp;";
+info += addr + "<br>";
+}
+addr = xmlDoc2.getCMAPIParaValue("OBJ_ACCESSDEV_ID", IDListArr[i], "IPV6Address");
+addr = addr.split(";");
+for (var j=0; j<addr.length; j++)
+{
+if ( "::" != addr[j] && "" != addr[j] )
+{
+info += "&?wan035;:&nbsp;";
+info += addr[j] + "<br>";
+}
+}
+info += "&?dhcp_d006;:&nbsp;";
+info += xmlDoc2.getCMAPIParaValue("OBJ_ACCESSDEV_ID", IDListArr[i], "MACAddress")+"<br>";
+bindBuble("image_adev_num"+i, info);
+}
+$("#tr_device_image td:last").remove();
+}
+}
+}
+else if ( 0 != ajaxObjDevice.getStatus() )
+{
+$("#div_wlc_error_tip").show();
+clearInterval(deviceQueryTimeHandle);
+}
+}
+}
+function callServerDevice()
+{
+ajaxObjDevice.post("ajaxQueryDevice.gch", updatePageDevice);
+}
+var deviceQueryTimeHandle;
+$(function() {
+callServerDevice();
+<%
+if ( "Y" == get_config("wlcAJAXRefresh") )
+{
+%>
+deviceQueryTimeHandle = setInterval("callServerDevice()", timeIntervalDevice*1000);
+<%
+}
+%>
+})
+$(function() {
+$("#Frm_WANDetail").click(function(){
+var typevalue = getValue("TPTypeValue");
+if ( 1 == typevalue )
+{
+window.open("templateLight.gch?pid=1001&nextpage=IPv46_status_wan_if_t.gch");
+}
+else if ( 2 == typevalue )
+{
+window.open("templateLight.gch?pid=1001&nextpage=IPv46_status_wan2_if_t.gch");
+}
+else if ( 4 == typevalue )
+{
+window.open("templateLight.gch?pid=1001&nextpage=status_ttywan_info_t.gch");
+}
+})
+$("#Frm_WLANDetail").click(function(){
+window.open("templateLight.gch?pid=1001&nextpage=status_wlan_info_t.gch");
+})
+})
+</script>

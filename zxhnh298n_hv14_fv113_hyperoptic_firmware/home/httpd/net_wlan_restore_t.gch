@@ -1,0 +1,75 @@
+<%
+IMPORT FILE "common_gch.gch";
+var FP_HANDLE, FP_ACTION, flag;
+FP_ACTION = request("IF_ACTION");
+flag      = request("flag");
+if (flag IS NULL)
+{
+flag = 0;
+}
+if(FP_ACTION == "ssidRestore")
+{
+FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "CmdId", "cmd_ssidRestore");
+dev_action(FP_HANDLE);
+}
+create_form_start("fSubmit", "");
+create_hidden_sep("IF_ACTION", "");
+create_hidden_sep("flag", flag);
+create_form_end();
+%>
+<!--fanqingsong为multi-ssid-setting恢复出厂ssid配置添加 2009-3-18-->
+<br>
+<br>
+<div class="space_0">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wlan069;</td>
+</tr></tbody>
+</table>
+</div>
+<br>
+<br>
+<table id="TestContent1"  class="table" width="450px" border="0">
+<tr>
+<td class="td3">
+<input type="button" id="Btn_SSIDRestore" name="Btn_SSIDRestore" class="button4" value="&?wlan068;" style="width:145px" onClick="SSIDRestoreSubmit();"/>
+</td>
+</tr>
+</table>
+<script language="javascript">
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+pageGetValue();
+}
+function pageGetValue()
+{
+var flag = getValue("flag");
+if (flag == "1")
+{
+jslDisable("Btn_SSIDRestore");
+setTimeout("jslEnable('Btn_SSIDRestore');", 1000*60);
+}
+}
+function getmsg(id)
+{
+var str  = new Array();
+str[0]  = new Array(0, "&?cww1;");
+return getMsgFormArray(str, arguments);
+}
+function SSIDRestoreSubmit()
+{
+msg = getmsg(0);
+var isOK = window.confirm(msg);
+if(isOK)
+{
+jslDisable("Btn_SSIDRestore");
+setValue("IF_ACTION", "ssidRestore");
+setValue("flag", "1");
+DisableALL();
+getObj("fSubmit").submit();
+}
+}
+</script>

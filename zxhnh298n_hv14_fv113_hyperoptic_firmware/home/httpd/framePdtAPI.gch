@@ -1,0 +1,25 @@
+<%
+var langconf[5] =
+{
+"langen.conf",
+"langcn.conf",
+"langge.conf",
+"langfr.conf",
+"langsp.conf"
+};
+var TypeValueArr[3] =
+{
+1,
+2,
+3
+};
+var ObjWancIdArr[3] =
+{
+"OBJ_DSLWANC_ID",
+"OBJ_ETHWANC_ID",
+"OBJ_TTYWANCPPP_ID"
+};
+var pdtWANTypeIndex = 0;
+var errLoginNumMax = 3;
+var defaultDispPage = "";
+%>

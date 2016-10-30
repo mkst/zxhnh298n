@@ -1,0 +1,3 @@
+<%
+IMPORT FILE "manager_ipv6_switch_t.gch";
+%>

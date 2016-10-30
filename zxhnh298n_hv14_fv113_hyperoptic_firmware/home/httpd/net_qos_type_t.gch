@@ -1,0 +1,245 @@
+<%
+IMPORT FILE "qos_qc_gch.gch";
+IMPORT FILE "net_qos_type_js.gch";
+IMPORT FILE "qos_qc_if_query.gch";
+var objname    = "OBJ_QOSQQ_ID";
+var objname_qp = "OBJ_QOSQP_ID";
+var objname_qq = "OBJ_QOSQQ_ID";
+%>
+<style type="text/css">
+*{
+margin:0px;padding:0px;
+}
+#tips{
+position:absolute;display:none;
+width:314px;height:auto;
+background-color:#f7f7f7;
+border:1px solid #000000;
+z-index:999;
+}
+#content_2{
+font-size:9pt;
+padding-top:5px;
+padding-left:10px;
+color:#000000;
+}
+</style>
+<table id="TestContent"  width="543" class="table" border="0">
+<tr><td colspan="2"></td>
+<tr>
+<td class="td1" width="129">&?comm001;</td>
+<td class="td2"><input type="checkbox"  id="Frm_Enable" name="Frm_Enable" value="" /></td>
+</tr>
+<tr>
+<td class="td1">&?qos_d001;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_DevInList" name="Frm_DevInList">
+<option value=""></option>
+<%qosQcIfOptions("IN");%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?qos_t017;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_L2ProtocolList" name="Frm_L2ProtocolList" onchange="Change_protocol()">
+<option value=""></option>
+<option value="IP">IPv4</option>
+<option value="ARP">ARP</option>
+<option value="PPPOE">PPPoE</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1" width="129">&?qos_t018;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_L3ProtocolList" name="Frm_L3ProtocolList" >
+<option value=""></option>
+<option value="TCP">TCP</option>
+<option value="UDP">UDP</option>
+<option value="ICMP">ICMP</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_MACSrc">&?qos_c002;</font></td>
+<td class="td2">
+<input name="mac1" type="text" class="inputId3"   size="2" maxlength="2" id="mac1" onkeyup="toNext(this)"  /> :
+<input name="mac2" type="text" class="inputId3"   size="2" maxlength="2" id="mac2" onkeyup="toNext(this)"  /> :
+<input name="mac3" type="text" class="inputId3"   size="2" maxlength="2" id="mac3" onkeyup="toNext(this)"  /> :
+<input name="mac4" type="text" class="inputId3"   size="2" maxlength="2" id="mac4" onkeyup="toNext(this)"  /> :
+<input name="mac5" type="text" class="inputId3"   size="2" maxlength="2" id="mac5" onkeyup="toNext(this)"  /> :
+<input name="mac6" type="text" class="inputId3"   size="2" maxlength="2" id="mac6" onkeyup="toNext(this)" />
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DES_MAC">&?maco017;</font></td>
+<td class="td2">
+<input name="mac7" type="text" class="inputId3"   size="15" maxlength="2" id="mac7" onkeyup="toNext(this)"  /> :
+<input name="mac8" type="text" class="inputId3"   size="15" maxlength="2" id="mac8" onkeyup="toNext(this)"  /> :
+<input name="mac9" type="text" class="inputId3"   size="15" maxlength="2" id="mac9" onkeyup="toNext(this)"  /> :
+<input name="mac10" type="text" class="inputId3"   size="15" maxlength="2" id="mac10" onkeyup="toNext(this)"  /> :
+<input name="mac11" type="text" class="inputId3"   size="15" maxlength="2" id="mac11" onkeyup="toNext(this)"  /> :
+<input name="mac12" type="text" class="inputId3"   size="15" maxlength="2" id="mac12" onkeyup="toNext(this)" />
+</td>
+</tr>
+<tr id="TR_VLANID">
+<td class="td1"><font id="Fnt_VLANID">&?wan065;</font></td>
+<td class="td2"><input type="text" name="Frm_VLANID" id="Frm_VLANID" class="inputId2"/>(0 ~ 4094)</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_VlanPrio">&?wan057;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_VlanPrio" name="Frm_VlanPrio" size="15" value=""/>(0 ~ 7)</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_SrcPort">&?route003;</font><font id="Fnt_SrcPortUnit"> MIN&?colon;</font></td>
+<td class="td2">
+<input type="text" class="inputId2" id="Frm_SrcPortMin" name="Frm_SrcPortMin" size="15" value=""/>
+<font id="Fnt_SrcPortMax"> MAX&?colon;</font>
+<input type="text" class="inputId2" id="Frm_SrcPortMax" name="Frm_SrcPortMax" size="15" value=""/>(0 ~ 65535)
+</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_DestPort">&?qos_c006;</font><font id="Fnt_DestPortMin"> MIN&?colon;</font></td>
+<td class="td2">
+<input type="text" class="inputId2" id="Frm_DestPortMin" name="Frm_DestPortMin" size="15" value=""/>
+<font id="Fnt_DestPortMax"> MAX&?colon;</font>
+<input type="text" class="inputId2" id="Frm_DestPortMax" name="Frm_DestPortMax" size="15" value=""/>(0 ~ 65535)
+</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_DSCPCheck">&?qos_c008;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_DSCPCheck" name="Frm_DSCPCheck" size="15" value=""/>(0 ~ 63)</td>
+</tr>
+<tr style="display:none">
+<td class="td1" width="129">&?ipfl010;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_DevIn" name="Frm_DevIn" >
+<option>lan1</option>
+<option>ssid1</option>
+</select>
+</td>
+</tr>
+</table>
+<table id="TABLE_ipv4" class="table" width="450px" border="0">
+<tr><td><fieldset><legend style="color:#000000">&?ipv6_QoS001;&nbsp;&nbsp;<img src="img/up.gif" id="Frm_ipv4" onclick="DisPlayipv4()"></legend>
+<table id="ipv4_table"  width="543" class="table" border="0">
+<tr id="TR_IPSrc">
+<td class="td1" width="129"><font id="Fnt_IPSrc">&?qos_c004;</font><font id="Fnt_IPSrcMin"> MIN&?colon;</font></td>
+<td class="td2">
+<input type="text" class="inputId2" id="Frm_IPSrcMin" name="Frm_IPSrcMin" size="15" value=""/>
+<font id="Fnt_IPSrcMax"> MAX&?colon;</font>
+<input type="text" class="inputId2" id="Frm_IPSrcMax" name="Frm_IPSrcMax" size="15" value=""/>
+</td>
+</tr>
+<tr id="TR_IPDest">
+<td class="td1" width="129"><font id="Fnt_IPDest">&?qos_c005;</font><font id="Fnt_IPDestMin"> MIN&?colon;</font></td>
+<td class="td2">
+<input type="text" class="inputId2" id="Frm_IPDestMin" name="Frm_IPDestMin" size="15" value=""/>
+<font id="Fnt_IPDestMax"> MAX&?colon;</font>
+<input type="text" class="inputId2" id="Frm_IPDestMax" name="Frm_IPDestMax" size="15" value=""/>
+</td>
+</tr>
+</table>
+</fieldset></td></tr>
+</table>
+<table id="TestContent2"  width="543" class="table" border="0">
+<tr>
+<td class="td1" width="129"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_VlanPrioMark">&?qos_c010;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_VlanPrioMark" name="Frm_VlanPrioMark" size="15" value=""/>(0 ~ 7)</td>
+</tr>
+<tr>
+<td class="td1" width="129"><font id="Fnt_DscpMark">&?qos_c011;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_DscpMark" name="Frm_DscpMark" size="15" value=""/>(0 ~ 63)</td>
+</tr>
+<tr style="display:none" >
+<td class="td1" width="129">入口限速规则号&?colon;</td>
+<td class="td2">
+<select class="list_5" >
+<option></option>
+<option></option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1" width="129">&?qos_qp001;</td>
+<td class="td2">
+<select size="1" class="list_5" id="Frm_ClassQueue_qp" name="Frm_ClassQueue_qp">
+<option value=""></option>
+<%
+var FP_HANDLE   = "";
+var FP_IDENTITY = "";
+var PolicerNum  = "";
+var num_qp=query_list(objname_qp,"IGD");
+for(var j = 0; j < num_qp; j++)
+{
+FP_HANDLE = create_paralist();
+FP_IDENTITY = query_identity(j);
+get_inst(FP_HANDLE, "OBJ_QOSQP_ID", FP_IDENTITY);
+PolicerNum = get_para(FP_HANDLE, "PolicerNum");
+destroy_paralist(FP_HANDLE);
+%>
+<option value="<%=encodeHTML(PolicerNum);%>"><%=encodeHTML(PolicerNum);%></option>
+<%
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1" width="129">&?qos_c012;</td>
+<td class="td2">
+<select size="1" class="list_2" id="Frm_ClassQueue" name="Frm_ClassQueue">
+<option value="-1"></option>
+<%
+var FP_HANDLE   = "";
+var FP_IDENTITY = "";
+var QueueNum    = "";
+var QueueKey    = "";
+var Interface   = "";
+var num_qq=query_list(objname_qq,"IGD");
+for(var i=0;i<num_qq;i++)
+{
+FP_HANDLE = create_paralist();
+FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, objname_qq, FP_IDENTITY);
+QueueKey = get_para(FP_HANDLE, "QueueKey");
+Interface= get_para(FP_HANDLE, "Interface");
+QueueNum = get_para(FP_HANDLE, "QueueNum");
+destroy_paralist(FP_HANDLE);
+%>
+<option value="<%=encodeHTML(QueueKey);%>" _Interface="<%=encodeHTML(Interface);%>" _QueueNum="<%=encodeHTML(QueueNum);%>"></option>
+<%
+}
+%>
+</select>
+</td>
+</tr>
+<tr height="4px" ><td colspan="2"></td></tr>
+<tr>
+<td class="td1" width="129"></td>
+<td class="td2">
+<input name="add"    type="button" id="add"    value="&?btn007;"  class="button2" onclick="Add()"/>
+<input name="modify" type="button" id="modify" value="&?btn003;"  class="button2" onclick="ModifySubmit()" style="display:none"/>
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+<tr height="20px" ><td colspan="2"></td></tr>
+</table>
+<table  id="Dhcp_Table" class="item" width="450" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td>&?qos_c013;</td>
+<td >&?sr06;</td>
+<td>&?btn003;</td>
+<td>&?btn006;</td>
+</tr>
+</table>
+<div id="tips">
+<iframe frameborder='0' style="position: absolute; width: 310px; z-index: -1;filter:alpha(opacity=0);"></iframe>
+<div id="content_2"><font id="content_3"></font></div>
+</div>
+<div id="div4"></div>

@@ -1,0 +1,76 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "wlan_wepkey_gch.gch";
+IMPORT FILE "wlan_psk_gch.gch";
+IMPORT FILE "wlan_config_gch.gch";
+IMPORT FILE "wlan_driver_gch.gch";
+var FP_HANDLE, FP_VIEWID;
+var PARA[2] =
+{
+"WEPKey",
+"WEPKey"
+};
+create_form_start("fSubmit", "");
+createBasicHidden();
+create_hidden_sep("IF_PSKTAG", "");
+create_hidden_sep("IF_CONFIGTAG", "");
+create_hidden_sep("IF_WEPKEYTAG", "");
+create_hidden_sep("WEPKey", "");
+for (var i = 0; i < 4; i++)
+{
+create_hidden_multiinstnewpara(FP_HANDLE,PARA, i, 1);
+}
+var FP_PSKTAG = request("IF_PSKTAG");
+var FP_CONFIGTAG = request("IF_CONFIGTAG");
+var FP_WEPKEYTAG = request("IF_WEPKEYTAG");
+var FP_ACTION = request("IF_ACTION");
+var FP_VIEWID = request("IF_VIEWID");
+
+var FP_ERRORSTR = "SUCC";
+var WLAN_OBJNAME = "OBJ_WLANCONFIG_ID";
+var WLAN_INSTNUM = query_list(WLAN_OBJNAME, "IGD");
+var WLAN_IDENTITY = "";
+create_hidden_sep("WLAN_INSTNUM", WLAN_INSTNUM);
+if (FP_VIEWID IS NULL)
+{
+FP_VIEWID = query_identity(0);
+}
+var flag = 0;
+for (var i=0; i<WLAN_INSTNUM; i++)
+{
+WLAN_IDENTITY = query_identity(i);
+create_hidden_sep("WLAN_SSID"+i, WLAN_IDENTITY);
+if (FP_VIEWID == WLAN_IDENTITY)
+{
+flag = 1;
+}
+}
+if (flag == 0)
+{
+FP_PSKTAG    = "N";
+FP_CONFIGTAG = "N";
+FP_WEPKEYTAG = "N";
+FP_VIEWID = query_identity(0);
+}
+create_hidden_sep("IF_VIEWID", FP_VIEWID);
+if (FP_WEPKEYTAG == "Y" && FP_ACTION == "apply")
+{
+FP_HANDLE = create_paralist();
+set_para(FP_HANDLE, "WEPKeyIndex", request("WEPKeyIndex"));
+set_para(FP_HANDLE, "WEPKey", request("WEPKey"));
+set_inst(FP_HANDLE, "OBJ_WLANCURRWEPKEY_ID", FP_VIEWID);
+FP_ERRORSTR = getDisplayInstError(FP_ERRORSTR);
+
+
+}
+FP_ERRORSTR = psk_func(FP_ACTION, FP_PSKTAG, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = config_func(FP_ACTION, FP_CONFIGTAG, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = wepkey_func(FP_ACTION, FP_WEPKEYTAG, 0, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = wepkey_func(FP_ACTION, FP_WEPKEYTAG, 1, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = wepkey_func(FP_ACTION, FP_WEPKEYTAG, 2, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = wepkey_func(FP_ACTION, FP_WEPKEYTAG, 3, FP_VIEWID, FP_ERRORSTR);
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+FP_VIEWID = query_identity(0);
+FP_ERRORSTR = driver_func(FP_VIEWID, FP_ERRORSTR);
+create_form_end();
+%>

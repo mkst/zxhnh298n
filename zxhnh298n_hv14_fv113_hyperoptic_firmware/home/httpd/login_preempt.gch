@@ -1,0 +1,289 @@
+
+<%
+IMPORT FILE "auth/api.gch";
+var sess_id          = auth_sessid();
+var preempt_err_type = getenv("request/preempt_err_type");
+session_start(sess_id, 0);
+var username       = session_get("login_name");
+var preempt_status = auth_get_status("login");
+var preempt_err_msg = "";
+switch (preempt_err_type)
+{
+case "":
+break;
+case "TARGET_SESSION_NOT_EXIST":
+preempt_err_msg = "&?error_211;";
+break;
+default:
+preempt_err_msg = "&?error_118;";
+break;
+}
+if ("preempt" != preempt_status)
+{
+header("Location: /");
+return;
+}
+var old_sess_id             = session_id();
+var old_username            = session_get("login_name");
+var old_right               = session_get("Right");
+var right;
+var same_account_sess_count = 0;
+var right_lower_sess_count  = 0;
+var sess_count              = session_count();
+for (var i = 0; i < sess_count; i++)
+{
+session_bind(i);
+if (old_sess_id == session_id())
+{
+continue;
+}
+if ("logined" == auth_get_status("login"))
+{
+right = session_get("Right");
+if (old_username == session_get("login_name"))
+{
+same_account_sess_count++;
+}
+else if (right > old_right)
+{
+right_lower_sess_count++;
+}
+else
+{
+}
+}
+}
+session_start(old_sess_id, 0);
+if (0 == same_account_sess_count && 0 == right_lower_sess_count && (preempt_err_msg =="" || preempt_err_msg =="N/A"))
+{
+="<div align='center'><br><br><br><font size=8><b>&?error_515;<br>&?error_516;</b><div>";
+return;
+}
+var head      = "<!DOCTYPE html PUBLIC \"-\/\/W3C\/\/DTD XHTML 1.0 Transitional\/\/EN\"";
+var head1     = "\"http:\/\/www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">";
+var head_html = "<html xmlns=\"http:\/\/www.w3.org/1999/xhtml\">";
+=head + head1;
+=head_html;
+var prompt_msg;
+if (0 == same_account_sess_count)
+{
+prompt_msg = load_string("login011");
+}
+else
+{
+prompt_msg = load_string("login012");
+}
+%>
+<head>
+<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+<meta http-equiv="Content-Type" content="text/html; charset=&?LANG;" />
+<title><%=getenv("WEBTitle");%></title>
+<LINK REL="stylesheet" HREF="&?css2path;" TYPE="text/css" />
+<LINK REL="stylesheet" HREF="&?csslang;" TYPE="text/css" />
+<style>
+html, body {
+height: 100%;
+min-height:101%;
+}
+div.preempt {
+width: 450px;
+margin: 0 auto;
+padding-top: 100px;
+}
+#msg-table, #preempt-table {
+width: 450px;
+}
+#preempt-table {
+margin-top: 20px;
+}
+#preempt-table td.td1 {
+padding-right: 5px;
+text-align: right;
+}
+#preempt-table td.td2 {
+padding-left: 5px;
+text-align: left;
+}
+#preempt-table td.btn {
+padding: 0 5px;
+text-align: center;
+}
+#preempt-table td.btn div {
+margin-top: 20px;
+}
+#loginArea { width:778px;height:389px;background-color:#f7f7f7; }
+</style>
+<script>
+<%
+IMPORT FILE "js/common.js";
+IMPORT FILE "js/common_check.js";
+IMPORT FILE "js/pro_commom.js";
+%>
+var SetTFlag = 0;
+var g_errorInfo = "&?ErrRep;";
+function getmsg(id)
+{
+var str = [
+["login_001", "&?err_login_001;"]
+];
+return getMsgFormArray(str, arguments);
+}
+function setinner(type)
+{
+if (SetTFlag ==0)
+{
+getObj("myLayer").style.visibility = type ;
+}
+}
+function Transfer_meaning(id,value)
+{
+getObj(id).value=value;
+}
+function relogin()
+{
+alert("&?note_003;");
+document.flogout.submit();
+}
+function checkform()
+{
+var msg = "";
+if (!getObj("preempt-form").index.checked)
+{
+msg = getmsg("login_001");
+ShowErrorForCom(null, null, msg);
+return false;
+}
+getObj("Btn_Submit").disabled = true;
+getObj("Btn_Cancel").disabled = true;
+return true;
+}
+function highlight(ele, flag)
+{
+if (flag)
+{
+ele.className += " white_1";
+}
+else
+{
+ele.className = ele.className.replace(/\bwhite_1\b/, "");
+if (ele.className.trim)
+{
+ele.className = ele.className.trim();
+}
+}
+}
+</script>
+</head>
+<%
+%>
+<body>
+<div id="container">
+<!--FHS 613001747135 ZXHN H298N V1.1.1T03_关于配置QOS页面，出现文字在框外的情况 20121129-->
+<div id="myLayer" onmousedown="setinner('hidden')">
+<div id="Layer1" style="position:absolute; width:180px; height:45px; z-index:10; left: 2px; top: 28px;">
+<table width="183" border="0">
+<tr>
+<td width="183">&nbsp;&nbsp;<font id="errmsg" class="notecontent" ></font><span id="time" style="color:red;display:none;"></span></td>
+</tr>
+</table>
+</div>
+<div id="Layer3" style="position:absolute; width:140px; height:10px; z-index:11; left: 34px; top: 9px; font-size: 8pt;">
+<font  class="note" id="errnote">&nbsp;&?ErrRep;</font>
+</div>
+</div>
+<!--head部分开始-->
+<div id="head">
+<div class="type"><font id=""></font></div>
+<div id="banner" style="background-image:url(img/banner.gif); background-repeat:no-repeat"></div>
+</div>
+<!--head部分结束-->
+<!--content部分开始-->
+<!--内容开始-->
+<div id="loginArea">
+<form name="preempt-form" id="preempt-form" method="post"  onsubmit="return checkform();" action="">
+<div class="preempt">
+<table border="0" class="table" id="msg-table"><tbody>
+<tr>
+<td valign="top" style="width: 30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left: 10px;"><%=prompt_msg;%></td>
+</tr>
+</tbody></table>
+<table id="preempt-table" class="table infor"  border="0" cellpadding="0" cellspacing="1"><tbody>
+<%
+var counter         = 0;
+var login_status    = "";
+var sid, ip, username;
+for (var i = 0; i < sess_count; i++)
+{
+session_bind(i);
+if (session_id() == old_sess_id)
+{
+continue;
+}
+login_status = auth_get_status("login");
+if ("logined" == login_status
+&& ( 0 == same_account_sess_count || (0 < same_account_sess_count && old_username == session_get("login_name")) ))
+{
+counter++;
+sid = session_id();
+ip = session_get("Clientaddr");
+username = session_get("login_name");
+%>
+<tr onmouseover="highlight(this, true)" onmouseout="highlight(this, false)">
+<td class="td1">
+<input type="radio" name="index" id="index<%=counter;%>" value="<%=counter;%>" />
+<input type="hidden" name="sid<%=counter;%>" value="<%=sid;%>" />
+</td>
+<td class="td2"><label for="index<%=counter;%>"><%=ip;%> (<%=encodeHTML(username);%>)</label></td>
+</tr>
+<%
+}
+}
+session_start(old_sess_id, 0);
+%>
+<tr>
+<td colspan="2" class="btn">
+<div>
+<input type="hidden" value="preempt" name="action" />
+<input type="submit" value="&?btn005;" class="button7" id="Btn_Submit" name="Submit">
+<input type="submit" value="&?btn004;" class="button7" id="Btn_Cancel" name="Submit" onclick="document.flogout.submit(); return false;">
+</div>
+</td>
+</tr>
+</tbody></table>
+</div>
+</form>
+<form name="flogout" id="flogout" method="post" onsubmit="return false;" action="/" target="_top">
+<input type="hidden" name="logout" id="logout" value="1" >
+</form>
+<!--内容结束-->
+</div>
+<!--bottom部分开始-->
+<%
+if(get_config("hideCopyRight")!="Y")
+{
+%>
+<div style="font-family: Arial;font-size: 12px;text-align:center;"> &?ZTE; </div>
+<%
+}
+%>
+<div class="bottom_line"></div>
+<div id="bottomx"></div>
+<!--bottom部分结束-->
+</div>
+<script>
+<%
+if (preempt_err_msg != "" && preempt_err_msg != "N/A")
+{
+%>
+getObj("errmsg").innerHTML = "<%=encodeJS(preempt_err_msg);%>";
+getObj("myLayer").style.visibility = "visible" ;
+<%
+}
+setenv("request/callback", "relogin()");
+IMPORT FILE "auth/timeout_ctl_js.gch";
+%>
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>GetInfo</name>
+<argumentList>
+<argument>
+<name>NewManufacturerName</name>
+<direction>out</direction>
+<relatedStateVariable>ManufacturerName</relatedStateVariable>
+</argument>
+<argument>
+<name>NewManufacturerOUI</name>
+<direction>out</direction>
+<relatedStateVariable>ManufacturerOUI</relatedStateVariable>
+</argument>
+<argument>
+<name>NewModelName</name>
+<direction>out</direction>
+<relatedStateVariable>ModelName</relatedStateVariable>
+</argument>
+<argument>
+<name>NewDescription</name>
+<direction>out</direction>
+<relatedStateVariable>Description</relatedStateVariable>
+</argument>
+<argument>
+<name>NewProductClass</name>
+<direction>out</direction>
+<relatedStateVariable>ProductClass</relatedStateVariable>
+</argument>
+<argument>
+<name>NewSerialNumber</name>
+<direction>out</direction>
+<relatedStateVariable>SerialNumber</relatedStateVariable>
+</argument>
+<argument>
+<name>NewSoftwareVersion</name>
+<direction>out</direction>
+<relatedStateVariable>SoftwareVersion</relatedStateVariable>
+</argument>
+<argument>
+<name>NewAdditionalSoftwareVersions</name>
+<direction>out</direction>
+<relatedStateVariable>AdditionalSoftwareVersions</relatedStateVariable>
+</argument>
+<argument>
+<name>NewModemFirmwareVersion</name>
+<direction>out</direction>
+<relatedStateVariable>ModemFirmwareVersion</relatedStateVariable>
+</argument>
+<argument>
+<name>NewEnabledOptions</name>
+<direction>out</direction>
+<relatedStateVariable>EnabledOptions</relatedStateVariable>
+</argument>
+<argument>
+<name>NewHardwareVersion</name>
+<direction>out</direction>
+<relatedStateVariable>HardwareVersion</relatedStateVariable>
+</argument>
+<argument>
+<name>NewAdditionalHardwareVersions</name>
+<direction>out</direction>
+<relatedStateVariable>AdditionalHardwareVersions</relatedStateVariable>
+</argument>
+<argument>
+<name>NewSpecVersion</name>
+<direction>out</direction>
+<relatedStateVariable>SpecVersion</relatedStateVariable>
+</argument>
+<argument>
+<name>NewProvisioningCode</name>
+<direction>out</direction>
+<relatedStateVariable>ProvisioningCode</relatedStateVariable>
+</argument>
+<argument>
+<name>NewUpTime</name>
+<direction>out</direction>
+<relatedStateVariable>UpTime</relatedStateVariable>
+</argument>
+<argument>
+<name>NewFirstUseDate</name>
+<direction>out</direction>
+<relatedStateVariable>FirstUseDate</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+</actionList>
+<serviceStateTable>
+<stateVariable sendEvents="no">
+<name>ManufacturerName</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ModelName</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>SerialNumber</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>SoftwareVersion</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>HardwareVersion</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ManufacturerOUI</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Description</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ProductClass</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>AdditionalSoftwareVersions</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ModemFirmwareVersion</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>EnabledOptions</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>AdditionalHardwareVersions</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>SpecVersion</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>ProvisioningCode</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>UpTime</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>FirstUseDate</name>
+<dataType>string</dataType>
+</stateVariable>
+</serviceStateTable>
+</scpd>
+

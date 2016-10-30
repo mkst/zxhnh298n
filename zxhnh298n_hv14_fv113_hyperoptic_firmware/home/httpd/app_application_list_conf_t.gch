@@ -1,0 +1,23 @@
+<%
+IMPORT FILE "app_list_gch.gch";
+IMPORT FILE "app_application_list_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="hreftext">
+<a href="javascript:void(0)" onclick="newApplication();return false;">&?applist07;</a>
+</td>
+</tr>
+<tr height="28">
+<td/>
+<td/>
+</tr>
+</table>
+<table id="ApplicationList_Table" class="item"  border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">&?applist02;</td>
+<td width="50">&?btn003;</td>
+<td width="50">&?btn006;</td>
+</tr>
+</table>
+<div id="div4"></div>

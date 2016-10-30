@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_FWPT_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 10;var PARA[10] ={"ViewName","Enable","Name","TriggleIpAddress","TriggleProtocol","TriggleDestPort","IncomeProtocol","IncomeMinPort","IncomeMaxPort","Timeout"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

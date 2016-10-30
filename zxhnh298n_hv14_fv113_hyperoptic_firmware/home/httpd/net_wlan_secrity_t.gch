@@ -1,0 +1,169 @@
+<%
+IMPORT FILE "wlan_security.gch";
+IMPORT FILE "net_wlan_secrity_js.gch";
+var userright = getenv("Right");
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wlan064;&?pub002;</td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table id="TestContent"  class="table" width="530px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?wlan040;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_SSID_SET" onchange="ESSID_Choose()"/>
+<%
+if (userright == 2)
+{
+%>
+<option value ="IGD.LD1.WLAN1" id="Frm_SSID_SET0">SSID1</option>
+<%
+}
+else
+{
+%>
+<option value ="IGD.LD1.WLAN1" id="Frm_SSID_SET0">SSID1</option>
+<option value ="IGD.LD1.WLAN2" id="Frm_SSID_SET1">SSID2</option>
+<option value ="IGD.LD1.WLAN3" id="Frm_SSID_SET2">SSID3</option>
+<option value ="IGD.LD1.WLAN4" id="Frm_SSID_SET3">SSID4</option>
+<%
+}
+%>
+</select></td>
+</tr>
+<tr>
+<td class="td1">&?wlan010;</td>
+<td class="td2">
+<select size="1" class="list_2" id="Frm_Authentication"  onchange="Authentication()">
+<option value="Open System">Open System</option>
+<option value="Shared Key">Shared Key</option>
+<option value="WPA-PSK">WPA-PSK</option>
+<option value="WPA2-PSK">WPA2-PSK</option>
+<option value="WPA/WPA2-PSK">WPA/WPA2-PSK</option>
+</select>
+</td>
+</tr>
+<tr id="t_wep">
+<td class="td1">WEP&?wlan022;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_BeaconType" onchange="WEP_Key()">
+</select>
+</td>
+</tr>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="530px" border="0" id="shared" style="display:none">
+<tr>
+<td class="td1">&?wlan023;</td>
+<td class="td2">
+<select size="1" class="list_1" id="Frm_WEPEncryptionLevel" onchange="WEPEncryptionLevel()">
+<option value="104-bit">128bit</option>
+<option value="40-bit">64bit</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?wlan024;</td>
+<td class="td2">
+<select size="1" class="list_5" id="Frm_WEPKeyIndex">
+<option value="1">1</option>
+<option value="2">2</option>
+<option value="3">3</option>
+<option value="4">4</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WEPKey0">&?wlan025;1</font></td>
+<td class="td2"><input type="text" class="inputId" id="Frm_WEPKey0"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WEPKey1">&?wlan025;2</font></td>
+<td class="td2"><input type="text" class="inputId" id="Frm_WEPKey1"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WEPKey2">&?wlan025;3</font></td>
+<td class="td2"><input type="text" class="inputId" id="Frm_WEPKey2"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WEPKey3">&?wlan025;4</font></td>
+<td class="td2"><input type="text" class="inputId" id="Frm_WEPKey3"/></td>
+</tr>
+<tr>
+<td  class="td15" colspan="2">&?wlan026;</td>
+</tr>
+<tr>
+<td  class="td15" colspan="2">&?wlan027;</td>
+</tr>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="530px" border="0" id="wpa" style="display:none">
+<tr>
+<td class="td1"><font id="Fnt_KeyPassphrase">WPA&?wlan029;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_KeyPassphrase"/> &?wlan032;</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WPAGroupRekey">WPA&?wlan030;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_WPAGroupRekey"/> &?wan029;</td>
+</tr>
+<tr>
+<td class="td1">WPA&?wlan031;</td>
+<td class="td2">
+<select name="" size="1" class="list_1" id="Frm_WPAEncryptType">
+<option value="TKIPEncryption">TKIP</option>
+<option value="AESEncryption">AES</option>
+<option value="TKIPandAESEncryption" selected>TKIP+AES</option>
+</select>
+</td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>
+<script language="javascript">
+var instNum = getValue("WLAN_INSTNUM");
+var instFlag = new Array(4);
+for (var i=0; i<4; i++)
+{
+instFlag[i] = 0;
+}
+var index = 0;
+for (var i=0; i<instNum; i++)
+{
+var viewName = getValue("WLAN_SSID"+i);
+switch(viewName)
+{
+case "IGD.LD1.WLAN1":
+instFlag[0] = 1;
+break;
+case "IGD.LD1.WLAN2":
+instFlag[1] = 1;
+break;
+case "IGD.LD1.WLAN3":
+instFlag[2] = 1;
+break;
+case "IGD.LD1.WLAN4":
+instFlag[3] = 1;
+break;
+};
+}
+var ssidObj = getObj("Frm_SSID_SET");
+for (var i=0; i<4; i++)
+{
+if (instFlag[i] == 0)
+{
+var ssidOptObj = getObj("Frm_SSID_SET"+i);
+ssidObj.removeChild(ssidOptObj);
+}
+}
+</script>

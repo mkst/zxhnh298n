@@ -1,0 +1,37 @@
+<%
+IMPORT FILE "wan_func.gch";
+function qosQcIfOptions(InOut)
+{
+var FP_LAN_INSTNUM = query_list("OBJ_WANLAN_ID", "IGD");
+var LAN_HANDLE     = null;
+var LAN_BRType     = null;
+var LAN_IFName     = null;
+var LAN_identity   = "";
+var LAN_name       = "";
+var LAN_WANLANType = null;
+if(FP_LAN_INSTNUM >= 1 && FP_LAN_INSTNUM != 888)
+{
+for(var i = 0; i < FP_LAN_INSTNUM; i++ )
+{
+LAN_HANDLE   = create_paralist();
+LAN_identity = query_identity(i);
+get_inst(LAN_HANDLE, "OBJ_WANLAN_ID", LAN_identity);
+LAN_BRType     = get_para(LAN_HANDLE, "BRType");
+LAN_WANLANType = get_para(LAN_HANDLE, "WANLANType");
+if(LAN_BRType == "0" && LAN_WANLANType == "2")
+{
+LAN_name     = get_para(LAN_HANDLE, "Name");
+LAN_IFName   = get_para(LAN_HANDLE, "IFName");
+if(LAN_IFName == "wlan0" || LAN_IFName == "wlan1" || LAN_IFName == "wlan2"
+|| LAN_IFName == "wlan3" )
+{
+destroy_paralist(LAN_HANDLE);
+continue;
+}
+="<option value=\"" + LAN_identity + "\" >" + LAN_name + "</option>";
+}
+destroy_paralist(LAN_HANDLE);
+}
+}
+}
+%>

@@ -1,0 +1,81 @@
+
+<%
+IMPORT FILE "voip_npprefix_gch.gch";
+IMPORT FILE "app_voip_dialplan_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td id="Fnt_Range" class="td1">&?dailplan_01;</td>
+<td class="td2"><input name="Frm_Range" id="Frm_Range" type="text" class="inputId"  value="" size="15" />&?dailplan_08;</td>
+</tr>
+<tr>
+<td id="Fnt_MinNum" class="td1">&?dailplan_02;</td>
+<td class="td2"><input name="Frm_MinNum" id="Frm_MinNum" type="text" class="inputId"  value="" size="15" />&?dailplan_09;</td>
+</tr>
+<tr>
+<td id="Fnt_MaxNum" class="td1">&?dailplan_03;</td>
+<td class="td2"><input name="Frm_MaxNum" id="Frm_MaxNum" type="text" class="inputId"  value="" size="15" />&?dailplan_10;</td>
+</tr>
+<tr>
+<td id="Fnt_NumRem" class="td1">&?dailplan_04;</td>
+<td class="td2"><input name="Frm_NumRem" id="Frm_NumRem" type="text" class="inputId"  value="" size="15" />&?dailplan_11;</td>
+</tr>
+<tr>
+<td id="Fnt_PosRem" class="td1">&?dailplan_05;</td>
+<td class="td2"><input name="Frm_PosRem" id="Frm_PosRem" type="text" class="inputId"  value="" size="15" />&?dailplan_12;</td>
+</tr>
+<tr>
+<td id="Fnt_DefPort" class="td1">&?dailplan_06;</td>
+<td class="td2">
+<select name="Frm_DefPort" size="1" tabIndex="1"  class="list_1" id="Frm_DefPort" onchange="setValueDP(this.value)">
+<option value ="1" selected>&?dailplan_15;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td id="Fnt_BakPort" class="td1">&?dailplan_07;</td>
+<td class="td2">
+<select name="Frm_BakPort" size="1" class="list_1" id="Frm_BakPort" >
+<option value ="0"></option>
+<option value ="1" selected>&?dailplan_15;</option>
+</select>
+</td>
+</tr>
+<tr id="TR_FacilityAction">
+<td id="Fnt_FacilityAction" class="td1">&?dailplan_17;</td>
+<td class="td2">
+<select name="Frm_FacilityAction" size="1" class="list_1" id="Frm_FacilityAction" onchange="setValueFA(this.value)">
+<option value="0" selected></option>
+<option value="1">&?dailplan_18;</option>
+<option value="2">&?dailplan_19;</option>
+</select>
+</td>
+</tr>
+<tr id="TR_FacilityActionArgument" style="display: none;">
+<td id="Fnt_FacilityActionArgument" class="td1">&?dailplan_20;</td>
+<td class="td2"><input name="Frm_FacilityActionArgument" id="Frm_FacilityActionArgument" type="text" class="inputId"  value="" size="15" />&?dailplan_21;</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Input2" type="button" id="Btn_Add" value="&?btn007;" onclick="Add()" class="button2" />
+<input name="Input" type="button" id="Btn_Modify" value="&?btn003;" onclick="ModifySubmit()" class="button2" style="display:none" />
+</td>
+</tr>
+</table>
+<table id="Static_rt_Table" class="item" style="width:550px;" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">&?dailplan_01;</td>
+<td width="">&?dailplan_02;</td>
+<td width="">&?dailplan_03;</td>
+<td width="">&?dailplan_04;</td>
+<td width="">&?dailplan_05;</td>
+<td width="">&?dailplan_06;</td>
+<td width="">&?dailplan_07;</td>
+<td width="">&?dailplan_17;</td>
+<td width="">&?dailplan_20;</td>
+<td width="">&?btn003;</td>
+<td width="">&?btn006;</td>
+</tr>
+</table>
+<div id="div4"></div>

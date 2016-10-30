@@ -1,0 +1,55 @@
+<%
+IMPORT FILE "wlan_wps_gch.gch";
+IMPORT FILE "net_wlan_wps_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;" id="tipLi"></td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?cwps5;</td>
+<td class="td2">
+<select  name="Frm_WPSMode" id="Frm_WPSMode" size="1" class="list_2" onchange= "Slect_WPSMode()">
+<option value="Disabled">&?wlan048;</option>
+<option value="PBC">PBC</option>
+<option value="PIN">PIN</option>
+</select></td>
+</tr>
+<tr id="Tr_PINMode" style="display:none">
+<td class="td1">&?cwps2;</td>
+<td class="td2">
+<select  name="Frm_PINMode" id="Frm_PINMode" size="1" class="list_2" onchange= "Slect_PINMode()">
+<option value="AutoPIN">&?cwps3;</option>
+<option value="InputPIN">&?cwps4;</option>
+</select></td>
+</tr>
+<tr id="Tr_AutoPIN" style="display:none">
+<td class="td1">
+<font id="Fnt_AutoPINVal">&?cwps3;&?colon;</font>
+</td>
+<td class="td2">
+<input type="text" name="Frm_AutoPINVal" id="Frm_AutoPINVal" class="inputId2" style="border:solid 1px #ffffff;" size="15" readonly="readonly"/>
+<input type="button" name="Frm_AutoPIN" id="Frm_AutoPIN" class="button4" value="&?cwps6;" onclick="AutoPINAction()">
+</td>
+</tr>
+<tr id="Tr_InputPIN" style="display:none">
+<td class="td1">
+<font id="Fnt_InputPINVal">&?cwps4;</font>
+</td>
+<td class="td2">
+<input type="text" name="Frm_InputPINVal" id="Frm_InputPINVal" class="inputId2" size="15" maxlength="8"/>
+<input type="button" name="Frm_InputPIN" id="Frm_InputPIN" class="button4" value="&?cwps7;" onclick="InputPINAction()">
+</td>
+</tr>
+</table>
+</div>

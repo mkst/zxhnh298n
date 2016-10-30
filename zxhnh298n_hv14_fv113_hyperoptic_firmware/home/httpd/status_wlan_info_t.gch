@@ -1,0 +1,417 @@
+<%
+IMPORT FILE "common_gch.gch";
+var CONFIG_OBJNAME,CONFIG_IDENTITY,CONFIG_HANDLE,FP_INSTNUM,FP_SSID;
+var CONFIG_DRV_OBJNAME,CONFIG_DRV_IDENTITY,CONFIG_DRV_HANDLE;
+var RadioStatus,TotalPacketsReceived,TotalBytesReceived;
+var TotalPacketsSent,TotalBytesSent,ErrorsReceived;
+var ErrorsSent,DiscardPacketsReceived,DiscardPacketsSent;
+var ChannelInUsed,ESSID,WEPAuthMode,BeaconType,WPAEncryptType;
+var WPAAuthMode,11iAuthMode,11iEncryptType,Bssid,Enable,RealRF;
+var FP_ERRORSTR,FP_ERRORPARAM,FP_ERRORTYPE;
+create_form_start("fSubmit", "getpage.gch?pid=1002&menu=statu&nextpage=status_wlan_info_t.gch&path=&?item_003;&staflg=1&mm=2");
+create_hidden_sep("IF_ERRORSTR", "SUCC");
+create_hidden_sep("IF_ERRORTYPE", "-1");
+create_hidden_sep("IF_ERRORPARAM", "SUCC");
+create_hidden_sep("IF_CONFIGTAG", "");
+create_hidden_sep("IF_ACTION", "");
+CONFIG_OBJNAME = "OBJ_WLANCONFIG_ID";
+FP_INSTNUM = 1;
+FP_INSTNUM = query_list(CONFIG_OBJNAME, "IGD");
+for (var i=0; i<FP_INSTNUM; i++)
+{
+FP_SSID = "SSID" + (i + 1);
+CONFIG_OBJNAME = "OBJ_WLANCONFIG_ID";
+query_list(CONFIG_OBJNAME, "IGD");
+CONFIG_IDENTITY = query_identity(i);
+CONFIG_HANDLE = create_paralist();
+get_inst(CONFIG_HANDLE, CONFIG_OBJNAME, CONFIG_IDENTITY);
+RadioStatus          = get_para(CONFIG_HANDLE, "RadioStatus");
+ESSID                = get_para(CONFIG_HANDLE, "ESSID");
+WEPAuthMode          = get_para(CONFIG_HANDLE, "WEPAuthMode");
+BeaconType           = get_para(CONFIG_HANDLE, "BeaconType");
+WPAEncryptType       = get_para(CONFIG_HANDLE, "WPAEncryptType");
+WPAAuthMode          = get_para(CONFIG_HANDLE, "WPAAuthMode");
+11iAuthMode          = get_para(CONFIG_HANDLE, "11iAuthMode");
+11iEncryptType       = get_para(CONFIG_HANDLE, "11iEncryptType");
+Enable               = get_para(CONFIG_HANDLE, "Enable");
+destroy_paralist(CONFIG_HANDLE);
+CONFIG_DRV_OBJNAME = "OBJ_WLANCONFIGDRV_ID";
+
+
+CONFIG_DRV_IDENTITY = CONFIG_IDENTITY;
+CONFIG_DRV_HANDLE = create_paralist();
+get_inst(CONFIG_DRV_HANDLE, CONFIG_DRV_OBJNAME, CONFIG_DRV_IDENTITY);
+TotalPacketsReceived = get_para(CONFIG_DRV_HANDLE, "TotalPacketsReceived");
+TotalBytesReceived   = get_para(CONFIG_DRV_HANDLE, "TotalBytesReceived");
+TotalPacketsSent     = get_para(CONFIG_DRV_HANDLE, "TotalPacketsSent");
+TotalBytesSent       = get_para(CONFIG_DRV_HANDLE, "TotalBytesSent");
+ErrorsReceived       = get_para(CONFIG_DRV_HANDLE, "ErrorsReceived");
+ErrorsSent           = get_para(CONFIG_DRV_HANDLE, "ErrorsSent");
+DiscardPacketsSent   = get_para(CONFIG_DRV_HANDLE, "DiscardPacketsSent");
+ChannelInUsed         = get_para(CONFIG_DRV_HANDLE, "ChannelInUsed");
+DiscardPacketsReceived = get_para(CONFIG_DRV_HANDLE, "DiscardPacketsReceived");
+Bssid                  = get_para(CONFIG_DRV_HANDLE, "Bssid");
+RealRF                 = get_para(CONFIG_DRV_HANDLE, "RealRF");
+destroy_paralist(CONFIG_DRV_HANDLE);
+FP_ERRORSTR = get_cmret();
+%>
+<%
+if (i == 0)
+{
+%>
+<div class="space_0">
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wlan001;</td>
+<td class="tdright">
+<%
+if(RealRF == "1")
+{
+%>
+&?wan049;
+<%
+}
+else
+{
+%>
+&?wlan048;
+<%
+}
+%>
+</td>
+</tr>
+<%
+if(RealRF == "1")
+{
+%>
+<tr class="blue_1">
+<td class="tdleft">&?wlan008;</td>
+<td class="tdright"><%=encodeHTML(ChannelInUsed);%></td>
+</tr>
+<%
+}
+%>
+</table>
+</div>
+<div class="space_0"></div>
+<br>
+<%
+if(RealRF == "1")
+{
+var CONFIG_OBJNAME = "OBJ_WLANCONFIG_ID";
+var CONFIG_INSTNUM = query_list(CONFIG_OBJNAME, "IGD");
+var CONFIG_IDENTITY = query_identity(0);
+var CONFIG_DRV_OBJNAME = "OBJ_WLANCONFIGDRV_ID";
+var CONFIG_DRV_IDENTITY = CONFIG_IDENTITY;
+var CONFIG_DRV_HANDLE = create_paralist();
+get_inst(CONFIG_DRV_HANDLE, CONFIG_DRV_OBJNAME, CONFIG_DRV_IDENTITY);
+var Bssid = get_para(CONFIG_DRV_HANDLE, "Bssid");  
+var WDSRootConnectStatus = get_para(CONFIG_DRV_HANDLE,"WDSRootConnectStatus"); 
+destroy_paralist(CONFIG_DRV_HANDLE);
+var WC_OBJNAME = "OBJ_WLANCONFIG_ID";
+var WC_INSTNUM = query_list(CONFIG_OBJNAME, "IGD");
+var WC_IDENTITY = query_identity(0);
+var WC_HANDLE;
+var wdsMode = "";
+WC_HANDLE = create_paralist();
+get_inst(WC_HANDLE, WC_OBJNAME, WC_IDENTITY);
+wdsMode = get_para(WC_HANDLE, "WdsMode");   
+destroy_paralist(WC_HANDLE);
+var wdsModeText = "";
+if (wdsMode == "WDS_Disable")
+{
+wdsModeText = load_string("wlan048");
+}
+else if (wdsMode == "WDS_Root")
+{
+wdsModeText = "WDS+Root";
+}
+else if (wdsMode == "WDS_Repeater")
+{
+wdsModeText = "WDS+Repeater";
+}
+%>
+<div class="space_0">
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<%
+if (wdsMode == "WDS_Disable")
+{
+%>
+<tr class="white_1">
+<td class="tdleft">&?WDS001;</td>
+<td class="tdright"><%=encodeHTML(wdsModeText);%></td>
+</tr>
+<%
+}
+else if (wdsMode == "WDS_Root")
+{
+%>
+<tr class="white_1">
+<td class="tdleft">&?WDS001;</td>
+<td class="tdright"><%=encodeHTML(wdsModeText);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?WDS002;</td>
+<td class="tdright"><%=encodeHTML(Bssid);%></td>
+</tr>
+<%
+var WDS_OBJNAME = "OBJ_WDS_ID";
+query_list("OBJ_WLANSETTING_ID", "IGD");
+var FP_WDSINSTNUM = query_list(WDS_OBJNAME, query_identity(0));
+for (var i=0; i<FP_WDSINSTNUM; i++)
+{
+var j=i+1;
+var WDS_IDENTITY = query_identity(i);
+var FP_WDSMac = "WDSMac" + j;
+var FP_WDSConnectStatus = "WDSConnectStatus" +j;
+var WDS_IDENTITY = query_identity(i);
+var WDS_HANDLE = create_paralist();
+get_inst(WDS_HANDLE, WDS_OBJNAME, WDS_IDENTITY);
+var repeaterMac = get_para(WDS_HANDLE, FP_WDSMac);
+var cnnctStatus = get_para(WDS_HANDLE, FP_WDSConnectStatus);
+destroy_paralist(WDS_HANDLE);
+if ("00:00:00:00:00:00" == repeaterMac)
+{
+repeaterMac = "";
+}
+%>
+<tr class="white_1">
+<td class="tdleft">&?WDS003;-<% =j; %></td>
+<td class="tdright"><%=encodeHTML(repeaterMac);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=encodeHTML(cnnctStatus);%></td>
+</tr>
+<%
+}
+}
+else if (wdsMode == "WDS_Repeater")
+{
+var WDS_OBJNAME = "OBJ_WDS_ID";
+var WDS_IDENTITY = "IGD.LD1.WDS1";
+var WDS_HANDLE = create_paralist();
+get_inst(WDS_HANDLE, WDS_OBJNAME, WDS_IDENTITY);
+var rootMac = get_para(WDS_HANDLE, "WDSMac1");
+var cnnctStatus = get_para(WDS_HANDLE, "WDSConnectStatus1");
+destroy_paralist(WDS_HANDLE);
+if ("00:00:00:00:00:00" == rootMac)
+{
+rootMac = "";
+}
+%>
+<tr class="white_1">
+<td class="tdleft">&?WDS001;</td>
+<td class="tdright"><%=encodeHTML(wdsModeText);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?WDS002;</td>
+<td class="tdright"><%=encodeHTML(Bssid);%></td>    <!--Fnt_wds_interface_mac-->
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?WDS005;</td>
+<td class="tdright"><%=encodeHTML(rootMac);%></td>         <!--Fnt_root_mac-->
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=encodeHTML(cnnctStatus);%></td>  <!--Fnt_connect_status-->
+</tr>
+<%
+}
+%>
+</table>
+</div>
+<div class="space_0"></div>
+<br>
+<%
+}
+}
+%>
+<div class="space_0">
+<table id="TestContent"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<%
+if(RealRF == "1")
+{
+%>
+<tr class="white_1">
+<td class="tdleft"><%=encodeHTML(FP_SSID);%>&?vs02;</td>
+<td class="tdright">
+<%
+if(Enable == "1")
+{
+%>
+&?wan049;
+<%
+}
+else
+{
+%>
+&?wlan048;
+<%
+}
+%>
+</td>
+</tr>
+<%
+if(Enable == "1")
+{
+%>
+<tr class="blue_1">
+<td class="tdleft"><%=FP_SSID;%>&?wlan009;</td>
+<td class="tdright"><font id="Fnt_ESSID<%=i;%>">
+<SCRIPT>
+document.getElementById("Fnt_ESSID<%=i;%>").innerHTML = HTMLAddBr("<%=encodeJS(ESSID);%>", 25);
+</SCRIPT>
+</font>
+</td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wlan010;</td>
+<td class="tdright">
+<%
+if(BeaconType == "None"
+|| (BeaconType == "Basic" && WEPAuthMode == "None"))
+{
+%>
+Open System
+<%
+}
+if(WEPAuthMode == "SharedAuthentication" && BeaconType == "Basic")
+{
+%>
+Shared Key
+<%
+}
+if(BeaconType == "WPA" && WPAAuthMode == "PSKAuthentication")
+{
+%>
+WPA-PSK
+<%
+}
+if(BeaconType == "11i" && 11iAuthMode == "PSKAuthentication")
+{
+%>
+WPA2-PSK
+<%
+}
+if(BeaconType == "WPAand11i" && WPAAuthMode == "PSKAuthentication" && 11iAuthMode == "PSKAuthentication")
+{
+%>
+WPA/WPA2-PSK
+<%
+}
+%>
+</td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wlan011;</td>
+<td class="tdright">
+<%
+if(BeaconType == "None")
+{
+%>
+&?wlan043;
+<%
+}
+if(BeaconType == "Basic")
+{
+%>
+WEP
+<%
+}
+if((BeaconType == "WPA" && WPAEncryptType == "TKIPEncryption")
+||(BeaconType == "11i" && 11iEncryptType == "TKIPEncryption")
+||(BeaconType == "WPAand11i" && WPAEncryptType == "TKIPEncryption"))
+{
+%>
+TKIP
+<%
+}
+if((BeaconType == "WPA" && WPAEncryptType == "AESEncryption")
+||(BeaconType == "11i" && 11iEncryptType == "AESEncryption")
+||(BeaconType == "WPAand11i" && WPAEncryptType == "AESEncryption"))
+{
+%>
+AES
+<%
+}
+if((BeaconType == "WPA" && WPAEncryptType == "TKIPandAESEncryption")
+||(BeaconType == "11i" && 11iEncryptType == "TKIPandAESEncryption")
+||(BeaconType == "WPAand11i" && WPAEncryptType == "TKIPandAESEncryption"))
+{
+%>
+TKIP+AES
+<%
+}
+%>
+</td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?dhcp_d006;</td>
+<td class="tdright"><%=encodeHTML(Bssid);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?lan001;</td>
+<td class="tdright">
+<%=encodeHTML(TotalPacketsReceived);%>/<%=encodeHTML(TotalBytesReceived);%>
+</td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?lan002;</td>
+<td class="tdright">
+<%=encodeHTML(TotalPacketsSent);%>/<%=encodeHTML(TotalBytesSent);%>
+</td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wlan004;</td>
+<td class="tdright"><%=encodeHTML(ErrorsReceived);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wlan005;</td>
+<td class="tdright"><%=encodeHTML(ErrorsSent);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wlan006;</td>
+<td class="tdright"><%=encodeHTML(DiscardPacketsReceived);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wlan007;</td>
+<td class="tdright"><%=encodeHTML(DiscardPacketsSent);%></td>
+</tr>
+<%
+}
+}
+%>
+</table>
+</div>
+<!--分端口显示的内容结束-->
+<div id="div4"></div>
+<%
+
+if(FP_ERRORSTR != "SUCC" && FP_ERRORSTR != "FAIL")
+{
+var cmret = "cmret_"+FP_ERRORSTR;
+FP_ERRORSTR = load_string(cmret);
+}
+if(FP_ERRORSTR != "SUCC")
+{
+FP_ERRORPARAM = get_errorparam();
+FP_ERRORTYPE = get_cmret_type();
+set_hidden("IF_ERRORSTR", FP_ERRORSTR);
+set_hidden("IF_ERRORPARAM", FP_ERRORPARAM);
+set_hidden("IF_ERRORTYPE", FP_ERRORTYPE);
+}
+}
+create_form_end();
+%>
+<SCRIPT>
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+</SCRIPT>

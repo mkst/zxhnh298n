@@ -1,0 +1,427 @@
+<script language="javascript">var SERVICE_PARA = new Array("Enable","DmsName","RescanTime","ContentList","PathRoot");var rootPath = "";var g_open = 0;var g_path = "";var g_file = "";var g_browseIndex = "";var paths = new Array();var files = new Array();function getmsg(id){var str = new Array();str[0] = new Array(101, "&?error_101;");str[1] = new Array(102, "&?error_102;");str[2] = new Array(103, "&?error_103;");str[3] = new Array(114, "&?error_114;");str[4] = new Array(116, "&?error_116;");str[5] = new Array(117, "&?error_117;");str[6] = new Array(118, "&?error_118;");str[7] = new Array(119, "&?error_119;");str[8] = new Array(122, "&?error_122;");str[9] = new Array(547, "&?error_547;");str[10] = new Array(115, "&?error_115;");str[11] = new Array(500, "&?csp_error_500;");return getMsgFormArray(str, arguments);}function pageLoad(url){getObj("fSubmit").action = url;moveErrLayer(595,93);var errstr= getValue("IF_ERRORSTR");var errpara = getValue("IF_ERRORPARAM");OldProcessRet(errstr, errpara);pageGetValue();}function pageGetValue(){var contentList = getValue("ContentList");rootPath = getValue("PathRoot");if(""== rootPath || null == rootPath){rootPath = "/";}g_path = rootPath;jslPostToViewCheckBox("Frm_Enable", "Enable");jslSetValue("Frm_Server", "DmsName");if('|' == contentList.charAt(0)){contentList = contentList.substring(1, contentList.length);}for(var i = 0; (i < 4) && (contentList != ""); i++){if(-1 == contentList.indexOf("|")){setValue("Frm_Path"+ i, contentList);break;}else {var pathStr = contentList.substring(0, contentList.indexOf("|"));setValue("Frm_Path"+ i, pathStr);contentList = contentList.substring(contentList.indexOf("|")+ 1, contentList.length);}}if(getValue("RescanTime") == "-1"){setValue("Frm_Method","-1");jslDiDisplay("Tr_Period");}else if(getValue("RescanTime") == "0"){setValue("Frm_Method","0");jslDiDisplay("Tr_Period");}else {setValue("Frm_Method","1");jslSetValue("Frm_Period","RescanTime");jslEnDisplay("Tr_Period");}}function onchangeMethod(){var MethodChanged = getValue("Frm_Method");if(MethodChanged == "-1"|| MethodChanged == "0"){jslDiDisplay("Tr_Period");}else {jslEnDisplay("Tr_Period");}}function pageSetValue(){HiddenParaInit(SERVICE_PARA);jslViewToPostCheckBox("Enable", "Frm_Enable");jslSetValue("DmsName", "Frm_Server");var contentList = "";for(var i = 0; i < 4; i++){if(getValue("Frm_Path"+ i) != ""){contentList = contentList + getValue("Frm_Path"+ i) + "|";}}setValue("ContentList", contentList);if(getValue("Frm_Method") == "-1"|| getValue("Frm_Method") == "0"){jslSetValue("RescanTime","Frm_Method");}else if(getValue("Frm_Method") == "1"){jslSetValue("RescanTime","Frm_Period");}}function checkFrmPath(i){var msg = "";var value = getValue("Frm_Path"+ i);if(checkGenStringForASC(value) != true){msg = getmsg(114);ShowErrorForCom("Frm_Path"+ i,"Fnt_Path"+ i,msg);return false;}if( ( value.match("[|:*?\"<>]") != null ) || ( value.indexOf("\\") != -1 ) )
+{
+msg = getmsg(114);
+ShowErrorForCom("Frm_Path" + i,"Fnt_Path" + i,msg);
+return false;
+}
+if(checkStrLengthRange(value, 0, 255) == -3)
+{
+msg = getmsg(102, 1, 255);
+ShowErrorForCom("Frm_Path" + i,"Fnt_Path" + i,msg);
+return false;
+}
+}
+function pageCheckValue()
+{
+var msg = "";
+if(checkNull(getValue("Frm_Server")) != true)
+{
+msg = getmsg(101);
+ShowErrorForCom("Frm_Server","Fnt_Server",msg);
+return false;
+}
+if(checkGenStringForASC(getValue("Frm_Server")) != true)
+{
+msg = getmsg(114);
+ShowErrorForCom("Frm_Server","Fnt_Server",msg);
+return false;
+}
+var value = getValue("Frm_Server");
+if(checkStrLengthRange(value, 1, 128) != true)
+{
+msg = getmsg(102,1,128);
+ShowErrorForCom("Frm_Server","Fnt_Server",msg);
+return false;
+}
+for(var i = 0; i < 4; i++)
+{
+if(checkNull(getValue("Frm_Path" + i)) == true)
+{
+break;
+}
+}
+if( getChecked("Frm_Enable") == true )
+{
+if(4 == i)
+{
+msg =  getmsg(500);
+ShowErrorForCom("","",msg);
+return false;
+}
+}
+for(var i = 0; i < 4; i++)
+{
+if(false == checkFrmPath(i))
+{
+return false;
+}
+}
+if(getValue("Frm_Method") == "1")
+{
+var value = getValue("Frm_Period");
+var tem= checkIntegerRange(value,1,1440);
+if(tem==-1)
+{
+msg = getmsg(101);
+ShowErrorForCom("Frm_Period","Fnt_Period",msg);
+return false;
+}
+else if(tem==-2)
+{
+msg = getmsg(115);
+ShowErrorForCom("Frm_Period","Fnt_Period",msg);
+return false;
+}
+else if(tem==-3)
+{
+msg = getmsg(116,1,1440);
+ShowErrorForCom("Frm_Period","Fnt_Period",msg);
+return false;
+}
+}
+return true;
+}
+var xmlhttp;
+function loadXMLDoc(url, index)
+{
+xmlhttp=null;
+g_browseIndex = index;
+if("" == url)
+{
+url = "queryDir?" + rootPath;
+if('/' != url.charAt(url.length - 1))
+{
+url = url + "/";
+}
+}
+if (window.XMLHttpRequest)
+{
+xmlhttp=new XMLHttpRequest();
+}
+else if (window.ActiveXObject)
+{
+xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+if (xmlhttp!=null)
+{
+xmlhttp.onreadystatechange=state_Change;
+xmlhttp.open("GET",url,true);
+xmlhttp.send(null);
+}
+else
+{
+alert("&?csp_dms002;");
+}
+}
+function prepareOpenNewDiv(str)
+{
+var msg = "";
+disableAllButtons();
+g_open = "1";
+if(str.charAt(0) == '|')
+{
+msg = getmsg(547);
+ShowErrorForCom("", "", msg);
+return;
+}
+g_path = str.substring(0, str.indexOf("|"));
+if(g_path.length > 0)
+{
+if(g_path.charAt(g_path.length - 1) != '/')
+{
+g_path = g_path + "/";
+}
+}
+g_file = str.substring(str.indexOf("|") + 1, str.length);
+if(g_file.length > 0)
+{
+if(g_file.charAt(g_file.length - 1) != '/')
+{
+g_file = g_file + "/";
+}
+}
+}
+function prepareCloseNewDiv()
+{
+g_file = "";
+g_open = "0";
+files.length = 0;
+paths.length = 0;
+enableAllButton();
+}
+function state_Change()
+{
+if (xmlhttp.readyState==4)
+{
+if (xmlhttp.status==200)
+{
+if(g_open == "0")
+{
+openNewDiv("newdiv", xmlhttp.responseText);
+}
+}
+else
+{
+alert("&?csp_dms003;" + xmlhttp.statusText);
+}
+}
+}
+function docEle()
+{
+return document.getElementById(arguments[0]) || false;
+}
+function newDivCenter()
+{
+newDiv.style.top = (document.body.scrollTop +
+document.body.clientHeight/2 - newDivHeight/2) + "px";
+newDiv.style.left = (document.body.scrollLeft +
+document.body.clientWidth/2 - newDivWidth/2) + "px";
+}
+var tempStr = "";
+function getPathOrFile()
+{
+var pathStr = "";
+pathStr = tempStr.substring(0, tempStr.indexOf("/"));
+tempStr = tempStr.substring(tempStr.indexOf("/") + 1, tempStr.length);
+return pathStr;
+}
+function setPath()
+{
+g_path = "";
+for(var i = 0; i < paths.length; i++)
+{
+if('/' != g_path.charAt(g_path.length - 1) && '/' != paths[i].charAt(0))
+{
+g_path = g_path + "/";
+}
+g_path = g_path + paths[i];
+}
+if('/' != g_path.charAt(g_path.length - 1))
+{
+g_path = g_path + "/";
+}
+setValue("Frm_Path" + g_browseIndex, g_path);
+}
+function changeDir(hierarchy)
+{
+if(hierarchy == paths.length - 1)
+{
+return;
+}
+var url = "queryDir?";
+g_path = rootPath;
+for(var i = 1; i <= hierarchy; i++)
+{
+if('/' != g_path.charAt(g_path.length - 1))
+{
+g_path = g_path + "/";
+}
+g_path = g_path + paths[i];
+}
+if('/' != g_path.charAt(g_path.length - 1))
+{
+g_path = g_path + "/";
+}
+url = url + encodeURIComponent(g_path);
+prepareCloseNewDiv();
+loadXMLDoc(url, g_browseIndex);
+}
+function cdDir(hierarchy)
+{
+var url = "queryDir?";
+g_path = rootPath;
+for(var i = 1; i < paths.length; i++)
+{
+if('/' != g_path.charAt(g_path.length - 1))
+{
+g_path = g_path + "/";
+}
+g_path = g_path + paths[i];
+}
+if('/' != g_path.charAt(g_path.length - 1))
+{
+g_path = g_path + "/";
+}
+g_path = g_path + files[hierarchy] + "/";
+url = url + encodeURIComponent(g_path);
+prepareCloseNewDiv();
+loadXMLDoc(url, g_browseIndex);
+}
+function getHref(id, strmethod, str)
+{
+return ("<a" + ' ' + "href=\"javascript:void(0)\"class=\"hreftext\"onmouseup=\""+ strmethod + "\"id=\""+ id + "\">" + HTMLEnCode(str) + "</a>&nbsp;&nbsp;");
+}
+function popNewDiv(divID)
+{
+var newDiv = document.createElement("div");
+newDiv.id = divID;
+newDiv.className = "dmsPopUpDiv";
+document.body.appendChild(newDiv);
+if(document.all)
+{
+window.attachEvent("onscroll",newDivCenter);
+}
+else
+{
+window.addEventListener('scroll',newDivCenter,false);
+}
+}
+function showFile(divID)
+{
+var newDiv = document.getElementById(divID);
+tempStr = g_file;
+if(g_file.length > 0)
+{
+var file = "file";
+while(tempStr.length != 0)
+{
+var fileStr = getPathOrFile();
+if(fileStr.length == 0)
+{
+return;
+}
+files.push(fileStr);
+hierarchy = files.length - 1;
+strmethod = "cdDir(" + hierarchy + ")";
+var newFile = document.createElement(file + hierarchy);
+newFile.innerHTML = getHref(file + hierarchy, strmethod, fileStr);
+newFile.innerHTML = "<p>" + newFile.innerHTML + "</p>";
+newDiv.appendChild(newFile);
+}
+}
+}
+function showPath(divID)
+{
+var path     = "path";
+var newDiv   = document.getElementById(divID);
+var num = 0;
+var pathStr = rootPath;
+var rootPathLen = 0;
+if("/" == rootPath)
+{
+rootPathLen = 1;
+}
+else
+{
+rootPathLen = rootPath.length + 1;
+}
+tempStr      = g_path;
+paths.length = 0;
+var newPath  = document.createElement(path);
+paths.push(pathStr);
+var hierarchy = 0;
+var strmethod = "changeDir(" + hierarchy + ")";
+newPath.innerHTML = getHref(path, strmethod, pathStr);
+newDiv.appendChild(newPath);
+tempStr = tempStr.substring(rootPathLen, tempStr.length);
+while(tempStr.length != 0)
+{
+pathStr = getPathOrFile();
+if(pathStr.length == 0)
+{
+return;
+}
+paths.push(pathStr);
+hierarchy = paths.length - 1;
+strmethod = "changeDir(" + hierarchy + ")";
+newPath   = document.createElement(path + hierarchy);
+newPath.innerHTML = getHref(path + hierarchy, strmethod, pathStr);
+newDiv.appendChild(newPath);
+}
+var newLine    = document.createElement("e");
+newLine.innerHTML = "<br " + ' ' + "style=line-height:30px" + ' ' + "/>";
+newDiv.appendChild(newLine);
+var newSelect = document.createElement("button");
+newSelect.className = "button";
+newSelect.innerHTML = "&?dms009;";
+newSelect.onclick = function()
+{
+if(document.all)
+{
+window.detachEvent("onscroll",newDivCenter);
+}
+else
+{
+window.removeEventListener('scroll',newDivCenter,false);
+}
+document.body.removeChild(docEle(divID));
+setPath();
+prepareCloseNewDiv();
+return false;
+}
+newDiv.appendChild(newSelect);
+var newNbsp    = document.createElement("e");
+newNbsp.innerHTML = "&nbsp;&nbsp;";
+newDiv.appendChild(newNbsp);
+}
+function showQuit(divID)
+{
+var newQuit = document.createElement("button");
+newQuit.className = "button";
+newQuit.innerHTML = "&?dms008;";
+newQuit.onclick = function()
+{
+if(document.all)
+{
+window.detachEvent("onscroll", newDivCenter);
+}
+else
+{
+window.removeEventListener('scroll', newDivCenter, false);
+}
+document.body.removeChild(docEle(divID));
+prepareCloseNewDiv();
+return false;
+}
+var newDiv = document.getElementById(divID);
+newDiv.appendChild(newQuit);
+}
+function openNewDiv(divID, str)
+{
+prepareOpenNewDiv(str);
+if (docEle(divID))
+{
+document.body.removeChild(docEle(divID));
+}
+popNewDiv(divID);
+if(g_path != rootPath)
+{
+showPath(divID);
+}
+showQuit(divID);
+var newBr    = document.createElement("d");
+newBr.innerHTML = "<br/>";
+document.getElementById(divID).appendChild(newBr);
+var newHR=document.createElement("hr_b");
+newHR.innerHTML = "<hr>";
+document.getElementById(divID).appendChild(newHR);
+showFile(divID);
+}
+function disableAllButtons()
+{
+jslDisable("Btn_Submit", "Btn_Cancel", "Frm_Browse0", "Frm_Browse1",
+"Frm_Browse2", "Frm_Browse3");
+}
+function enableAllButton()
+{
+jslEnable("Btn_Submit", "Btn_Cancel", "Frm_Browse0", "Frm_Browse1",
+"Frm_Browse2", "Frm_Browse3");
+}
+function pageCancel()
+{
+disableAllButtons();
+DisableALL();
+getObj("fSubmit").submit();
+}
+function pageSubmit()
+{
+if(pageCheckValue() == true)
+{
+disableAllButtons();
+pageSetValue();
+setValue("IF_ACTION", "apply");
+DisableALL();
+getObj("fSubmit").submit();
+}
+}
+</script>

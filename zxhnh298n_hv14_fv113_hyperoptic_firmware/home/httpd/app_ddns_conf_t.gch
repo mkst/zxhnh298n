@@ -1,0 +1,56 @@
+<%
+IMPORT FILE "ddns_gch.gch";
+IMPORT FILE "app_ddns_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?ddns001;</td>
+<td class="td2"><input type="checkbox" name="Frm_Enable" id="Frm_Enable" value=""/></td>
+</tr>
+<tr>
+<td class="td1">&?ddns007;</td>
+<td class="td2">
+<select  name="Frm_Name" id="Frm_Name" size="1" class="list_1" onchange= "Slect_Servise()">
+<%
+var  DDNS_INSTNUM = query_list("OBJ_DDNSSERVICE_ID", "IGD");
+for(var i=0;i<DDNS_INSTNUM;i++)
+{
+var DDNS_HANDLE = create_paralist();
+var DDNS_IDENTITY = query_identity(i);
+get_inst(DDNS_HANDLE, "OBJ_DDNSSERVICE_ID", DDNS_IDENTITY);
+var Name = encodeHTML(get_para(DDNS_HANDLE, "Name"));
+%>
+<option value="<%=Name;%>" ><%=Name;%></option>
+<%
+destroy_paralist(DDNS_HANDLE);
+}
+%>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Server">&?ddns002;</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Server" id="Frm_Server" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Username">&?wan019;</font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_Username" id="Frm_Username" size="15" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Password">&?va02;</font></td>
+<td class="td2"><input type="password" class="inputId" name="Frm_Password" id="Frm_Password" size="15" value=""/></td>
+</tr>
+<tr>
+<td class="td1">&?comm002;</td>
+<td class="td2">
+<select size="1" class="list_2" name="Frm_Interface" id="Frm_Interface">
+<%IMPORT FILE "wan_func.gch";
+wanV4QueryByApp("ddns");
+%>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DomainName"></font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_DomainName" id="Frm_DomainName" size="15" value=""/></td>
+</tr>
+<tr><td class="td1" colspan="2"></td></tr>
+</table>

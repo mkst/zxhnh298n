@@ -1,0 +1,49 @@
+<%
+IMPORT FILE "dms_cfg_gch.gch";
+IMPORT FILE "app_dms_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?dms001;</td>
+<td class="td2"><input type="checkbox" name="Frm_Enable" id="Frm_Enable" value=""/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Server">&?dms002;</font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_Server" id="Frm_Server"  size="15" value=""/></td>
+</tr>
+<tr>
+<td class="td1">&?dms015;</td>
+<td colspan="2" class="td2">
+<select id="Frm_Method" name="Frm_Method" size="1" class="list_6" onchange = "onchangeMethod();" >
+<Option value="-1">&?dms012;</option>
+<option value="0">&?dms013;</option>
+<option value="1">&?dms014;</option>
+</select>
+</td>
+</tr>
+<tr id = "Tr_Period">
+<td class="td1"><font id="Fnt_Period">&?dms005;</font></td>
+<td class="td2"><input type="text" class="inputId" name="Frm_Period" id="Frm_Period"  size="15" value=""/>&?dms011;</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Path0">&?dms004;1</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Path0" id="Frm_Path0" value=""/></td>
+<td><button id="Frm_Browse0" class="button2" onclick="loadXMLDoc('', '0');">&?dms007;</button></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Path1">&?dms004;2</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Path1" id="Frm_Path1" value=""/></td>
+<td><button id="Frm_Browse1" class="button2" onclick="loadXMLDoc('', '1');">&?dms007;</button></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Path2">&?dms004;3</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Path2" id="Frm_Path2" value=""/></td>
+<td><button id="Frm_Browse2" class="button2" onclick="loadXMLDoc('', '2');">&?dms007;</button></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Path3">&?dms004;4</font></td>
+<td class="td2"><input type="text" class="inputId6" name="Frm_Path3" id="Frm_Path3" value=""/></td>
+<td><button id="Frm_Browse3" class="button2" onclick="loadXMLDoc('', '3');">&?dms007;</button></td>
+</tr>
+<tr><td class="td1" colspan="2"></td></tr>
+</table>

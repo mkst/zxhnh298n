@@ -1,0 +1,20 @@
+<%
+IMPORT FILE "rip_gch.gch";
+IMPORT FILE "app_rip_js.gch";
+%>
+<table id="TestContent"  class="table"  width="450px" border="0">
+<tr>
+<td class="td1">&?DR001;</td>
+<td class="td2"><input id="Frm_RipEnabled" type="checkbox"/></td>
+</tr>
+<tr>
+<td class="td1">&?DR002;</td>
+<td class="td2">
+<select size="1" class="list_10" id="Frm_RipProtocol" onchange="">
+<option value="0">RIP v1</option>
+<option value="1">RIP v2</option>
+<option value="2">RIP v1 Compatible</option>
+</select>
+</td>
+</tr>
+</table>

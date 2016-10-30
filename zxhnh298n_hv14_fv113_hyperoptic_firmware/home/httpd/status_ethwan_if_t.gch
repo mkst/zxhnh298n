@@ -1,0 +1,345 @@
+<%
+IMPORT FILE "common_gch.gch";
+var PPP_NUM,PPP_OBJNAME,PPP_IDENTITY,PPP_HANDLE;
+var PPP_TransType,PPP_WANCName,PPP_IsNAT;
+var PPP_IPAddress,PPP_ConnStatus,PPP_UpTime,PPP_DNS1,PPP_DNS2,PPP_DNS3,PPP_WorkIFMac,PPP_ConnError;
+PPP_OBJNAME="OBJ_ETHWANCPPP_ID";
+PPP_NUM = query_list(PPP_OBJNAME, "IGD");
+for(var i=0;i<PPP_NUM;i++)
+{
+PPP_HANDLE = create_paralist();
+PPP_IDENTITY = query_identity(i);
+get_inst(PPP_HANDLE, PPP_OBJNAME, PPP_IDENTITY);
+PPP_WANCName    = encodeHTML(get_para(PPP_HANDLE, "WANCName"));
+PPP_TransType   = get_para(PPP_HANDLE, "TransType");
+PPP_IsNAT       = get_para(PPP_HANDLE, "IsNAT");
+if(PPP_IsNAT=="1")
+{
+PPP_IsNAT="&?wan049;";
+}
+else
+{
+PPP_IsNAT="&?wan050;";
+}
+PPP_IPAddress  = get_para(PPP_HANDLE, "IPAddress");
+PPP_ConnStatus = get_para(PPP_HANDLE, "ConnStatus");
+PPP_DNS1       = get_para(PPP_HANDLE, "DNS1");
+PPP_DNS2       = get_para(PPP_HANDLE, "DNS2");
+PPP_DNS3       = get_para(PPP_HANDLE, "DNS3");
+if(PPP_ConnStatus=="Connected")
+{
+PPP_ConnStatus="&?wan051;";
+}
+else if(PPP_ConnStatus=="Demand")
+{
+PPP_ConnStatus="&?wan054;";
+}
+else if(PPP_ConnStatus=="Unconfigured")
+{
+PPP_ConnStatus = "&?wan081;";
+}
+else if(PPP_ConnStatus=="Connecting")
+{
+PPP_ConnStatus = "&?wan082;";
+}
+else if(PPP_ConnStatus=="Authenticating")
+{
+PPP_ConnStatus = "&?wan083;";
+}
+else if(PPP_ConnStatus=="PendingDisconnect")
+{
+PPP_ConnStatus = "&?wan084;";
+}
+else
+{
+PPP_ConnStatus="&?wan052;";
+}
+PPP_UpTime    = get_para(PPP_HANDLE, "UpTime");
+PPP_WorkIFMac = get_para(PPP_HANDLE, "WorkIFMac");
+PPP_ConnError = get_para(PPP_HANDLE, "ConnError");
+if(PPP_ConnError=="ERROR_NONE")
+{
+PPP_ConnError="";
+}
+else if(PPP_ConnError=="ERROR_ISP_TIME_OUT")
+{
+PPP_ConnError="&?wan069;";
+}
+else if(PPP_ConnError=="ERROR_USER_DISCONNECT")
+{
+PPP_ConnError="&?wan070;";
+}
+else if(PPP_ConnError=="ERROR_ISP_DISCONNECT")
+{
+PPP_ConnError="&?wan071;";
+}
+else if(PPP_ConnError=="ERROR_IDLE_DISCONNECT")
+{
+PPP_ConnError="&?wan072;";
+}
+else if(PPP_ConnError=="ERROR_FORCED_DISCONNECT")
+{
+PPP_ConnError="&?wan073;";
+}
+else if(PPP_ConnError=="ERROR_AUTHENTICATION_FAILURE")
+{
+PPP_ConnError="&?wan074;";
+}
+else if(PPP_ConnError=="ERROR_UNKNOWN")
+{
+PPP_ConnError="&?wan076;";
+}
+else if(PPP_ConnError=="ERROR_IP_CONFIGURATION")
+{
+PPP_ConnError="&?wan094;";
+}
+else if(PPP_ConnError=="ERROR_NOT_ENABLED_FOR_INTERNET")
+{
+PPP_ConnError="&?wan095;";
+}
+else
+{
+PPP_ConnError="&?wan076;";
+}
+%>
+<!--PPPoE表单信息开始-->
+<div class="space_0">
+<table id="TestContent" class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wan004;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(PPP_TransType);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan001;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value="<%=PPP_WANCName;%>" readonly></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan042;</td>
+<td class="tdright"><%=encodeHTML(PPP_IsNAT);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan043;</td>
+<td class="tdright"><%=encodeHTML(PPP_IPAddress);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan055;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(PPP_DNS1);%>/<%=encodeHTML(PPP_DNS2);%>/<%=encodeHTML(PPP_DNS3);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan077;</td>
+<td class="tdright"><%=encodeHTML(PPP_WorkIFMac);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=encodeHTML(PPP_ConnStatus);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan068;</td>
+<td class="tdright"><%=encodeHTML(PPP_ConnError);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan045;</td>
+<td class="tdright"><%=encodeHTML(PPP_UpTime);%>&?wan053;</td>
+</tr>
+</table>
+</div>
+<!--PPPoE表单信息结束-->
+<div id="div4"></div>
+<%
+destroy_paralist(PPP_HANDLE);
+}
+%>
+<!--static 和 dhcp-->
+<%
+var IP_NUM,IP_OBJNAME,IP_IDENTITY,IP_HANDLE;
+var IP_Addressingtype,IP_WANCName,IP_IsNAT;
+var IP_IPAddress,IP_SubnetMask,IP_GateWay,IP_ConnStatus,IP_RemainLeaseTime,IP_DNS1,IP_DNS2,IP_DNS3,IP_WorkIFMac;
+IP_OBJNAME="OBJ_ETHWANCIP_ID";
+IP_NUM = query_list(IP_OBJNAME, "IGD");
+for(var i=0;i<IP_NUM;i++)
+{
+IP_HANDLE = create_paralist();
+IP_IDENTITY = query_identity(i);
+get_inst(IP_HANDLE, IP_OBJNAME, IP_IDENTITY);
+IP_Addressingtype = get_para(IP_HANDLE,"Addressingtype");
+IP_WANCName       = encodeHTML(get_para(IP_HANDLE,"WANCName"));
+IP_IsNAT          = get_para(IP_HANDLE, "IsNAT");
+if(IP_IsNAT=="1")
+{
+IP_IsNAT="&?wan049;";
+}
+else
+{
+IP_IsNAT="&?wan050;";
+}
+IP_IPAddress     = get_para(IP_HANDLE, "IPAddress");
+IP_SubnetMask    = get_para(IP_HANDLE, "SubnetMask");
+IP_GateWay       = get_para(IP_HANDLE, "GateWay");
+IP_RemainLeaseTime=get_para(IP_HANDLE, "RemainLeaseTime");
+IP_ConnStatus    = get_para(IP_HANDLE, "ConnStatus");
+IP_DNS1          = get_para(IP_HANDLE, "DNS1");
+IP_DNS2          = get_para(IP_HANDLE, "DNS2");
+IP_DNS3          = get_para(IP_HANDLE, "DNS3");
+IP_WorkIFMac     = get_para(IP_HANDLE, "WorkIFMac");
+if(IP_ConnStatus=="Connected")
+{
+IP_ConnStatus="&?wan051;";
+      }
+else if (IP_ConnStatus=="Connecting")
+{
+IP_ConnStatus="&?wan082;";
+      }
+else
+{
+IP_ConnStatus="&?wan052;";
+      }
+if(IP_Addressingtype=="Static")
+{
+%>
+<!--Static表单信息开始-->
+<div class="space_0">
+<table id="TestContent1"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wan004;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(IP_Addressingtype);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan001;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value="<%=IP_WANCName;%>" readonly></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan042;</td>
+<td class="tdright"><%=encodeHTML(IP_IsNAT);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan043;</td>
+<td class="tdright"><%=encodeHTML(IP_IPAddress);%>/<%=encodeHTML(IP_SubnetMask);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan055;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(IP_DNS1);%>/<%=encodeHTML(IP_DNS2);%>/<%=encodeHTML(IP_DNS3);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan077;</td>
+<td class="tdright"><%=encodeHTML(IP_WorkIFMac);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan037;</td>
+<td class="tdright"><%=encodeHTML(IP_GateWay);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=encodeHTML(IP_ConnStatus);%></td>
+</tr>
+</table>
+<!--Static表单信息结束-->
+</div>
+<div id="div4"></div>
+<%
+}
+else if(IP_Addressingtype=="DHCP")
+{
+%>
+<!--DHCP表单信息开始-->
+<div class="space_0">
+<table id="TestContent2"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wan004;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(IP_Addressingtype);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan001;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value="<%=IP_WANCName;%>" readonly></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan042;</td>
+<td class="tdright"><%=encodeHTML(IP_IsNAT);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan043;</td>
+<td class="tdright"><%=encodeHTML(IP_IPAddress);%>/<%=encodeHTML(IP_SubnetMask);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan055;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value=<%=encodeHTML(IP_DNS1);%>/<%=encodeHTML(IP_DNS2);%>/<%=encodeHTML(IP_DNS3);%> readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan077;</td>
+<td class="tdright"><%=encodeHTML(IP_WorkIFMac);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan037;</td>
+<td class="tdright"><%=encodeHTML(IP_GateWay);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan044;</td>
+<td class="tdright"><%=encodeHTML(IP_ConnStatus);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?wan047;</td>
+<td class="tdright"><%=encodeHTML(IP_RemainLeaseTime);%>&?wan053;</td>
+</tr>
+</table>
+</div>
+<!--DHCP表单信息结束-->
+<div id="div4"></div>
+<%
+}
+destroy_paralist(IP_HANDLE);
+}
+%>
+<!--bridge-->
+<%
+var BRIDGE_NUM,BRIDGE_OBJNAME,BRIDGE_IDENTITY,BRIDGE_HANDLE;
+var BRIDGE_WANCName;
+BRIDGE_OBJNAME="OBJ_ETHWANCBRIDGE_ID";
+BRIDGE_NUM = query_list(BRIDGE_OBJNAME, "IGD");
+for(var i=0;i<BRIDGE_NUM;i++)
+{
+BRIDGE_HANDLE = create_paralist();
+BRIDGE_IDENTITY = query_identity(i);
+get_inst(BRIDGE_HANDLE, BRIDGE_OBJNAME, BRIDGE_IDENTITY);
+BRIDGE_WANCName    = encodeHTML(get_para(BRIDGE_HANDLE, "WANCName"));
+%>
+<!--桥接表单信息开始-->
+<div class="space_0">
+<table id="TestContent3"  class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?wan004;</td>
+<td class="tdright">&?wan005;</td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?wan001;</td>
+<td class="tdright"><Input type="text" class="uiNoBorder" style="text-align:left;" size=33 value="<%=BRIDGE_WANCName;%>" readonly></td>
+</tr>
+</table>
+</div>
+<!--桥接表单信息结束-->
+<div id="div4"></div>
+<%
+destroy_paralist(BRIDGE_HANDLE);
+}
+if( PPP_NUM + BRIDGE_NUM + IP_NUM == 0)
+{
+%>
+<table class="infor" width="410" border="0" cellpadding="0" cellspacing="1">
+<tr>
+<td align="center">&?wan056;</td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method="post" action="">
+</form>
+<SCRIPT>
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+</SCRIPT>

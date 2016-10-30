@@ -1,0 +1,47 @@
+<%
+IMPORT FILE "qos_qp_gch.gch";
+IMPORT FILE "net_qos_speed_js.gch";
+%>
+<div class="space_0">
+<table id="Base_Table" class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_Dev">&?qos_d001;</font></td>
+<td class="td2" >
+<select size="1" class="list_1" id="Frm_Dev" name="Frm_Dev">
+<option value="IGD.LD1.ETH1">LAN1</option>
+<option value="IGD.LD1.ETH2">LAN2</option>
+<option value="IGD.LD1.ETH3">LAN3</option>
+<option value="IGD.LD1.ETH4">LAN4</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1">&?vs02;</td>
+<td class="td2"><input type="checkbox" id="Frm_Enable" name="Frm_Enable"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Rate">&?qos_p003;</font></td>
+<td class="td2"><input type="text" class="inputId2" id="Frm_Rate" name="Frm_Rate" size="15" value=""/>bps</td>
+</tr>
+<tr height="4px" ><td colspan="2"></td></tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="add"    type="button" id="add"    value="&?btn007;"  class="button2" onclick="Add()"/>
+<input name="modify" type="button" id="modify" value="&?btn003;"  class="button2" onclick="ModifySubmit()" style="display:none"/>
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+<tr height="20px" ><td colspan="2"></td></tr>
+</table>
+</div>
+<div class="space_0">
+<table id="Speed_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td >&?qos_p005;</td>
+<td >&?sr06;</td>
+<td width="50px">&?btn003;</td>
+<td width="50px">&?btn006;</td>
+</tr>
+</table>
+</div>

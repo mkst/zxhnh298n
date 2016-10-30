@@ -1,0 +1,126 @@
+<%
+IMPORT FILE "common_gch.gch";
+var DSLITE_NUM,DSLITE_OBJNAME,DSLITE_IDENTITY,DSLITE_HANDLE,OBJNAME,WAN_OBJNAME,WAN_HANDLE,WAN_IDENTITY;
+var DSLITE_NAME,DSLITE_TYPE,DSLITE_WAN,DSLITE_Localv4Addr,DSLITE_IsRemoteAddr,DSLITE_RemoteAddr,DSLITE_IsDNSv4,DSLITE_DNSv4;
+OBJNAME = "OBJ_TUNNEL_ID"; 
+DSLITE_OBJNAME = "OBJ_TUNNEL46_ID";
+DSLITE_NUM = query_list(OBJNAME, "IGD");
+var   FP_Uplink = getenv("TypeValue");
+if (1 == FP_Uplink)  
+     WAN_OBJNAME = "OBJ_DSLWANC_ID";
+else if (2 == FP_Uplink)  
+     WAN_OBJNAME = "OBJ_ETHWANC_ID";
+if(DSLITE_NUM>0&&DSLITE_NUM!=888)
+{
+for(var i=0;i<DSLITE_NUM;i++)
+{
+DSLITE_HANDLE = create_paralist();
+query_list(OBJNAME, "IGD");
+DSLITE_IDENTITY = query_identity(i);
+get_inst(DSLITE_HANDLE, DSLITE_OBJNAME, DSLITE_IDENTITY);
+DSLITE_NAME   = encodeHTML(get_para(DSLITE_HANDLE, "Tunnel46name"));
+DSLITE_TYPE   = get_para(DSLITE_HANDLE, "Tunneltype");
+if(DSLITE_TYPE == "8")
+{
+DSLITE_TYPE = "ds-lite";
+}
+WAN_IDENTITY    = get_para(DSLITE_HANDLE, "TUN46WANCViewName");
+var wan_num = query_list(WAN_OBJNAME, "IGD");
+for ( var j=0;j<wan_num;j++ )
+{
+var identity = query_identity(j);
+if(WAN_IDENTITY == identity)
+{
+query_list(WAN_OBJNAME, "IGD");
+var wanc_handle = create_paralist();
+DSLITE_WAN      = encodeHTML(query_name(j));
+destroy_paralist(wanc_handle);
+}
+}
+if(DSLITE_WAN == "NULL")
+{
+DSLITE_WAN = "";
+}
+DSLITE_Localv4Addr   = get_para(DSLITE_HANDLE, "TUN46Localv4Addr");
+DSLITE_RemoteAddr   = get_para(DSLITE_HANDLE, "TUN46REMOTEIPAddr");
+DSLITE_DNSv4   = get_para(DSLITE_HANDLE, "TUN46DNSv4Dl");
+%>
+<!--ds-lite表单信息开始-->
+<div class="space_0">
+<table id="TestContent<%=i;%>" class="infor" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?tunnel001;</td>
+<td class="tdright"><Input type="text" id="TextDSLITENAME<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=DSLITE_NAME;%>" readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?tunnel003;</td>
+<td class="tdright"><%=encodeHTML(DSLITE_TYPE);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel004;</td>
+<td class="tdright"><Input type="text" id="TextDSLITEWAN<%=i;%>"class="uiNoBorder" style="text-align:left;" size=33 value="<%=DSLITE_WAN;%>" readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?tunnel005;</td>
+<td class="tdright"><%=encodeHTML(DSLITE_Localv4Addr);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?tunnel007;</td>
+<td class="tdright"><Input type="text" id="TextRemoteAddr<%=i;%>" class="uiNoBorder" style="text-align:left;" size=33 value="<%=encodeHTML(DSLITE_RemoteAddr);%>" readonly></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?tunnel009;</td>
+<td class="tdright"><%=encodeHTML(DSLITE_DNSv4);%></td>
+</tr>
+</table>
+</div>
+<!--ds-lite表单信息结束-->
+<div id="div4"></div>
+<%
+destroy_paralist(DSLITE_HANDLE);
+}
+}
+if(DSLITE_NUM == 0)
+{
+%>
+<table class="infor" width="410" border="0" cellpadding="0" cellspacing="1">
+<tr>
+<td align="center">&?wan056;</td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method="post" action="">
+</form>
+<script language="javascript">
+function pageLoad(url)
+{
+getObj("fSubmit").action = url;
+}
+function pageReFresh()
+{
+jslDisable("Btn_ReFresh");
+getObj("fSubmit").submit();
+}
+var tem = new Array();
+var totalnum = "<%=DSLITE_NUM;%>"; 
+for(var i = 0 ; i<totalnum;i++)
+{
+tem[i] = document.getElementById("TestContent"+i);
+if(tem[i] != '' && tem[i] != null)
+{
+for(var j = 0;j<tem[i].rows.length;j++)
+{
+if(j%2 ==0)
+{
+tem[i].rows[j].className="blue_1";
+}
+else
+{
+tem[i].rows[j].className="white_1";
+}
+}
+    } 
+}
+</script>

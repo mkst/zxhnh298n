@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>SetConfigPassword</name>
+<argumentList>
+<argument>
+<name>NewPassword</name>
+<direction>in</direction>
+<relatedStateVariable>ConfigPassword</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+</actionList>
+<serviceStateTable>
+<stateVariable sendEvents="no">
+<name>ConfigPassword</name>
+<dataType>string</dataType>
+</stateVariable>
+</serviceStateTable>
+</scpd>

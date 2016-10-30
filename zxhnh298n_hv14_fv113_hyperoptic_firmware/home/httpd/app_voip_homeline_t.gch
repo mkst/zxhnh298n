@@ -1,0 +1,56 @@
+<%
+IMPORT FILE "voip_homeline_gch.gch";
+IMPORT FILE "app_voip_homeline_js.gch";
+%>
+<table id="TestContent"  class="table" width="480px" border="0">
+<tr>
+<td id="Fnt_PhyNumber" class="td1">&?voip001;</td>
+<td class="td2"><input id="Frm_PhyNumber" name="" type="text" class="inputId" disabled="disabled" /></td>
+</tr>
+<tr>
+<td id="Fnt_Password" class="td1">&?va02;</td>
+<td  class="td2"><input id="Frm_Password" name="" type="password" class="inputId" disabled="disabled" /></td>
+</tr>
+<tr>
+<td id="Fnt_OutByWanId" class="td1">&?voip002;</td>
+<td  class="td2">
+<select id="Frm_OutByWanId" name="" disabled="disabled">
+<%
+var FP_OBJNAME = "OBJ_VOIPSIPLINE_ID";
+var FP_INSTNUM = query_list(FP_OBJNAME, "IGD");
+for (var i = 0; i < FP_INSTNUM; i++)
+{
+var FP_HANDLE   = create_paralist();
+var FP_IDENTITY = query_identity(i);
+get_inst(FP_HANDLE, FP_OBJNAME, FP_IDENTITY);
+%>
+<option value="<%=i;%>">ID=<%=i;%>, Number=<%=encodeHTML(get_para(FP_HANDLE, "AuthUserName"));%></option>
+<%
+destroy_paralist(FP_HANDLE);
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td id="Fnt_Enable" class="td1">&?vs02;</td>
+<td  class="td2"><input id="Frm_Enable" type="checkbox" disabled="disabled" /></td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td  class="td2">
+<input type="button" class="button2" value="&?btn003;" id="modify" style="display:none" onclick="ModifySubmit()" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+</table>
+<div class="space_0">
+<table id="HomeLine_Table" class="item" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="90">&?voip001;</td>
+<td width="90">&?voip002;</td>
+<td width="220">&?vs02;</td>
+<td width="90">&?va04;</td>
+</tr>
+</table>
+</div>

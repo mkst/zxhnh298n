@@ -1,0 +1,3 @@
+<%
+IMPORT FILE "net_dslite_conf_t.gch";
+%>

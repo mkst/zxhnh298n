@@ -1,0 +1,78 @@
+<%
+IMPORT FILE "fw_pt_gch.gch";
+IMPORT FILE "app_fw_pt_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_Enable">&?fwpt001;</font></td>
+<td class="td2"><input name="Frm_Enable" id="Frm_Enable" type="checkbox" value="" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Name">&?fwpt002;</font></td>
+<td class="td2"><input name="Frm_Name" id="Frm_Name" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TriggleIpAddress">&?fwpt003;</font></td>
+<td class="td2"><input name="Frm_TriggleIpAddress" id="Frm_TriggleIpAddress" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TriggleProtocol">&?ddns007;</font></td>
+<td class="td2">
+<select  name="Frm_TriggleProtocol" id="Frm_TriggleProtocol" size="1" class="list_1">
+<option value="0">TCP</option>
+<option value="1">UDP</option>
+<option value="2">TCP AND UDP</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TriggleDestPort">&?fwpt005;</font></td>
+<td class="td2"><input name="Frm_TriggleDestPort" id="Frm_TriggleDestPort" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IncomeProtocol">&?fwpt006;</font></td>
+<td class="td2">
+<select  name="Frm_IncomeProtocol" id="Frm_IncomeProtocol" size="1" class="list_1">
+<option value="0">TCP</option>
+<option value="1">UDP</option>
+<option value="2">TCP AND UDP</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IncomeMinPort">&?fwpt007;</font></td>
+<td class="td2"><input name="Frm_IncomeMinPort" id="Frm_IncomeMinPort" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IncomeMaxPort">&?fwpt008;</font></td>
+<td class="td2"><input name="Frm_IncomeMaxPort" id="Frm_IncomeMaxPort" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Timeout">&?fwpt009;</font></td>
+<td class="td2"><input name="Frm_Timeout" id="Frm_Timeout" type="text" class="inputId5"  value="" size="15" />&?fwpt011;</td>
+</tr>
+<tr>
+<td class="td3" colspan="4">
+<input  type="button" name="Btn_Add" id="Btn_Add" class="button2" value="&?btn007;" onclick="pageAdd()"/>
+<input  type="button" name="Btn_Edit" id="Btn_Edit" class="button2" value="&?btn003;" onclick="pageEdit()" style="display:none" />
+<input name="back" type="button" id="back" value="&?btn004;"  class="button2" onclick="back4add()" style="display:none"/>
+</td>
+</tr>
+<tr><td class="td1" colspan="4"></td></tr>
+</table>
+<table id="fwpt_Table" class="item" width="530px" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="" rowspan="2">&?fwpt002;</td>
+<td width="">&?fwpt001;</td>
+<td>&?ddns007;</td>
+<td width="">&?fwpt003;</td>
+<td width="">&?fwpt007;</td>
+<td width="50" rowspan="2">&?btn003;</td>
+<td width="50" rowspan="2">&?btn006;</td>
+</tr>
+<tr class="h2_s title_1">
+<td>&?fwpt009;</td>
+<td>&?fwpt006;</td>
+<td>&?fwpt005;</td>
+<td>&?fwpt008;</td>
+</tr>
+</table>
+<div id="div4"></div>

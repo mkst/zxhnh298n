@@ -1,0 +1,66 @@
+<%
+IMPORT FILE "port_binding_gch.gch";
+IMPORT FILE "net_portbind_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td11"></td>
+<td  class="td2">&nbsp;</td>
+</tr>
+<tr>
+<td class="td11">&?comm002;</td>
+<td class="td2">
+<select id="Frm_DefRTInterface" name="Frm_DefRTInterface" class="list_2" onchange="Change_Wan()">
+<%
+IMPORT FILE "wan_func.gch";
+if ( 0 != getenv("DevIPv6Effect") )
+{
+wanQueryByApp("binding");
+Tunnel46QueryByApp("binding");
+Tunnel64Query();
+}
+else
+{
+wanV4QueryByApp("binding");
+}
+%>
+</select></td>
+</tr>
+<tr>
+<td class="td11"></td>
+<td class="td2"></td>
+</tr>
+<%
+var FP_LAN_INSTNUM = query_list("OBJ_WANLAN_ID", "IGD");
+var LAN_HANDLE     = null;
+var LAN_BRType     = null;
+var LAN_identity   = "";
+var LAN_name       = "";
+var LAN_WANLANType = null;
+var index = 0;
+if(FP_LAN_INSTNUM >= 1 && FP_LAN_INSTNUM != 888)
+{
+for(var i = 0; i < FP_LAN_INSTNUM; i++ )
+{
+LAN_HANDLE   = create_paralist();
+LAN_identity = query_identity(i);
+get_inst(LAN_HANDLE, "OBJ_WANLAN_ID", LAN_identity);
+LAN_BRType     = get_para(LAN_HANDLE, "BRType");
+LAN_WANLANType = get_para(LAN_HANDLE, "WANLANType");
+if(LAN_BRType == "0" && LAN_WANLANType == "2")
+{
+LAN_name     = get_para(LAN_HANDLE, "Name");
+%>
+<tr>
+<td class="td11"></td>
+<td class="td2"><input id="FRM_<%=index;%>" type="checkbox" value="<%=LAN_identity;%>"/> <%=encodeHTML(LAN_name);%></td>
+</tr>
+<%
+index++;
+}
+destroy_paralist(LAN_HANDLE);
+}
+}
+%>
+</table>
+<div id="div4"></div>

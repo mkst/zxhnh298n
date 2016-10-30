@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";function voip_cidcfg_func(FP_ACTION, FP_INDEX, FP_ERRORSTR){var FP_OBJNAME = "OBJ_VOIPCIDCFG_ID";var FP_PARANUM = 2;var FP_MULTIDISPLAY = 0;var PARA[2] ={"ViewName","CIDMode"};return getOldFunctionGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM, FP_ACTION, FP_INDEX, FP_ERRORSTR);}%>

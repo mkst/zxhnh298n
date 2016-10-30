@@ -1,0 +1,15 @@
+<%
+IMPORT FILE "upnp_portmap_gch.gch";
+IMPORT FILE "app_portmap_conf_js.gch";
+%>
+<tr class="h2_s title_1"><td colspan=6 align="center">&?upnp09;</td></tr>
+<table id="PortMaping_Table" class="item_2" width="480px" border="0" border="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="95" >&?upnp04;</td>
+<td width="95" >&?comm004;</td>
+<td width="95" >&?upnp06;</td>
+<td width="95" >&?upnp07;</td>
+<td width="95" >&?wan035;</td>
+<td width="95">&?btn006;</td>
+</tr>
+</table>

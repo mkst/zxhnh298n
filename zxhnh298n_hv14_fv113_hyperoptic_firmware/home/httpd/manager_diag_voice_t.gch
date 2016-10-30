@@ -1,0 +1,167 @@
+
+<%
+IMPORT FILE "common_gch.gch";
+var VOICE_ERRORSTR,VOICE_ERRORPARAM, VOICE_ACTION, VOICE_ERRTYPE;
+var VOICE_HANDLE, VOICE_INSTNUM, VOICE_IDENTITY;
+var DIAG_INSTNUM, DIAG_IDENTITY;
+var VOICE_IsOnline, VOICE_DNSStatus, VOICE_RegStatus;
+var tag1;
+create_form_start("fSubmit", "");
+VOICE_ERRORSTR = "SUCC";
+VOICE_ERRTYPE = "-1";
+VOICE_ERRORPARAM = "SUCC";
+VOICE_ACTION = request("IF_ACTION");
+DIAG_IDENTITY = request("IF_DIAG_IDENTITY");
+DIAG_INSTNUM = request("IF_DIAG_INSTNUM");
+VOICE_RegStatus = "";
+VOICE_DNSStatus = "";
+if (VOICE_ACTION == "get")
+{
+VOICE_HANDLE = create_paralist();
+get_inst(VOICE_HANDLE, "OBJ_VOIPDIAGNOSE_ID", DIAG_IDENTITY);
+VOICE_DNSStatus = get_para(VOICE_HANDLE, "DNSStatus");
+VOICE_RegStatus = get_para(VOICE_HANDLE, "RegStatus");
+if(VOICE_DNSStatus == "0")
+{
+VOICE_DNSStatus = "fail";
+}
+else
+{
+VOICE_DNSStatus = "pass";
+}
+if(VOICE_RegStatus == "200")
+{
+VOICE_RegStatus = "pass";
+}
+else
+{
+tag1 = VOICE_RegStatus;
+VOICE_RegStatus = "fail";
+}
+destroy_paralist(VOICE_HANDLE);
+}
+else
+{
+DIAG_INSTNUM = query_list("OBJ_VOIPDIAGNOSE_ID", "IGD");
+}
+VOICE_ERRORSTR = get_cmret();
+
+if(VOICE_ERRORSTR != "SUCC" && VOICE_ERRORSTR != "FAIL")
+{
+var cmret = "cmret_"+VOICE_ERRORSTR;
+VOICE_ERRORSTR = load_string(cmret);
+}
+if (VOICE_ERRORSTR != "SUCC")
+{
+VOICE_ERRORPARAM = get_errorparam();
+VOICE_ERRTYPE = get_cmret_type();
+}
+create_hidden_sep("IF_ACTION", VOICE_ACTION);
+create_hidden_sep("IF_ERRORSTR", VOICE_ERRORSTR);
+create_hidden_sep("IF_ERRORTYPE", VOICE_ERRTYPE);
+create_hidden_sep("IF_ERRORPARAM", VOICE_ERRORPARAM);
+create_hidden_sep("IF_DIAG_IDENTITY", DIAG_IDENTITY);
+create_hidden_sep("IF_DIAG_INSTNUM", DIAG_INSTNUM);
+create_hidden_sep("IF_DNSStatus", VOICE_DNSStatus);
+create_hidden_sep("IF_RegStatus", VOICE_RegStatus);
+create_form_end();
+IMPORT FILE "manager_diag_voice_js.gch";
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td7"><b>&?diagv12;</b></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><font id="Fnt_Msg">&?diagv01;</font></td>
+</tr>
+</table>
+<table class="table" width="450px" border="0">
+<%
+if(DIAG_INSTNUM >= 1 && DIAG_INSTNUM != 888)
+{
+%>
+<tr>
+<td class="td1"><font id="Fnt_DiagInterface">&?diagv15;</font></td>
+<td class="td2">
+<select size="1" class="list_4" name="Frm_DiagInterface" id="Frm_DiagInterface">
+<%
+var FP_IDENTITY, FP_INSTNUM;
+FP_INSTNUM = query_list("OBJ_VOIPDIAGNOSE_ID", "IGD");
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_IDENTITY = query_identity(i);
+%>
+<option value="<%=FP_IDENTITY;%>" >&?media_11;<%=i+1;%></option>
+<%
+}
+%>
+</select></td>
+</tr>
+<%
+}
+%>
+</table>
+<table class="item" width="450" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<%
+if (DIAG_INSTNUM >= 1)
+{
+%>
+<tr class="blue">
+<td width="80%">&?diagv03;</td>
+<td id = "DNSStatus" width="20%"><%=encodeHTML(VOICE_DNSStatus);%></td>
+</tr>
+<%
+}
+%>
+<%
+if (DIAG_INSTNUM >= 1)
+{
+%>
+<tr class="white">
+<td width="80%">&?diagv17;</td>
+<td id = "RegStatus" width="20%"><%=encodeHTML(VOICE_RegStatus);%></td>
+</tr>
+<%
+}
+%>
+</table>
+<form id="fSubmit" method = "post">
+<%
+if (DIAG_INSTNUM >= 1 )
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td3"><input name="Diagnose" id="Diagnose" type="button" class="button3" value="&?diag001;" onclick="myDiagStart();"/></td>
+</tr>
+</table>
+<%
+}
+%>
+</form>
+<script language="javascript" >
+var js_tag1 = "<%=encodeJS(tag1);%>";
+if(js_tag1 == "401")
+{
+getObj("Fnt_Msg").innerHTML = "&?diagv07;";
+}
+if(js_tag1 == "403")
+{
+getObj("Fnt_Msg").innerHTML = "&?diagv08;";
+}
+if(js_tag1 == "404")
+{
+getObj("Fnt_Msg").innerHTML = "&?diagv09;";
+}
+if(js_tag1 == "408")
+{
+getObj("Fnt_Msg").innerHTML = "&?diagv10;";
+}
+if(js_tag1 == "503")
+{
+getObj("Fnt_Msg").innerHTML = "&?diagv11;";
+}
+</script>

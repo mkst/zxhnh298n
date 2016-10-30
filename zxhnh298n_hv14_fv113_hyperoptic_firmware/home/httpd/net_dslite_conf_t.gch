@@ -1,0 +1,64 @@
+<%
+IMPORT FILE "net_dslite_conf_js.gch";
+IMPORT FILE "tunnel_gch.gch";
+%>
+<table id="TABLE_TUNNEL"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_TUNNELName">&?tunnel001;</font></td>
+<td class="td2">
+<select size="1" class="list_10" id="Frm_TUNNELName" onchange="Change_Link()">
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_NewTunName">&?tunnel002;</font></td>
+<td class="td2"><input name="Frm_NewTunName" type="text" class="inputId"  value="" id="Frm_NewTunName" /></td>
+</tr>
+<tr>
+<tr>
+<td class="td1"><font id="Fnt_TUNNELType">&?tunnel003;</font></td>
+<td class="td2">
+<select  size="1"  class="list_10" id="Frm_TUNNELType" onchange="">
+<option value ="8">ds-lite</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WANName">&?tunnel004;</font></td>
+<td class="td2">
+<select size="1"  class="list_10" id="Frm_WANName" onchange="">
+</select>
+</td>
+</tr>
+</table>
+<table id="TABLE_T46" class="table" width="450px" border="0" style="display:none">
+<tr>
+<td class="td1"><font id="Fnt_Localv4Addr">&?tunnel005;</font></td>
+<td class="td2">
+<input name="Frm_Localv4Addr" type="text" class="inputId"  value=""id="Frm_Localv4Addr" />
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IsRemoteAddr">&?tunnel006;</font></td>
+<td class="td2">
+<input name="Frm_IsRemoteAddr" type="checkbox"  value=""id="Frm_IsRemoteAddr" onclick="RemoteAddrChange()" />
+</td>
+</tr>
+<tr id="RemoteAddr" style="display:none">
+<td class="td1"><font id="Fnt_RemoteAddr">&?tunnel007;</font></td>
+<td class="td2"><input name="Frm_RemoteAddr" type="text" class="inputId"  value="" size="15"  id="Frm_RemoteAddr"/></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_IsDNSv4">&?tunnel008;</font></td>
+<td class="td2">
+<input name="Frm_IsDNSv4" type="checkbox" value=""id="Frm_IsDNSv4" onclick="DNSv4Change()" />
+</td>
+</tr>
+<tr id="DNSv4" style="display:none">
+<td class="td1"><font id="Fnt_DNSv4">&?tunnel009;</font></td>
+<td class="td2">
+<input name="Frm_DNSv4" type="text" class="inputId"  value="" size="15"  id="Frm_DNSv4"/>
+</td>
+</tr>
+</table>
+<div id="div4"></div>

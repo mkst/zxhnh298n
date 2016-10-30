@@ -1,0 +1,28 @@
+
+<%
+IMPORT FILE "ra_server_gch.gch";
+IMPORT FILE "net_v6_ra_server_js.gch";
+%>
+<table id="RAServerContent"  class="table" width="450px" border="0">
+<tr>
+<td id="Fnt_MinWaitTime" class="td1">&?v6_005;</td>
+<td class="td2">
+<input name="Frm_MinWaitTime" id="Frm_MinWaitTime" type="text" class="inputId"  value="" size="15" />(3 ~ 1350)
+</td>
+</tr>
+<tr>
+<td id="Fnt_MaxWaitTime" class="td1">&?v6_006;</td>
+<td class="td2">
+<input name="Frm_MaxWaitTime" id="Frm_MaxWaitTime" type="text" class="inputId"  value="" size="15" />(4 ~ 1800)
+</td>
+</tr>
+<tr>
+<td class="td1" id="Fnt_Mangment">M</td>
+<td class="td2"><input name="Frm_Mangment" id="Frm_Mangment" type="checkbox"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1" id="Fnt_OtherCfg">O</td>
+<td class="td2"><input name="Frm_OtherCfg" id="Frm_OtherCfg" type="checkbox"  value="" size="15" /></td>
+</tr>
+</table>
+<div id="div4"></div>

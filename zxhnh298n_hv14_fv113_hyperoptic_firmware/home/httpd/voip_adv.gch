@@ -1,0 +1,17 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "voip_voiceproc_gch.gch";
+IMPORT FILE "v_rtpadv_gch.gch";
+IMPORT FILE "voip_vpdtmf_gch.gch";
+IMPORT FILE "voip_cidcfg_gch.gch";
+create_form_start("fSubmit", "");
+createBasicHidden();
+var FP_ACTION = request("IF_ACTION");
+var FP_INDEX = 0;
+var FP_ERRORSTR = "SUCC";
+FP_ERRORSTR = vpdtmf_func(FP_ACTION, FP_INDEX, FP_ERRORSTR);
+FP_ERRORSTR = rtpadv_func(FP_ACTION, FP_INDEX, FP_ERRORSTR);
+FP_ERRORSTR = voiceproc_func(FP_ACTION, FP_INDEX, FP_ERRORSTR);
+FP_ERRORSTR = voip_cidcfg_func(FP_ACTION, FP_INDEX, FP_ERRORSTR);
+create_form_end();
+%>

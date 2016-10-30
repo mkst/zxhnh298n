@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_QOSQB_ID";var FP_MULTIDISPLAY = 0;var FP_PARANUM = 14;var PARA[14] ={"Enable","Mode","MaxQCNum","QPEnable","QPAlgorithmName","MaxQPNum","QQEnable","QQAlgorithmName","QQBorrowEnable","QQRate","MaxQQNum","DSCPRemarkEnable","QQDwrrNum","VlanprioRemarkEnable"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

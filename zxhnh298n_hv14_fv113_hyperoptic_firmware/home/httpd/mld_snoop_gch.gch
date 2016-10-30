@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_MLDSNOOPING_ID";var FP_MULTIDISPLAY = 0;var FP_PARANUM = 2;var PARA[2] ={"MldEnable","MldMtoU"};var FP_ACTION = request("IF_ACTION");var FP_INDEX = getInstIndex("old");var FP_IDENTITY = getInstIdentity(FP_OBJNAME, FP_INDEX);var FP_ERRORSTR = "SUCC";getOldPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

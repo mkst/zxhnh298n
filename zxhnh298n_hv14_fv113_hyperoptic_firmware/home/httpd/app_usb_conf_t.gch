@@ -1,0 +1,8 @@
+<%
+IMPORT FILE "usb_storage_dev_gch.gch";
+IMPORT FILE "app_usb_conf_js.gch";
+%>
+<table id="USB_Table" class="table" width="450px" border="0">
+<td class = "td1"></td>
+<td class = "td2"></td>
+</table>

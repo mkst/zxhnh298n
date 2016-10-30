@@ -1,0 +1,17 @@
+<%
+var requsetVersion = request("UPLOAD_ENV");
+var envVersion = getenv("UPLOAD_ENV");
+if(requsetVersion IS NULL ||envVersion IS NULL )
+{
+="FAIL";
+return ;
+}
+if(requsetVersion == envVersion )
+{
+="SUCC";
+}
+else
+{
+="FAIL";
+}
+%>

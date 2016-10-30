@@ -1,0 +1,23 @@
+<%
+IMPORT FILE "common_gch.gch";
+var PARANUM = 4;
+var PARA[4] =
+{
+"PanelPort",
+"DevName",
+"DevID",
+"ClassInfoStr"
+};
+var devXML = getMIAllInstXML("OBJ_USBDEV_ID", PARA, PARANUM);
+var PARANUM_AD = 5;
+var PARA_AD[5] =
+{
+"IPAddress",
+"MACAddress",
+"HostName",
+"Category",
+"IPV6Address"
+};
+devXML += getMIAllInstXML("OBJ_ACCESSDEV_ID", PARA_AD, PARANUM_AD);
+outputXML(devXML);
+%>

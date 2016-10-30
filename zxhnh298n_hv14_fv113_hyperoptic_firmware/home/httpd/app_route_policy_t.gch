@@ -1,0 +1,96 @@
+<%
+IMPORT FILE "route_policy_gch.gch";
+IMPORT FILE "app_route_policy_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_DestInterface">&?route005;</font></td>
+<td class="td2">
+<select  name="Frm_DestInterface" id="Frm_DestInterface" size="1" class="list_2">
+<%
+IMPORT FILE "wan_func.gch";
+wanV4QueryByApp("route");
+if ( 0 != getenv("DevIPv6Effect") )
+{
+Tunnel46QueryByApp("route");
+}
+%>
+</select></td>
+</tr>
+<!--<tr>
+<td class="td1"><font id="Fnt_UserPriority">&?wan057;</font></td>
+<td class="td2"><input name="Frm_UserPriority" id="Frm_UserPriority" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>-->
+<tr>
+<td class="td1"><font id="Fnt_Dscp">&?wan079;</font></td>
+<td class="td2"><input name="Frm_Dscp" id="Frm_Dscp" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SrcIP">&?qos_t008;</font></td>
+<td class="td2"><input name="Frm_SrcIP" id="Frm_SrcIP" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SrcIPMask">&?route001;</font></td>
+<td class="td2"><input name="Frm_SrcIPMask" id="Frm_SrcIPMask" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DestIP">&?qos_t009;</font></td>
+<td class="td2"><input name="Frm_DestIP" id="Frm_DestIP" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DestIPMask">&?route002;</font></td>
+<td class="td2"><input name="Frm_DestIPMask" id="Frm_DestIPMask" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Protocol">&?comm004;</font></td>
+<td class="td2">
+<select  name="Frm_Protocol" id="Frm_Protocol" size="1" class="list_1">
+<option value="TCP">TCP</option>
+<option value="UDP">UDP</option>
+<option value="ICMP">ICMP</option>
+<option value="ANY" selected>ANY</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SrcPort">&?route003;</font></td>
+<td class="td2"><input name="Frm_SrcPort" id="Frm_SrcPort" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_DestPort">&?qos_c006;</font></td>
+<td class="td2"><input name="Frm_DestPort" id="Frm_DestPort" type="text" class="inputId5"  value="" size="15" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SrcMAC">&?qos_t007;</font></td>
+<td class="td2">
+<input name="mac1" type="text" class="inputId3"   size="15" maxlength="2" id="mac1" onkeyup=""  /> :
+<input name="mac2" type="text" class="inputId3"   size="15" maxlength="2" id="mac2" onkeyup=""  /> :
+<input name="mac3" type="text" class="inputId3"   size="15" maxlength="2" id="mac3" onkeyup=""  /> :
+<input name="mac4" type="text" class="inputId3"   size="15" maxlength="2" id="mac4" onkeyup=""  /> :
+<input name="mac5" type="text" class="inputId3"   size="15" maxlength="2" id="mac5" onkeyup=""  /> :
+<input name="mac6" type="text" class="inputId3"   size="15" maxlength="2" id="mac6" onkeyup="" />
+</td>
+</tr>
+<tr>
+<td class="td3" colspan="2">
+<input  type="button" name="Btn_Add" id="Btn_Add" class="button2" value="&?btn007;" onclick="pageAdd()"/>
+</td>
+</tr>
+<tr><td class="td1" colspan="4"></td></tr>
+</table>
+<table id="proute_Table" class="item" width="530px" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<td width="">&?route005;</td>
+<td width="">&?qos_t008;</td>
+<td width="">&?route001;</td>
+<td width="">&?route003;</td>
+<td width="">&?comm004;</td>
+<td width="25" rowspan="2">&?btn006;</td>
+</tr>
+<tr class="h2_s title_1">
+<td>&?wan079;</td>
+<td>&?qos_t009;</td>
+<td>&?route002;</td>
+<td>&?qos_c006;</td>
+<td>&?qos_t007;</td>
+</tr>
+</table>

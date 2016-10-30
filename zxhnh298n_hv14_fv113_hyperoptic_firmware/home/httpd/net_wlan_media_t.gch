@@ -1,0 +1,58 @@
+<%
+IMPORT FILE "wlan_media.gch";
+IMPORT FILE "net_wlan_media_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wlan064;&?pub002;</td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?wmedia008;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_MEDIAIndex" onchange="ESSID_Choose()"/>
+<option value ="3">VO</option>
+<option value ="2">VI</option>
+<option value ="0">BE</option>
+<option value ="1">BK</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_AIFSN">&?wmedia001;</font></td>
+<td class="td2"><input name="Frm_AIFSN" type="text" class="inputId2" value="" size="32" id="Frm_AIFSN"/>(2 ~ 15)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_ECWMin">&?wmedia002;</font></td>
+<td class="td2"><input name="Frm_ECWMin" type="text" class="inputId2"  value="" size="32" id="Frm_ECWMin"/>(0 ~ 15)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_ECWMax">&?wmedia003;</font></td>
+<td class="td2"><input name="Frm_ECWMax" type="text" class="inputId2"  value="" size="32"  id="Frm_ECWMax"/>(0 ~ 15)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TXOP">&?wmedia004;</font></td>
+<td class="td2"><input name="Frm_TXOP" type="text" class="inputId2"  value="" size="32"  id="Frm_TXOP"/>(0 ~ 255)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_Qlength">&?wmedia005;</font></td>
+<td class="td2"><input name="Frm_Qlength" type="text" class="inputId2"  value="" size="32"  id="Frm_Qlength"/>(0 ~ 1000)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_SRL">&?wmedia006;</font></td>
+<td class="td2"><input name="Frm_SRL" type="text" class="inputId2"  value="" size="32"  id="Frm_SRL"/>(0 ~ 255)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_LRL">&?wmedia007;</font></td>
+<td class="td2"><input name="Frm_LRL" type="text" class="inputId2"  value="" size="32"  id="Frm_LRL"/>(0 ~ 255)</td>
+</tr>
+</table>
+</div>

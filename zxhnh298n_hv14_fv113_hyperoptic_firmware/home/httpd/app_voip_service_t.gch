@@ -1,0 +1,17 @@
+
+<%
+IMPORT FILE "voip_service_gch.gch";
+IMPORT FILE "app_voip_service_js.gch";
+%>
+<div class="space_0" id="note" >
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?voip_service_001;</td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table id="TestContent" class="table" width="450px" border="0">
+</table>
+</div>

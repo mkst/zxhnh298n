@@ -1,0 +1,45 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "wlan_config_gch.gch";
+IMPORT FILE "wlan_ad_gch.gch";
+IMPORT FILE "wlan_driver_gch.gch";
+var FP_CONFIGTAG = request("IF_CONFIGTAG");
+var FP_ACTION    = request("IF_ACTION");
+var FP_VIEWID    = request("IF_VIEWID");
+var FP_ERRORSTR  = "SUCC";
+
+create_form_start("fSubmit", "");
+createBasicHidden();
+create_hidden_sep("IF_INSTNUM", "");
+create_hidden_sep("IF_CONFIGTAG", "");
+var WLAN_OBJNAME = "OBJ_WLANCONFIG_ID";
+var WLAN_INSTNUM = query_list(WLAN_OBJNAME, "IGD");
+var WLAN_IDENTITY = "";
+create_hidden_sep("WLAN_INSTNUM", WLAN_INSTNUM);
+if (FP_VIEWID IS NULL)
+{
+FP_VIEWID = query_identity(0);
+}
+var flag = 0;
+for (var i=0; i<WLAN_INSTNUM; i++)
+{
+WLAN_IDENTITY = query_identity(i);
+create_hidden_sep("WLAN_SSID"+i, WLAN_IDENTITY);
+if (FP_VIEWID == WLAN_IDENTITY)
+{
+flag = 1;
+}
+}
+if (flag == 0)
+{
+FP_CONFIGTAG = "N";
+FP_VIEWID = query_identity(0);
+}
+create_hidden_sep("IF_VIEWID", FP_VIEWID);
+FP_ERRORSTR = config_func(FP_ACTION, FP_CONFIGTAG, FP_VIEWID, FP_ERRORSTR);
+FP_ERRORSTR = ad_func(FP_ACTION, FP_VIEWID, FP_ERRORSTR);
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+FP_VIEWID = query_identity(0);
+FP_ERRORSTR = driver_func(FP_VIEWID, FP_ERRORSTR);
+create_form_end();
+%>

@@ -1,0 +1,29 @@
+<%
+IMPORT FILE "common_gch.gch";
+var PARANUM = 2;
+var PARA[2] =
+{
+"RxBytes",
+"TxBytes"
+};
+var devXML = "";
+var TypeValue = getenv("TypeValue");
+devXML += getXMLNodeEntity("TypeValue", TypeValue);
+if (TypeValue == 1)
+{
+devXML += getMIAllInstXML("OBJ_DSLWANCPPP_ID", PARA, PARANUM);
+devXML += getMIAllInstXML("OBJ_DSLWANCIP_ID", PARA, PARANUM);
+devXML += getMIAllInstXML("OBJ_DSLWANCBRIDGE_ID", PARA, PARANUM);
+}
+else if (TypeValue == 2)
+{
+devXML += getMIAllInstXML("OBJ_ETHWANCPPP_ID", PARA, PARANUM);
+devXML += getMIAllInstXML("OBJ_ETHWANCIP_ID", PARA, PARANUM);
+devXML += getMIAllInstXML("OBJ_ETHWANCBRIDGE_ID", PARA, PARANUM);
+}
+else if (TypeValue == 4)
+{
+devXML += getMIAllInstXML("OBJ_TTYWANCPPP_ID", PARA, PARANUM);
+}
+outputXML(devXML);
+%>

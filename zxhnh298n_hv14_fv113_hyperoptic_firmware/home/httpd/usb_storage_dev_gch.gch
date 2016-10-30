@@ -1,0 +1,1 @@
+<%IMPORT FILE "common_gch.gch";var FP_OBJNAME = "OBJ_USBSTORAGE_ID";var FP_MULTIDISPLAY = 1;var FP_PARANUM = 5;var PARA[5] ={"DevNum","DiskName","ParStatus","FSType","Path"};getPageGCH(FP_OBJNAME, FP_MULTIDISPLAY, PARA, FP_PARANUM);%>

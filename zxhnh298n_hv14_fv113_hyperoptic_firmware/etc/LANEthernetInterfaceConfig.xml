@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:dslforum-org:service-1-0">
+<specVersion>
+<major>1</major>
+<minor>0</minor>
+</specVersion>
+<actionList>
+<action>
+<name>GetInfo</name>
+<argumentList>
+<argument>
+<name>NewEnable</name>
+<direction>out</direction>
+<relatedStateVariable>Enable</relatedStateVariable>
+</argument>
+<argument>
+<name>NewStatus</name>
+<direction>out</direction>
+<relatedStateVariable>Status</relatedStateVariable>
+</argument>
+<argument>
+<name>NewMACAddress</name>
+<direction>out</direction>
+<relatedStateVariable>MACAddress</relatedStateVariable>
+</argument>
+<argument>
+<name>NewMaxBitRate</name>
+<direction>out</direction>
+<relatedStateVariable>MaxBitRate</relatedStateVariable>
+</argument>
+<argument>
+<name>NewDuplexMode</name>
+<direction>out</direction>
+<relatedStateVariable>DuplexMode</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+<action>
+<name>GetStatistics</name>
+<argumentList>
+<argument>
+<name>NewPacketsSent</name>
+<direction>out</direction>
+<relatedStateVariable>Stats.PacketsSent</relatedStateVariable>
+</argument>
+<argument>
+<name>NewPacketsReceived</name>
+<direction>out</direction>
+<relatedStateVariable>Stats.PacketsReceived</relatedStateVariable>
+</argument>
+<argument>
+<name>NewBytesSent</name>
+<direction>out</direction>
+<relatedStateVariable>Stats.BytesSent</relatedStateVariable>
+</argument>
+<argument>
+<name>NewBytesReceived</name>
+<direction>out</direction>
+<relatedStateVariable>Stats.BytesReceived</relatedStateVariable>
+</argument>
+</argumentList>
+</action>
+</actionList>
+<serviceStateTable>
+<stateVariable sendEvents="no">
+<name>Enable</name>
+<dataType>boolean</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Status</name>
+<dataType>string</dataType>
+<allowedValueList>
+<allowedValue>Up</allowedValue>
+<allowedValue>NoLink</allowedValue>
+<allowedValue>Error</allowedValue>
+<allowedValue>Disabled</allowedValue>
+</allowedValueList>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>MACAddress</name>
+<dataType>string</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>MaxBitRate</name>
+<dataType>string</dataType>
+<allowedValueList>
+<allowedValue>10</allowedValue>
+<allowedValue>100</allowedValue>
+<allowedValue>1000</allowedValue>
+<allowedValue>Auto</allowedValue>
+</allowedValueList>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>DuplexMode</name>
+<dataType>string</dataType>
+<allowedValueList>
+<allowedValue>Half</allowedValue>
+<allowedValue>Full</allowedValue>
+<allowedValue>Auto</allowedValue>
+</allowedValueList>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Stats.PacketsSent</name>
+<dataType>ui4</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Stats.PacketsReceived</name>
+<dataType>ui4</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Stats.BytesSent</name>
+<dataType>ui4</dataType>
+</stateVariable>
+<stateVariable sendEvents="no">
+<name>Stats.BytesReceived</name>
+<dataType>ui4</dataType>
+</stateVariable>
+</serviceStateTable>
+</scpd>
+

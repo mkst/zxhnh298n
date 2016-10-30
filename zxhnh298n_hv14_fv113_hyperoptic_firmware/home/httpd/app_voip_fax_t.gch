@@ -1,0 +1,12 @@
+<%
+IMPORT FILE "voip_fax.gch";
+IMPORT FILE "app_voip_fax_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?fax01;</td>
+<td class="td2">
+<input id="Frm_Enable" name="Frm_Enable" type="checkbox" value=""/>
+</td>
+</tr>
+</table>

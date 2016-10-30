@@ -1,0 +1,94 @@
+<%
+IMPORT FILE "usbbakrst_gch.gch";
+IMPORT FILE "usbbackup_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1"><font id="FnUSB_Path">&?usbbak_03;</font></td>
+<td class="td2">
+<select  name="Frm_Path" id="Frm_Path" size="1" class="list_4">
+<%
+var USBFP_NUM,USBFP_OBJNAME,USBFP_IDENTITY,USBFP_HANDLE;
+var USB_Path,USBFP_BakFileExist;
+var USBFP_INSTNUM, USBFP_PARANUM;
+USBFP_PARANUM = 3;
+USBFP_IDENTITY = "";
+var USBFP_INSTNUM = query_list("OBJ_USBBACKUPSTORAGE_ID", "IGD");
+if(USBFP_INSTNUM >= 1 && USBFP_INSTNUM != 888)
+{
+for(var i = 0; i < USBFP_INSTNUM; i++ )
+{
+USBFP_HANDLE = create_paralist();
+USBFP_IDENTITY = query_identity(i);
+get_inst(USBFP_HANDLE, "OBJ_USBBACKUPSTORAGE_ID", USBFP_IDENTITY);
+USB_Path    = get_para(USBFP_HANDLE, "Path");
+%>
+<option value="<%=USB_Path;%>" ><%=USB_Path;%></option>
+<%
+destroy_paralist(USBFP_HANDLE);
+}
+}
+%>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+</table>
+<table id="TestContent1"  class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1"></td>
+<td class="td2">
+<input name="Input2" type="button" id="Btn_StartBackup" value="&?usbbak_04;" onclick="StartBackup()" class="button6" />
+</td>
+</tr>
+</table>
+<%
+function create_hidden_multiinstpara(handle, PARA[], instindex,  num)
+{
+for(var i = 0; i < num ; i ++)
+{
+="<INPUT type='hidden' name="+ PARA[i] + instindex +"   ID="+ PARA[i] + instindex +" value=''>\n";
+="<script language=javascript>Transfer_meaning('";
+=PARA[i] + instindex;
+="','";
+=get_para(handle, PARA[i]);
+="');";
+="</script>\n";
+}
+}
+var USBFF_NUM,USBFF_OBJNAME,USBFF_IDENTITY,USBFF_HANDLE;
+var USBFF_BakFileExist;
+var USBFF_INSTNUM, USBFF_PARANUM;
+var PARA[3] =
+{
+"ViewName",
+"Path",
+"BakFileExist"
+};
+USBFF_PARANUM = 3;
+USBFF_IDENTITY = "";
+var USBFF_INSTNUM = query_list("OBJ_USBBACKUPSTORAGE_ID", "IGD");
+if(USBFF_INSTNUM >= 1 && USBFF_INSTNUM != 888)
+{
+for(var i = 0; i < USBFF_INSTNUM; i++ )
+{
+USBFF_HANDLE = create_paralist();
+USBFF_IDENTITY = query_identity(i);
+get_inst(USBFF_HANDLE, "OBJ_USBBACKUPSTORAGE_ID", USBFF_IDENTITY);
+create_hidden_multiinstpara(USBFF_HANDLE, PARA, i, USBFF_PARANUM);
+destroy_paralist(USBFF_HANDLE);
+}
+}
+%>
+<div id="div4"></div>

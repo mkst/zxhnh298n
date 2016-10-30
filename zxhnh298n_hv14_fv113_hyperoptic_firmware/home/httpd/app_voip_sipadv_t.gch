@@ -1,0 +1,88 @@
+<%
+IMPORT FILE "voip_adv.gch";
+IMPORT FILE "app_voip_sipadv_js.gch";
+%>
+<table id="TestContent"  class="table" width="480px" border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td class="td1">&?vs11;</td>
+<td colspan="2" class="td2">
+<select id="Frm_DTMFMethod" name="select2" size="1" class="list_6">
+<option value="1">&?vs13;</option>
+<option value="2">&?vs14;</option>
+<!--孙霞_20150203_613003152619 H298N_V1.1_Dev VOIP下DTMF新增SIPInfo选项-->
+<option value="4">&?vs21;</option>
+</select></td>
+</tr>
+<tr>
+<td class="td1">&?vs12;</td>
+<td colspan="2" class="td2">
+<select id="Frm_JitMode" name="select2" size="1" class="list_6" onchange = "change_mode()">
+<option value="0">&?vs15;</option>
+<option value="1">&?vs16;</option>
+</select></td>
+</tr>
+<tr id="TR_FixedJitLen" style="display:none">
+<td class="td1"><font id="Fnt_FixedJitLen">&?vs19;</font></td>
+<td class="td2"><input type="text" id="Frm_FixedJitLen" class="inputId" /> &?wlan013;</td>
+</tr>
+<tr id="TR_AdaptJitMin" style="display:none">
+<td class="td1"><font id="Fnt_AdaptJitMin">&?vs18;</font></td>
+<td class="td2"><input type="text" id="Frm_AdaptJitMin" class="inputId" /> &?wlan013;</td>
+</tr>
+<tr id="TR_AdaptJitMax" style="display:none">
+<td class="td1"><font id="Fnt_AdaptJitMax">&?vs17;</font></td>
+<td class="td2"><input type="text" id="Frm_AdaptJitMax" class="inputId"/ > &?wlan013;</td>
+</tr>
+<!-- 20111108 panxiancai 931VII_CROATIA定制 CLIP Mode-->
+<tr>
+<td class="td1">&?cidcfg01;</td>
+<td colspan="2" class="td2">
+<select id="Frm_CIDCFG" size="1" class="list_6">
+<option value="1">&?cidcfg02;</option>
+<option value="2">&?cidcfg03;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td6">&nbsp;</td>
+<td class="td2">&nbsp;</td>
+</tr>
+</table>
+<table id="TBL_SepLine"  class="table" width="480px" border="0" cellpadding="0" cellspacing="0">
+<%
+var LineNum = query_list("OBJ_VOIPVOICEPROC_ID", "IGD");;
+for(var i = 0; i < LineNum; i++)
+{
+if(LineNum > 1)
+{
+var inttmp =  integer(i) + integer(1);
+%>
+<tr>
+<td id="Fnt_Phone0" class="td6" classname="td6">
+<b>&?voip040;<%=inttmp;%></b>
+</td>
+</tr>
+<%
+}
+%>
+<tr>
+<td class="td1">&?vs01;</td>
+<td colspan="2" class="td2">
+<select id="Frm_EchoCancellationEnable<%=i;%>" name="Frm_EchoCancellationEnable<%=i;%>" size="1" class="list_6">
+<option value="0">&?Disabled;</option>
+<option value="1">&?wan049;</option>
+</select>
+</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_TransmitGain<%=i;%>">&?voip013;</font></td>
+<td class="td2"><input type="text" id="Frm_TransmitGain<%=i;%>" class="inputId"/ >(-14 ~ 6)</td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_ReceiveGain<%=i;%>">&?voip014;</font></td>
+<td class="td2"><input type="text" id="Frm_ReceiveGain<%=i;%>" class="inputId"/ >(-14 ~ 6)</td>
+</tr>
+<%
+}
+%>
+</table>

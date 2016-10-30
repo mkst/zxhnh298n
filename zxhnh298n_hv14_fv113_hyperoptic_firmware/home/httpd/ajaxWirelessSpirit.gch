@@ -1,0 +1,25 @@
+<%
+IMPORT FILE "common_gch.gch";
+var PARANUM = 2;
+var PARA[2] =
+{
+"RadioStatus",
+"Standard"
+};
+var TC_PARANUM = 2;
+var TC_PARA[2] =
+{
+"TimerEnable",
+"SetEnable"
+};
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+var FP_VIEWID = query_identity(0);
+if ( "switchRadio" == request("IF_ACTION") )
+{
+setInst("OBJ_WLANCONFIG_ID", FP_VIEWID, PARA, PARANUM);
+setInst("OBJ_WLANTIMECFG_ID", "", TC_PARA, TC_PARANUM);
+}
+var devXML = getMIOneInstXML("OBJ_WLANCONFIG_ID", FP_VIEWID, PARA, PARANUM);
+devXML += getSIXML("OBJ_WLANTIMECFG_ID", TC_PARA, TC_PARANUM);
+outputXML(devXML);
+%>

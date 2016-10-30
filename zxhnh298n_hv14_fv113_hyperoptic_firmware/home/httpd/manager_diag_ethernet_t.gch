@@ -1,0 +1,127 @@
+
+<%
+IMPORT FILE "common_gch.gch";
+var ETHERNET_ERRORSTR,ETHERNET_ERRORPARAM, ETHERNET_ACTION, ETHERNET_ERRTYPE;
+var ETHERNET_HANDLE, ETHERNET_INSTNUM, ETHERNET_IDENTITY;
+var ETHERNET_Status;
+create_form_start("fSubmit", "");
+ETHERNET_ERRORSTR = "SUCC";
+ETHERNET_ERRTYPE = "-1";
+ETHERNET_ERRORPARAM = "SUCC";
+ETHERNET_ACTION = request("IF_ACTION");
+ETHERNET_IDENTITY = request("IF_IDENTITY");
+ETHERNET_INSTNUM = request("IF_INSTNUM");
+ETHERNET_Status = "";
+if (ETHERNET_ACTION == "get")
+{
+ETHERNET_HANDLE = create_paralist();
+get_inst(ETHERNET_HANDLE, "OBJ_ETH_ID", ETHERNET_IDENTITY);
+ETHERNET_Status = get_para(ETHERNET_HANDLE, "Status");
+if (ETHERNET_Status == "Up")
+{
+ETHERNET_Status = "pass";
+}
+else
+{
+ETHERNET_Status = "fail";
+}
+destroy_paralist(ETHERNET_HANDLE);
+}
+else
+{
+ETHERNET_INSTNUM = query_list("OBJ_ETH_ID", "IGD");
+}
+ETHERNET_ERRORSTR = get_cmret();
+
+if(ETHERNET_ERRORSTR != "SUCC" && ETHERNET_ERRORSTR != "FAIL")
+{
+var cmret = "cmret_"+ETHERNET_ERRORSTR;
+ETHERNET_ERRORSTR = load_string(cmret);
+}
+if (ETHERNET_ERRORSTR != "SUCC")
+{
+ETHERNET_ERRORPARAM = get_errorparam();
+ETHERNET_ERRTYPE = get_cmret_type();
+}
+create_hidden_sep("IF_ACTION", ETHERNET_ACTION);
+create_hidden_sep("IF_ERRORSTR", ETHERNET_ERRORSTR);
+create_hidden_sep("IF_ERRORTYPE", ETHERNET_ERRTYPE);
+create_hidden_sep("IF_ERRORPARAM", ETHERNET_ERRORPARAM);
+create_hidden_sep("IF_INSTNUM", ETHERNET_INSTNUM);
+create_hidden_sep("IF_IDENTITY", ETHERNET_IDENTITY);
+create_hidden_sep("IF_Status", ETHERNET_Status);
+create_form_end();
+IMPORT FILE "manager_diag_ethernet_js.gch";
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td7"><b>&?diage01;</b></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+<tr>
+<td class="td7"><font id="Fnt_Msg">&?diage02;</font></td>
+</tr>
+<tr>
+<td class="td7"></td>
+</tr>
+</table>
+<%
+if(ETHERNET_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td1"><font id="Fnt_Interface">&?diage05;</font></td>
+<td class="td2">
+<select size="1" class="list_4" name="Frm_Interface" id="Frm_Interface">
+<%
+var FP_IDENTITY, FP_INSTNUM;
+FP_INSTNUM = query_list("OBJ_ETH_ID", "IGD");
+var j=0;
+if(FP_INSTNUM >= 1 && FP_INSTNUM != 888)
+{
+for(var i=0; i<FP_INSTNUM; i++)
+{
+FP_IDENTITY = query_identity(i);
+j=i+1;
+%>
+<option value="<%=FP_IDENTITY;%>" >&?lan004;<%=j;%></option>
+<%
+}
+}
+%>
+</select></td>
+</tr>
+</table>
+<%
+}
+%>
+<%
+if(ETHERNET_INSTNUM >= 1)
+{
+%>
+<table class="item" width="450" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white">
+<td width="80%">&?diage07;</td>
+<td id = "Status" width="20%"><%=encodeHTML(ETHERNET_Status);%></td>
+</tr>
+</table>
+<%
+}
+%>
+<form id="fSubmit" method = "post">
+<%
+if(ETHERNET_INSTNUM >= 1)
+{
+%>
+<table class="table" width="450px" border="0">
+<tr>
+<td class="td3"><input name="Diagnose" id="Diagnose" type="button" class="button3" value="&?diag001;"  onclick="myDiagStart();"/></td>
+</tr>
+</table>
+<%
+}
+%>
+</form>

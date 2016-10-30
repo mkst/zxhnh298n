@@ -1,0 +1,41 @@
+<%
+IMPORT FILE "wlan_off_gch.gch";
+IMPORT FILE "net_wlan_off_js.gch";
+%>
+<div id="div4"></div>
+<div class="space_0">
+<div id="t_tip" style="width:450px;text-align:center;">
+<ul>
+<li style="padding-top:8px;text-align:left; margin-left:70px;">
+<span style="width:70px;display:inline-block;margin-left:-70px;text-align:right;">&?cwn2;&nbsp;</span>&?cwt02;
+</li>
+<li style="padding-top:8px;text-align:left; margin-left:70px;">&?cwt03;</li>
+</ul>
+</div>
+</div>
+<div id="div4"></div>
+<table id="TestContent" class="table" width="450px" border="0">
+<tr>
+<td class="td11"><font id="Fnt_Off_label">&?cwt05;</font></td>
+<td class="td2">
+<input type="text" id="Frm_off_hour" class="inputId3"  maxlength="2" size="2">&nbsp;:&nbsp;
+<input type="text" id="Frm_off_min" class="inputId3" maxlength="2" size="2">
+<font id="Fnt_off_tip">&?cwt04;</font>
+</td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_On_label">&?cwt06;</font></td>
+<td class="td2">
+<input type="text" id="Frm_on_hour" class="inputId3"  maxlength="2" size="2">&nbsp;:&nbsp;
+<input type="text" id="Frm_on_min" class="inputId3" maxlength="2" size="2">
+<font id="Fnt_on_tip">&?cwt04;</font>
+</td>
+</tr>
+<tr>
+<td class="td11"><font id="Fnt_RFMODE">&?cwb0;&?colon;</font></td>
+<td class="td2">
+<font id="Fnt_RFMODEVAL"></font>
+</td>
+</tr>
+</table>
+<div id="div4"></div>

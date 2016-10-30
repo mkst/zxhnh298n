@@ -1,0 +1,202 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "framePdtAPI.gch";
+function setenvIfNotExist(envname, envvalue)
+{
+if ("N/A" == getenv(envname))
+{
+setenv(envname, envvalue);
+return 1;
+}
+return 0;
+}
+function getenvAndDestroy(envname)
+{
+var ret = getenv(envname);
+if ( "N/A" != ret )
+{
+unsetenv(envname);
+}
+return ret;
+}
+function outputTipsHTML(tips[])
+{
+= "<HTML>";
+= "<HEAD>";
+= "<TITLE>" + getenv("WEBTitle") + "</TITLE>";
+= "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html;charset=" + load_string("LANG") + "\"/>";
+= "</HEAD>";
+= "<BODY>";
+= "<div align='center'><br><br><br><font size=8><b>";
+= tips[0];
+= "<br>";
+= tips[1];
+= "<br>";
+= tips[2];
+= "</b><div>";
+= "</BODY>";
+= "</HTML>";
+}
+function outputRedirectHTML(URL, target)
+{
+= "<HTML>";
+= "<HEAD>";
+= "<TITLE>" + getenv("WEBTitle") + "</TITLE>";
+= "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"text/html;charset=" + load_string("LANG") + "\"/>";
+= "</HEAD>";
+= "<BODY>";
+= "<SCRIPT type='text/javascript'>";
+if( target == "_top" )
+{
+= "top.location.href=\"" + URL + "\";";
+}
+else
+{
+= "self.location.href=\"" + URL + "\";";
+}
+= "</SCRIPT>";
+= "</BODY>";
+= "</HTML>";
+}
+function redirectTop(URL)
+{
+outputRedirectHTML(URL, "_top");
+}
+function redirectSelf(URL)
+{
+outputRedirectHTML(URL, "_self");
+}
+function UserIFSet(name, value)
+{
+var hdl = create_paralist();
+set_para(hdl, name,  value);
+set_inst(hdl, "OBJ_USERIF_ID", "");
+}
+function setLangconf(lang)
+{
+var index;
+if ("English" == lang)
+{
+index = 0;
+}
+else if ("Chinese" == lang)
+{
+index = 1;
+}
+else if ("German" == lang)
+{
+index = 2;
+}
+else if ("French" == lang)
+{
+index = 3;
+}
+else if ("Spanish" == lang)
+{
+index = 4;
+}
+if (index IS NOT NULL)
+{
+set_language(langconf[index]);
+return 1;
+}
+return 0;
+}
+function setLanguage(lang)
+{
+if ( 1 == setLangconf(lang) )
+{
+UserIFSet("Language", lang);
+}
+}
+function outputTPfSubmit()
+{
+var nextpage = getenv("nextpage");
+create_form_start_ex("TPfSubmit", "/", "_top");
+create_hidden_sep("TPAction", "");
+create_hidden_sep("TPActionPre", getenv("request/TPAction"));
+unsetenv("request/TPAction");
+create_hidden_sep("TPUsername", addMoreSlash(getenv("login_name")));
+create_hidden_sep("TPPassword", "");
+create_hidden_sep("Frm_Logintoken", "");
+create_hidden_sep("TPIsLogin", getenv("IsLogin"));
+create_hidden_sep("TPErrLoginNum", getenv("errLoginNum"));
+create_hidden_sep("TPErrLoginNumMAX", getenv("errLoginNumMax"));
+create_hidden_sep("TPErrLoginTimeElapse", timestamp() - getenv("errLoginTime"));
+var HANDLE = create_paralist();
+get_inst(HANDLE, "OBJ_USERIF_ID", "");
+create_hidden_sep("TPLanguage", get_para(HANDLE, "Language"));
+create_hidden_sep("TPTimeout", get_para(HANDLE, "Timeout"));
+destroy_paralist(HANDLE);
+create_hidden_sep("TPTypeValue", getenv("TypeValue"));
+create_hidden_sep("TPNextpage", nextpage);
+create_hidden_sep("TPNextpageSupId", query_page_info(nextpage, "supId"));
+create_hidden_sep("TPNextpageStaFlag", query_page_info(nextpage, "staFlag"));
+create_form_end();
+}
+function getDefaultDispPage()
+{
+var metaNum, meta[20], itemsNum, items[50], subitemsNum;
+var supId, midId, subId, page;
+metaNum = query_menu("NULL");
+for (var i=0; i<metaNum; i++)
+{
+meta[i] = query_menu_id(i);
+}
+for (var i=0; i<metaNum; i++)
+{
+supId = meta[i];
+itemsNum = query_menu(supId);
+if (0 == itemsNum)
+{
+page = query_menu_info(supId, "page");
+if ( 1==check_page_disp(page) )
+{
+return page;
+}
+}
+for (var j=0; j<itemsNum; j++)
+{
+items[j] = query_menu_id(j);
+}
+for (var j=0; j<itemsNum; j++)
+{
+midId = items[j];
+subitemsNum = query_menu(midId);
+if ( 0 == subitemsNum )
+{
+page = query_menu_info(midId, "page");
+if ( 1==check_page_disp(page) )
+{
+return page;
+}
+}
+for (var k=0; k<subitemsNum; k++)
+{
+subId = query_menu_id(k);
+page = query_menu_info(subId, "page");
+if ( 1==check_page_disp(page) )
+{
+return page;
+}
+}
+}
+}
+return "status_dev_info_t.gch";
+}
+function nextpageTrans(nextpage, defaultDispPage)
+{
+if(nextpage == "" || nextpage IS NULL)
+{
+if ( "" == defaultDispPage )
+{
+nextpage = getDefaultDispPage();
+}
+else
+{
+nextpage = defaultDispPage;
+}
+}
+return nextpage;
+}
+%>

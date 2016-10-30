@@ -1,0 +1,56 @@
+<%
+IMPORT FILE "common_gch.gch";
+IMPORT FILE "wlan_config_gch.gch";
+IMPORT FILE "wlan_driver_gch.gch";
+var FP_ERRORSTR,FP_ERRORPARAM, FP_ACTION;
+var FP_CONFIGTAG, FP_VIEWID;
+
+create_form_start("fSubmit", "");
+create_hidden_sep("IF_ERRORSTR", "SUCC");
+create_hidden_sep("IF_ERRORPARAM", "SUCC");
+create_hidden_sep("IF_ERRORTYPE", "-1");
+create_hidden_sep("IF_CONFIGTAG", "");
+create_hidden_sep("IF_ACTION", "");
+FP_CONFIGTAG = request("IF_CONFIGTAG");
+FP_ACTION = request("IF_ACTION");
+FP_VIEWID = request("IF_VIEWID");
+
+FP_ERRORSTR = "SUCC";
+var WLAN_OBJNAME = "OBJ_WLANCONFIG_ID";
+var WLAN_INSTNUM = query_list(WLAN_OBJNAME, "IGD");
+var WLAN_IDENTITY = "";
+create_hidden_sep("WLAN_INSTNUM", WLAN_INSTNUM);
+if (FP_VIEWID IS NULL)
+{
+FP_VIEWID = query_identity(0);
+}
+var flag = 0;
+for (var i=0; i<WLAN_INSTNUM; i++)
+{
+WLAN_IDENTITY = query_identity(i);
+create_hidden_sep("WLAN_SSID"+i, WLAN_IDENTITY);
+if (FP_VIEWID == WLAN_IDENTITY)
+{
+flag = 1;
+}
+}
+if (flag == 0)
+{
+FP_CONFIGTAG = "N";
+FP_VIEWID = query_identity(0);
+}
+var FP_SSIDATTR1 = attr("InternetGatewayDevice.LANDevice.1.WLANConfiguration.1.SSID");
+var FP_SSIDATTR2 = attr("InternetGatewayDevice.LANDevice.1.WLANConfiguration.2.SSID");
+var FP_SSIDATTR3 = attr("InternetGatewayDevice.LANDevice.1.WLANConfiguration.3.SSID");
+var FP_SSIDATTR4 = attr("InternetGatewayDevice.LANDevice.1.WLANConfiguration.4.SSID");
+create_hidden_sep("IF_SSIDATTR1", FP_SSIDATTR1);
+create_hidden_sep("IF_SSIDATTR2", FP_SSIDATTR2);
+create_hidden_sep("IF_SSIDATTR3", FP_SSIDATTR3);
+create_hidden_sep("IF_SSIDATTR4", FP_SSIDATTR4);
+create_hidden_sep("IF_VIEWID", FP_VIEWID);
+FP_ERRORSTR = config_func(FP_ACTION, FP_CONFIGTAG, FP_VIEWID, FP_ERRORSTR);
+query_list("OBJ_WLANCONFIG_ID", "IGD");
+FP_VIEWID = query_identity(0);
+FP_ERRORSTR = driver_func(FP_VIEWID, FP_ERRORSTR);
+create_form_end();
+%>

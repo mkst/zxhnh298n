@@ -1,0 +1,38 @@
+<%
+IMPORT FILE "fw_dmz_gch.gch";
+IMPORT FILE "app_dmz_conf_js.gch";
+%>
+<table id="TestContent"  class="table" width="450px" border="0">
+<tr>
+<td class="td1">&?comm001;</td>
+<td class="td2"><input id="Frm_Enable" name="Frm_Enable" type="checkbox" value="" /></td>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_WanName">&?comm002;</font></td>
+<td class="td2">
+<select id="Frm_WanName" name="Frm_WanName" size="1" class="list_2" >
+<% IMPORT FILE "wan_func.gch";
+wanV4QueryByApp("firewall");
+%>
+</select>
+</tr>
+<tr>
+<td class="td1"><font id="Fnt_MacEnable">&?virt009;</font></td>
+<td class="td2"><input name="Frm_MacEnable" id="Frm_MacEnable" type="checkbox" value="" onclick="changeAddressType()"/></td>
+</tr>
+<tr  id="TR_InternalHost" style="display:">
+<td class="td1"><font id="Fnt_InternalHost">&?dmco004;</font></td>
+<td class="td2"><input id="Frm_InternalHost" name="Frm_InternalHost" type="text" class="inputId"  value="" size="15" /></td>
+</tr>
+<tr id="TR_InternalMacHost" style="display:none">
+<td class="td1"><font id="Fnt_InternalMacHost">&?dmco005;</font></td>
+<td class="td2">
+<input name="mac1" type="text" class="inputId3"   size="15" maxlength="2" id="mac1" onkeyup="toNext(this)"  /> :
+<input name="mac2" type="text" class="inputId3"   size="15" maxlength="2" id="mac2" onkeyup="toNext(this)"  /> :
+<input name="mac3" type="text" class="inputId3"   size="15" maxlength="2" id="mac3" onkeyup="toNext(this)"  /> :
+<input name="mac4" type="text" class="inputId3"   size="15" maxlength="2" id="mac4" onkeyup="toNext(this)"  /> :
+<input name="mac5" type="text" class="inputId3"   size="15" maxlength="2" id="mac5" onkeyup="toNext(this)"  /> :
+<input name="mac6" type="text" class="inputId3"   size="15" maxlength="2" id="mac6" onkeyup="toNext(this)" />
+</td>
+</tr>
+</table>

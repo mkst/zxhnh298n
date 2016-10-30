@@ -1,0 +1,112 @@
+<%
+var FP_HANDLE = create_paralist();
+get_inst(FP_HANDLE, "OBJ_DEVINFO_ID", "");
+var ModelName    = encodeHTML(get_para(FP_HANDLE,"ModelName"));
+var SerialNumber = get_para(FP_HANDLE,"SerialNumber");
+var HardwareVer  = get_para(FP_HANDLE,"HardwareVer");
+var SoftwareVer  = get_para(FP_HANDLE,"SoftwareVer");
+var BootVer      = get_para(FP_HANDLE,"BootVer");
+var SoftwareVerExtent      = get_para(FP_HANDLE,"SoftwareVerExtent");
+var UpTime                 = get_para(FP_HANDLE,"UpTime");
+var LastTimeConnectToACS   = get_para(FP_HANDLE,"LastTimeConnectToACS");
+destroy_paralist(FP_HANDLE);
+%>
+<div class="space_0">
+<table id="TestContent"  class="infor" id="TABLE_DEV" width="410" border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="white_1">
+<td class="tdleft">&?dein001;</td>
+<td id="Frm_ModelName" name="Frm_ModelName" class="tdright"><%=ModelName;%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein002;</td>
+<td id="Frm_SerialNumber" name="Frm_SerialNumber" class="tdright">
+</td>
+</tr>
+<SCRIPT>
+document.getElementById("Frm_SerialNumber").innerHTML = HTMLAddBr("<%=encodeJS(SerialNumber);%>", 32);
+</SCRIPT>
+<tr class="white_1">
+<td class="tdleft">&?cmn53;</td>
+<td id="Frm_SoftwareVerExtent" name="Frm_SoftwareVerExtent" class="tdright"><%=encodeHTML(SoftwareVerExtent);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein003;</td>
+<td id="Frm_HardwareVer" name="Frm_HardwareVer" class="tdright"><%=encodeHTML(HardwareVer);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?dein004;</td>
+<td id="Frm_SoftwareVer" name="Frm_SoftwareVer" class="tdright"><%=encodeHTML(SoftwareVer);%></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?dein005;</td>
+<td id="Frm_BootVer" name="Frm_BootVer"  class="tdright"><%=encodeHTML(BootVer);%></td>
+</tr>
+<tr class="white_1">
+<td class="tdleft">&?uptime_001;</td>
+<td id="Frm_UpTime" name="Frm_UpTime"  class="tdright"></td>
+</tr>
+<tr class="blue_1">
+<td class="tdleft">&?lasttr069Time_001;</td>
+<td id="Frm_LastTimeConnectToACS" name="Frm_LastTimeConnectToACS"  class="tdright"><%=encodeHTML(LastTimeConnectToACS);%></td>
+</tr>
+</table>
+</div>
+<div id="div4"></div>
+<script>
+function MillisecondToDate(time)
+{
+var hour   = 0;
+var minute = 0;
+var second = 0;
+var tmp = 0;
+var day = 0;
+if ((null!= time) && (""!= time))
+{
+time =  parseInt(time ,10);
+if ( (time >=60 ) && (time <60*60))
+{
+second = parseInt( time % 60.0);
+minute = parseInt( time /60.0);
+}
+else if (time >=60*60)
+{
+tmp    = parseInt( time % 3600.0);
+hour   = parseInt( time /3600.0);
+minute = parseInt( tmp / 60);
+second = parseInt( tmp % 60);
+}
+else
+{
+second = parseInt(time);
+}
+if(hour>=24)
+{
+day = parseInt( hour /24.0);
+hour = parseInt( hour % 24);     ;
+}
+if ( second < 10)
+{
+second = "0"+second;
+}
+if ( minute < 10)
+{
+minute = "0"+minute;
+}
+if ( hour < 10)
+{
+hour = "0"+hour;
+}
+if ( day < 10)
+{
+day = "0"+day;
+}
+time =day +" days " +hour + " hrs " + minute + " mins " + second +" secs";
+}
+else
+{
+time = "";
+}
+return time;
+}
+document.getElementById("Frm_UpTime").innerHTML = MillisecondToDate("<%=UpTime;%>");
+</script>

@@ -1,0 +1,6 @@
+<%
+="<div align='center'><br><br><br><font size=8><b>&?succ_logout;</b><div>";
+%>
+<script>
+window.close();
+</script>

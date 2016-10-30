@@ -1,0 +1,79 @@
+<%
+IMPORT FILE "wlan_assoc.gch";
+IMPORT FILE "net_wlan_assoc_js.gch";
+%>
+<div id="t_warn" class="space_0" style="display:none;">
+<table width="450px" border="0" class="table">
+<tbody><tr>
+<td valign="top" style="width:30px;"><img src="img/info.gif"></td>
+<td height="18" align="left" style="padding-left:10px;">&?wlan064;&?pub002;</td>
+</tr></tbody>
+</table>
+</div>
+<div class="space_0">
+<table id="TestContent" class="table" width="450px" border="0">
+<tr>
+<td class="td1"></td>
+<td class="td2"></td>
+</tr>
+<tr>
+<td class="td1">&?wlan040;</td>
+<td class="td2">
+<select name="" size="1" tabIndex="1"  class="list_1" id="Frm_SSID_SET" onchange="ESSID_Choose()"/>
+<option value ="IGD.LD1.WLAN1" id="Frm_SSID_SET0">SSID1</option>
+<option value ="IGD.LD1.WLAN2" id="Frm_SSID_SET1">SSID2</option>
+<option value ="IGD.LD1.WLAN3" id="Frm_SSID_SET2">SSID3</option>
+<option value ="IGD.LD1.WLAN4" id="Frm_SSID_SET3">SSID4</option>
+</select></td>
+</tr>
+</table>
+</div>
+<div class="space_0">
+<table id="Assoc_Table" class="item"  border="0" cellpadding="0" cellspacing="1" bgcolor="#979797">
+<tr class="h2_s title_1">
+<!--    <td>&?wan035;</td> -->
+<td>&?wan035;</td>
+<td>&?dhcp_d006;</td>
+<!-- <td>&?wlan067;</td>-->
+</tr>
+</table>
+</div>
+<script language="javascript">
+
+var instNum = getValue("WLAN_INSTNUM");
+var instFlag = new Array(4);
+for (var i=0; i<4; i++)
+{
+instFlag[i] = 0;
+}
+var index = 0;
+for (var i=0; i<instNum; i++)
+{
+var viewName = getValue("WLAN_SSID"+i);
+switch(viewName)
+{
+case "IGD.LD1.WLAN1":
+instFlag[0] = 1;
+break;
+case "IGD.LD1.WLAN2":
+instFlag[1] = 1;
+break;
+case "IGD.LD1.WLAN3":
+instFlag[2] = 1;
+break;
+case "IGD.LD1.WLAN4":
+instFlag[3] = 1;
+break;
+};
+}
+var ssidObj = getObj("Frm_SSID_SET");
+for (var i=0; i<4; i++)
+{
+if (instFlag[i] == 0)
+{
+
+var ssidOptObj = getObj("Frm_SSID_SET"+i);
+ssidObj.removeChild(ssidOptObj);
+}
+}
+</script>

@@ -1,5 +1,23 @@
 # ZTE ZXHN H298N
 
+## hyperoptic 1.4
+
+```
+$ binwalk dump.bin
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+1048576       0x100000        LZMA compressed data, properties: 0x5D, dictionary size: 8388608 bytes, uncompressed size: 108984 bytes
+10485780      0xA00014        LZMA compressed data, properties: 0x5D, dictionary size: 33554432 bytes, uncompressed size: 5968252 bytes
+14680064      0xE00000        Squashfs filesystem, little endian, version 4.0, compression:lzma, size: 3874480 bytes, 910 inodes, blocksize: 131072 bytes, created: 2016-04-28 03:15:35
+
+$ dd if=dump.bin of=block_00_unknown.bin bs=1 count=1048576                             # realtek bootloader?
+$ dd if=dump.bin of=block_01_LZMA.bin bs=1 skip=1048576 count=98304                     # more bootloader
+$ dd if=dump.bin of=block_02_LZMA.bin bs=1 skip=10485780 count=$((14680064 - 10485780)) # kernel?
+$ dd if=dump.bin of=block_03_squash.bin bs=14680064 skip=1                              # squashfs
+
+$ unsquashfs -d zxhnh298n_hv14_fv113_hyperoptic_firmware block_03_squash.bin
+```
 ## jazztel 1.5
 
 ```
